@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:json_textform/json_form/Schema.dart';
+import 'package:json_textform/json_form/models/Schema.dart';
 
 void main() {
   test("Parse JSON", () {

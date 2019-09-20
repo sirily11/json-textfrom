@@ -29,5 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name="com.apptreesoftware.barcodescan.BarcodeScannerActivity"/>
+        <uses-permission android:name="android.permission.CAMERA" />
     </application>
 </manifest>

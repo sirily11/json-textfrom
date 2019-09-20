@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:json_textform/json_form/models/Action.dart';
+import 'package:json_textform/json_form/models/Icon.dart';
+
 enum WidgetType { text, number, datetime, foreignkey, unknown, select }
 
 class Schema {
@@ -22,6 +26,17 @@ class Schema {
   /// this is value will be displayed at screen if set,
   /// else null
   dynamic value;
+
+  /// Set this value only if the field includes selection
+  Choice choice;
+
+  /// icon for the field
+  /// this will be set through the params of JSONForm widget
+  FieldIcon icon;
+
+  /// action for the field
+  /// this will be set through the params of JSONForm widget
+  FieldAction action;
 
   Schema(
       {this.label,
@@ -65,7 +80,8 @@ class Extra {
   dynamic defaultValue;
   String helpText;
   List<Choice> choices;
-  Extra({this.defaultValue, this.helpText, this.choices});
+  String relatedModel;
+  Extra({this.defaultValue, this.helpText, this.choices, this.relatedModel});
 
   factory Extra.fromJSON(Map<dynamic, dynamic> json) {
     List<Choice> choices =
@@ -73,6 +89,7 @@ class Extra {
     return Extra(
         defaultValue: json['default'],
         helpText: json['help'],
+        relatedModel: json['related_model'],
         choices: choices);
   }
 }

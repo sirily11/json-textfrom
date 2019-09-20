@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:json_textform/json_form/Schema.dart';
+import 'package:json_textform/json_form/models/Schema.dart';
 
 class JSONTextFormField extends StatelessWidget {
   final Schema schema;

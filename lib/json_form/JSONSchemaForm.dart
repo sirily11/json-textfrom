@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:json_textform/json_form/Schema.dart';
+import 'package:json_textform/json_form/models/Schema.dart';
+import 'package:json_textform/json_form/components/JSONForignKeyField.dart';
 import 'package:json_textform/json_form/components/JSONSelectField.dart';
 import 'package:json_textform/json_form/components/JSONTextFormField.dart';
 
@@ -27,18 +28,30 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
     schemaList = Schema.convertFromList(uiSchema);
   }
 
+  /// Render body widget based on widget type
   Widget _buildBody(Schema schema) {
     switch (schema.widget) {
       case (WidgetType.select):
         return JSONSelectField(
           schema: schema,
-          onSaved: (String value) {
+          onSaved: (Choice value) {
             setState(() {
-              schema.value = value;
+              schema.value = value.value;
+              schema.choice = value;
             });
           },
         );
-        break;
+
+      case (WidgetType.foreignkey):
+        return JSONForignKeyField(
+          schema: schema,
+          onSaved: (Choice value) {
+            setState(() {
+              schema.value = value.value;
+              schema.choice = value;
+            });
+          },
+        );
 
       default:
         return JSONTextFormField(
@@ -65,8 +78,10 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
                   itemCount: uiSchema.length,
                   itemBuilder: (BuildContext context, int index) {
                     Schema schema = schemaList[index];
-
-                    return schema.readOnly ? Container() : _buildBody(schema);
+                    return schema.readOnly ||
+                            schema.widget == WidgetType.unknown
+                        ? Container()
+                        : _buildBody(schema);
                   },
                 ),
               ),

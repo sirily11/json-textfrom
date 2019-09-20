@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:json_textform/json_form/Schema.dart';
+import 'package:json_textform/json_form/models/Schema.dart';
 
 class SelectionPage extends StatefulWidget {
   final String title;
@@ -41,9 +41,10 @@ class _SelectionPageState extends State<SelectionPage> {
             icon: Icon(Icons.done),
             onPressed: () {
               if (widget.onSelected != null) {
-                widget.onSelected(this._selectedValue);
-                Navigator.pop(context);
+                widget.onSelected(
+                    _list.firstWhere((l) => l.value == _selectedValue));
               }
+              Navigator.pop(context);
             },
           )
         ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:json_textform/json_form/Schema.dart';
+import 'package:json_textform/json_form/models/Schema.dart';
 import 'package:json_textform/json_form/components/JSONTextFormField.dart';
 import 'package:json_textform/json_form/components/SelectionPage.dart';
 
@@ -26,19 +26,24 @@ class JSONSelectField extends JSONTextFormField {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
         child: ListTile(
+          trailing: Icon(Icons.expand_more),
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-              return SelectionPage(
-                onSelected: (value) {
-                  if (this.onSaved != null) {
-                    this.onSaved(value);
-                  }
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) {
+                  return SelectionPage(
+                    onSelected: (value) {
+                      if (this.onSaved != null) {
+                        this.onSaved(value);
+                      }
+                    },
+                    title: "Select ${schema.name}",
+                    selections: schema.extra.choices,
+                    value: schema.value,
+                  );
                 },
-                title: "Select ${schema.name}",
-                selections: schema.extra.choices,
-                value: schema.value,
-              );
-            }));
+              ),
+            );
           },
           title: Text("Select ${schema.name}"),
           subtitle: Text(schema.value ?? schema?.extra?.defaultValue ?? ""),
