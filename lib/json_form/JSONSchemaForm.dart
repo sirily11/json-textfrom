@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:json_textform/json_form/models/Action.dart';
+import 'package:json_textform/json_form/models/Icon.dart';
 import 'package:json_textform/json_form/models/Schema.dart';
 import 'package:json_textform/json_form/components/JSONForignKeyField.dart';
 import 'package:json_textform/json_form/components/JSONSelectField.dart';
@@ -6,26 +8,33 @@ import 'package:json_textform/json_form/components/JSONTextFormField.dart';
 
 class JSONSchemaForm extends StatefulWidget {
   final List<Map<String, dynamic>> schema;
+  final List<FieldAction> actions;
+  final List<FieldIcon> icons;
   final Function onSubmit;
-  JSONSchemaForm({@required this.schema, this.onSubmit});
+  JSONSchemaForm(
+      {@required this.schema, this.onSubmit, this.icons, this.actions});
 
   @override
-  _JSONSchemaFormState createState() =>
-      _JSONSchemaFormState(uiSchema: this.schema, onSubmit: this.onSubmit);
+  _JSONSchemaFormState createState() => _JSONSchemaFormState();
 }
 
 class _JSONSchemaFormState extends State<JSONSchemaForm> {
-  final List<Map<String, dynamic>> uiSchema;
   final _formKey = GlobalKey<FormState>();
 
   List<Schema> schemaList = [];
   Function onSubmit;
-  _JSONSchemaFormState({@required this.uiSchema, this.onSubmit});
+  _JSONSchemaFormState();
 
   @override
   void initState() {
     super.initState();
-    schemaList = Schema.convertFromList(uiSchema);
+    schemaList = Schema.convertFromList(widget.schema);
+    if (widget.actions != null) {
+      schemaList = FieldAction().merge(schemaList, widget.actions);
+    }
+    if (widget.icons != null) {
+      schemaList = FieldIcon().merge(schemaList, widget.icons);
+    }
   }
 
   /// Render body widget based on widget type
@@ -75,7 +84,7 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
               Container(
                 height: MediaQuery.of(context).size.height - 200,
                 child: ListView.builder(
-                  itemCount: uiSchema.length,
+                  itemCount: widget.schema.length,
                   itemBuilder: (BuildContext context, int index) {
                     Schema schema = schemaList[index];
                     return schema.readOnly ||

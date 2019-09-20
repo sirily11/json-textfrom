@@ -19,7 +19,13 @@ class FieldIcon implements Field<FieldIcon> {
 
   @override
   List<Schema> merge(List<Schema> schemas, List<FieldIcon> fields) {
-    // TODO: implement merge
-    return null;
+    return schemas.map((s) {
+      fields.forEach((f) {
+        if (f.schemaName == s.name) {
+          s.icon = f;
+        }
+      });
+      return s;
+    }).toList();
   }
 }

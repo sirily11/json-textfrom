@@ -16,6 +16,10 @@ class FieldAction implements Field<FieldAction> {
 
   FieldAction({this.actionDone, this.actionTypes, this.schemaName});
 
+  onDone<T>(T value){
+    
+  }
+
   @override
   List<Schema> merge(List<Schema> schemas, List<FieldAction> fields) {
     return schemas.map((s) {

@@ -3,7 +3,7 @@ import 'package:json_textform/json_form/models/Schema.dart';
 import 'package:json_textform/json_form/components/JSONTextFormField.dart';
 import 'package:json_textform/json_form/components/SelectionPage.dart';
 
-class JSONSelectField extends JSONTextFormField {
+class JSONSelectField extends StatelessWidget {
   final Schema schema;
   final Function onSaved;
   final bool showIcon;
@@ -13,12 +13,7 @@ class JSONSelectField extends JSONTextFormField {
       {@required this.schema,
       this.onSaved,
       this.showIcon = true,
-      this.isOutlined = false})
-      : super(
-            schema: schema,
-            onSaved: onSaved,
-            showIcon: showIcon,
-            isOutlined: isOutlined);
+      this.isOutlined = false});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +21,7 @@ class JSONSelectField extends JSONTextFormField {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
         child: ListTile(
+          leading: schema.icon != null ? Icon(schema.icon.iconData) : null,
           trailing: Icon(Icons.expand_more),
           onTap: () {
             Navigator.of(context).push(
