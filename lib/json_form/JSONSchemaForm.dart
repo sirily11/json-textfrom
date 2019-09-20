@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_textform/json_form/Schema.dart';
+import 'package:json_textform/json_form/components/JSONSelectField.dart';
 import 'package:json_textform/json_form/components/JSONTextFormField.dart';
 
 class JSONSchemaForm extends StatefulWidget {
@@ -28,6 +29,17 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
 
   Widget _buildBody(Schema schema) {
     switch (schema.widget) {
+      case (WidgetType.select):
+        return JSONSelectField(
+          schema: schema,
+          onSaved: (String value) {
+            setState(() {
+              schema.value = value;
+            });
+          },
+        );
+        break;
+
       default:
         return JSONTextFormField(
           schema: schema,

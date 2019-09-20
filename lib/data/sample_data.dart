@@ -11,9 +11,9 @@ Map<String, dynamic> itemJSONData = {
       "validations": {}
     },
     {
-      "label": "Book Name",
+      "label": "Item Name",
       "readonly": false,
-      "extra": {"default": ""},
+      "extra": {"help": "Please Enter your item name", "default": ""},
       "name": "name",
       "widget": "text",
       "required": false,
@@ -25,7 +25,7 @@ Map<String, dynamic> itemJSONData = {
     {
       "label": "description",
       "readonly": false,
-      "extra": {},
+      "extra": {"help": "Please enter your item description"},
       "name": "description",
       "widget": "text",
       "required": false,
@@ -35,16 +35,14 @@ Map<String, dynamic> itemJSONData = {
       }
     },
     {
-      "label": "qr code",
+      "label": "price",
       "readonly": false,
-      "extra": {},
-      "name": "qr_code",
-      "widget": "text",
+      "extra": {"default": 0.0},
+      "name": "price",
+      "widget": "number",
       "required": false,
       "translated": false,
-      "validations": {
-        "length": {"maximum": 10008}
-      }
+      "validations": {}
     },
     {
       "label": "column",
@@ -67,26 +65,33 @@ Map<String, dynamic> itemJSONData = {
       "validations": {}
     },
     {
-      "label": "price",
+      "label": "qr code",
       "readonly": false,
-      "extra": {"default": 0.0},
-      "name": "price",
-      "widget": "number",
-      "required": false,
-      "translated": false,
-      "validations": {}
-    },
-    {
-      "label": "unit",
-      "readonly": false,
-      "extra": {"default": "USD"},
-      "name": "unit",
+      "extra": {},
+      "name": "qr_code",
       "widget": "text",
       "required": false,
       "translated": false,
       "validations": {
-        "length": {"maximum": 10}
+        "length": {"maximum": 10008}
       }
+    },
+    {
+      "label": "unit",
+      "readonly": false,
+      "extra": {
+        "choices": [
+          {"label": "US Dollar", "value": "USD"},
+          {"label": "Hong Kong Dollar", "value": "HDK"},
+          {"label": "RMB", "value": "CNY"}
+        ],
+        "default": "USD"
+      },
+      "name": "unit",
+      "widget": "select",
+      "required": false,
+      "translated": false,
+      "validations": {}
     },
     {
       "label": "created time",
@@ -221,7 +226,7 @@ Map<String, dynamic> itemJSONData = {
     {
       "label": "uuid",
       "readonly": true,
-      "extra": {"default": "54eed2cd-23fe-49e7-9359-1b411ba839f0"},
+      "extra": {"default": "2584ca7c-bab3-4231-a846-c2aecbd4ba00"},
       "name": "uuid",
       "widget": "text",
       "required": false,
@@ -255,10 +260,10 @@ Map<String, dynamic> itemJSONData = {
       "fields": [
         {"name": "name"},
         {"name": "description"},
-        {"name": "qr_code"},
+        {"name": "price"},
         {"name": "column"},
         {"name": "row"},
-        {"name": "price"},
+        {"name": "qr_code"},
         {"name": "unit"},
         {"name": "created_time"},
         {"name": "author_name"},
@@ -274,5 +279,117 @@ Map<String, dynamic> itemJSONData = {
         {"name": "uuid"}
       ]
     }
-  ]
+  ],
+  "list_display": ["id"],
+  "filter_fields": [],
+  "languages": [
+    "af",
+    "ar",
+    "ast",
+    "az",
+    "bg",
+    "be",
+    "bn",
+    "br",
+    "bs",
+    "ca",
+    "cs",
+    "cy",
+    "da",
+    "de",
+    "dsb",
+    "el",
+    "en",
+    "en-au",
+    "en-gb",
+    "eo",
+    "es",
+    "es-ar",
+    "es-co",
+    "es-mx",
+    "es-ni",
+    "es-ve",
+    "et",
+    "eu",
+    "fa",
+    "fi",
+    "fr",
+    "fy",
+    "ga",
+    "gd",
+    "gl",
+    "he",
+    "hi",
+    "hr",
+    "hsb",
+    "hu",
+    "hy",
+    "ia",
+    "id",
+    "io",
+    "is",
+    "it",
+    "ja",
+    "ka",
+    "kab",
+    "kk",
+    "km",
+    "kn",
+    "ko",
+    "lb",
+    "lt",
+    "lv",
+    "mk",
+    "ml",
+    "mn",
+    "mr",
+    "my",
+    "nb",
+    "ne",
+    "nl",
+    "nn",
+    "os",
+    "pa",
+    "pl",
+    "pt",
+    "pt-br",
+    "ro",
+    "ru",
+    "sk",
+    "sl",
+    "sq",
+    "sr",
+    "sr-latn",
+    "sv",
+    "sw",
+    "ta",
+    "te",
+    "th",
+    "tr",
+    "tt",
+    "udm",
+    "uk",
+    "ur",
+    "vi",
+    "zh-hans",
+    "zh-hant"
+  ],
+  "ordering_fields": [],
+  "needs": [
+    {
+      "app": "storage-management",
+      "singular": "itemimage",
+      "plural": "itemimages"
+    },
+    {"app": "storage-management", "singular": "itemfile", "plural": "itemfiles"}
+  ],
+  "list_editable": [],
+  "sortable_by": null,
+  "translated_fields": [],
+  "custom_actions": [],
+  "bulk_actions": [],
+  "list_actions": [],
+  "save_twice": false,
+  "search_enabled": false,
+  "conditional_formatting": {}
 };

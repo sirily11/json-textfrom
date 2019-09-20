@@ -91,4 +91,28 @@ void main() {
     expect(s.widget, WidgetType.number);
     expect(s.value, null);
   });
+
+  test("Parse with choices", () {
+    var data = {
+      "label": "unit",
+      "readonly": false,
+      "extra": {
+        "choices": [
+          {"label": "美元", "value": "USD"},
+          {"label": "港币", "value": "HDK"},
+          {"label": "人民币", "value": "CNY"}
+        ],
+        "default": "USD"
+      },
+      "name": "unit",
+      "widget": "select",
+      "required": false,
+      "translated": false,
+      "validations": {}
+    };
+    Schema s = Schema.fromJSON(data);
+    expect(s.extra.choices.length, 3);
+    expect(s.extra.choices[0].label, "美元");
+    expect(s.extra.choices[0].value, "USD");
+  });
 }

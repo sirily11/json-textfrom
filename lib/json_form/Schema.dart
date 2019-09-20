@@ -1,4 +1,4 @@
-enum WidgetType { text, number, datetime, foreignkey, unknown }
+enum WidgetType { text, number, datetime, foreignkey, unknown, select }
 
 class Schema {
   /// Text which will be displayed at screen
@@ -64,24 +64,26 @@ class Schema {
 class Extra {
   dynamic defaultValue;
   String helpText;
-  Extra({this.defaultValue, this.helpText});
+  List<Choice> choices;
+  Extra({this.defaultValue, this.helpText, this.choices});
 
   factory Extra.fromJSON(Map<dynamic, dynamic> json) {
-    return Extra(defaultValue: json['default'], helpText: json['help']);
+    List<Choice> choices =
+        json['choices']?.map<Choice>((s) => Choice.fromJSON(s))?.toList();
+    return Extra(
+        defaultValue: json['default'],
+        helpText: json['help'],
+        choices: choices);
   }
 }
 
 class Validation {
   Length length;
-  List<Choice> choices;
-  Validation({this.length, this.choices});
+
+  Validation({this.length});
 
   factory Validation.fromJSON(Map<dynamic, dynamic> json) {
-    List<Choice> choices =
-        json['choices']?.map((s) => Choice.fromJSON(s))?.toList();
-
-    return Validation(
-        length: Length.fromJSON(json['length']), choices: choices);
+    return Validation(length: Length.fromJSON(json['length']));
   }
 }
 
