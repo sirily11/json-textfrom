@@ -88,6 +88,7 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
         child: TextFormField(
+          key: Key("textfield"),
           controller: _controller,
           keyboardType: widget.schema.widget == WidgetType.number
               ? TextInputType.number
@@ -96,7 +97,7 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
           maxLength: widget.schema.validation?.length?.maximum,
           obscureText: widget.schema.name == "password",
           decoration: InputDecoration(
-            helperText: widget.schema.extra.helpText,
+            helperText: widget.schema.extra?.helpText,
             labelText: widget.schema.label,
             prefixIcon: widget.schema.icon != null
                 ? Icon(widget.schema.icon.iconData)

@@ -45,11 +45,25 @@ class Schema {
       this.name,
       this.widget,
       this.isRequired,
-      this.validation});
+      this.validation,
+      this.value,
+      this.action,
+      this.choice,
+      this.icon});
 
   /// Convert from list of json objects
   static List<Schema> convertFromList(List<Map<String, dynamic>> jsonList) {
     return jsonList.map((l) => Schema.fromJSON(l)).toList();
+  }
+
+  static List<Schema> mergeValues(
+      List<Schema> schemas, Map<String, dynamic> values) {
+    return schemas.map((s) {
+      if (values.containsKey(s.name)) {
+        s.value = values[s.name];
+      }
+      return s;
+    }).toList();
   }
 
   factory Schema.fromJSON(Map<String, dynamic> json) {

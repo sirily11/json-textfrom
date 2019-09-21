@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:json_textform/data/sample_data.dart';
 import 'package:json_textform/json_form/JSONSchemaForm.dart';
@@ -26,6 +27,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Future<Map<String, dynamic>> getSchema() async {
+    try {
+      var url = "http://0.0.0.0/storage_management/item/";
+      Response response =
+          await Dio().request(url, options: Options(method: "OPTIONS"));
+      return response.data;
+    } on DioError catch (e) {
+      print(e);
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,26 +47,39 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text("Form"),
       ),
-      body: Container(
-        child: JSONSchemaForm(
-          schema: itemJSONData['fields'],
-          icons: [
-            FieldIcon(schemaName: "name", iconData: Icons.title),
-            FieldIcon(schemaName: "description", iconData: Icons.description),
-            FieldIcon(schemaName: "price", iconData: Icons.attach_money),
-            FieldIcon(schemaName: "column", iconData: Icons.view_column),
-            FieldIcon(schemaName: "row", iconData: Icons.view_list),
-            FieldIcon(schemaName: "qr_code", iconData: Icons.scanner),
-            FieldIcon(schemaName: "unit", iconData: Icons.g_translate)
-          ],
-          actions: [
-            FieldAction(
-                schemaName: "qr_code",
-                actionTypes: ActionTypes.qrScan,
-                actionDone: ActionDone.getInput)
-          ],
-        ),
-      ),
+      body: FutureBuilder<Map<String, dynamic>>(
+          future: getSchema(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Container();
+            }
+            return Container(
+              child: JSONSchemaForm(
+                schema: (snapshot.data['fields'] as List)
+                    .map((s) => s as Map<String, dynamic>)
+                    .toList(),
+                icons: [
+                  FieldIcon(schemaName: "name", iconData: Icons.title),
+                  FieldIcon(
+                      schemaName: "description", iconData: Icons.description),
+                  FieldIcon(schemaName: "price", iconData: Icons.attach_money),
+                  FieldIcon(schemaName: "column", iconData: Icons.view_column),
+                  FieldIcon(schemaName: "row", iconData: Icons.view_list),
+                  FieldIcon(schemaName: "qr_code", iconData: Icons.scanner),
+                  FieldIcon(schemaName: "unit", iconData: Icons.g_translate)
+                ],
+                actions: [
+                  FieldAction(
+                      schemaName: "qr_code",
+                      actionTypes: ActionTypes.qrScan,
+                      actionDone: ActionDone.getInput)
+                ],
+                onSubmit: (value) {
+                  print(value);
+                },
+              ),
+            );
+          }),
     );
   }
 }

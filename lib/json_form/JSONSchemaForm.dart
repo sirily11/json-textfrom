@@ -52,12 +52,7 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
 
     /// Merge values
     if (widget.values != null) {
-      schemaList = schemaList.map((s) {
-        if (widget.values.containsKey(s.name)) {
-          s.value = widget.values[s.name];
-        }
-        return s;
-      }).toList();
+      schemaList = Schema.mergeValues(schemaList, widget.values);
     }
   }
 
@@ -141,6 +136,7 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
                             // hide keyboard
                             FocusScope.of(context).requestFocus(FocusNode());
                             List<Map<String, dynamic>> json = schemaList
+                                .where((s) => !s.readOnly)
                                 .map((schema) => schema.onSubmit())
                                 .toList();
                             Map<String, dynamic> ret = Map.fromIterables(

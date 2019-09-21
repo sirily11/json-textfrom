@@ -77,4 +77,41 @@ void main() {
     List<Schema> newSchema = FieldIcon().merge(schemas, icons);
     newSchema.forEach((s) => expect(s.action, null));
   });
+
+  test("Merge values", () {
+    List<Schema> schemas = [
+      Schema(name: "a"),
+      Schema(name: "b"),
+      Schema(name: "c")
+    ];
+
+    Map<String, dynamic> values = {"a": 123};
+
+    List<Schema> newSchemas = Schema.mergeValues(schemas, values);
+    expect(newSchemas.length, 3);
+    expect(newSchemas[0].value, 123);
+  });
+
+  test("Merge values without matches", () {
+    List<Schema> schemas = [
+      Schema(name: "a"),
+      Schema(name: "b"),
+      Schema(name: "c")
+    ];
+
+    Map<String, dynamic> values = {"d": 123};
+
+    List<Schema> newSchemas = Schema.mergeValues(schemas, values);
+    expect(newSchemas.length, 3);
+    newSchemas.forEach((s) => expect(s.value, null));
+  });
+
+  test("Empty merge", () {
+    List<Schema> schemas = [
+    ];
+    Map<String, dynamic> values = {};
+
+    List<Schema> newSchemas = Schema.mergeValues(schemas, values);
+    expect(newSchemas.length, 0);
+  });
 }
