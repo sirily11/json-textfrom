@@ -71,25 +71,15 @@ class JSONForignKeyField extends StatelessWidget {
               ),
               fillColor: Colors.blue,
               shape: new CircleBorder(),
-              onPressed: () {},
-            ),
-          ),
-          Expanded(
-            child: RawMaterialButton(
-              elevation: 0,
-              child: Icon(
-                Icons.edit,
-                color: Colors.white,
-              ),
-              fillColor: Colors.blue,
-              shape: new CircleBorder(),
               onPressed: () async {
+                /// Add new field
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (ctx) {
                     return JSONForignKeyEditField(
-                      title: "Edit ${schema.label}",
+                      title: "Add ${schema.label}",
                       path: schema.extra.relatedModel,
+                      isEdit: false,
                     );
                   }),
                 );
@@ -100,14 +90,41 @@ class JSONForignKeyField extends StatelessWidget {
             child: RawMaterialButton(
               elevation: 0,
               child: Icon(
-                Icons.remove,
+                Icons.edit,
                 color: Colors.white,
               ),
-              fillColor: Colors.blue,
+              fillColor: schema.choice == null ? Colors.grey : Colors.blue,
               shape: new CircleBorder(),
-              onPressed: () {},
+              onPressed: schema.choice == null
+                  ? null
+                  : () async {
+                      /// Edit current field
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (ctx) {
+                          return JSONForignKeyEditField(
+                            title: "Edit ${schema.label}",
+                            path: schema.extra.relatedModel,
+                            isEdit: true,
+                            id: schema.choice.value,
+                          );
+                        }),
+                      );
+                    },
             ),
-          )
+          ),
+          // Expanded(
+          //   child: RawMaterialButton(
+          //     elevation: 0,
+          //     child: Icon(
+          //       Icons.remove,
+          //       color: Colors.white,
+          //     ),
+          //     fillColor: Colors.blue,
+          //     shape: new CircleBorder(),
+          //     onPressed: () {},
+          //   ),
+          // )
         ],
       ),
     );

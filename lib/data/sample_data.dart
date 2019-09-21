@@ -16,7 +16,7 @@ Map<String, dynamic> itemJSONData = {
       "extra": {"help": "Please Enter your item name", "default": ""},
       "name": "name",
       "widget": "text",
-      "required": false,
+      "required": true,
       "translated": false,
       "validations": {
         "length": {"maximum": 1024}
@@ -28,7 +28,7 @@ Map<String, dynamic> itemJSONData = {
       "extra": {"help": "Please enter your item description"},
       "name": "description",
       "widget": "text",
-      "required": false,
+      "required": true,
       "translated": false,
       "validations": {
         "length": {"maximum": 1024}
@@ -40,7 +40,7 @@ Map<String, dynamic> itemJSONData = {
       "extra": {"default": 0.0},
       "name": "price",
       "widget": "number",
-      "required": false,
+      "required": true,
       "translated": false,
       "validations": {}
     },
@@ -50,7 +50,7 @@ Map<String, dynamic> itemJSONData = {
       "extra": {"default": 1},
       "name": "column",
       "widget": "number",
-      "required": false,
+      "required": true,
       "translated": false,
       "validations": {}
     },
@@ -60,7 +60,7 @@ Map<String, dynamic> itemJSONData = {
       "extra": {"default": 1},
       "name": "row",
       "widget": "number",
-      "required": false,
+      "required": true,
       "translated": false,
       "validations": {}
     },
@@ -70,7 +70,7 @@ Map<String, dynamic> itemJSONData = {
       "extra": {},
       "name": "qr_code",
       "widget": "text",
-      "required": false,
+      "required": true,
       "translated": false,
       "validations": {
         "length": {"maximum": 10008}

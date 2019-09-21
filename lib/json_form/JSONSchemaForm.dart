@@ -5,14 +5,24 @@ import 'package:json_textform/json_form/models/Schema.dart';
 import 'package:json_textform/json_form/components/JSONForignKeyField.dart';
 import 'package:json_textform/json_form/components/JSONSelectField.dart';
 import 'package:json_textform/json_form/components/JSONTextFormField.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+typedef Future OnSubmit(Map<String, dynamic> json);
 
 class JSONSchemaForm extends StatefulWidget {
   final List<Map<String, dynamic>> schema;
   final List<FieldAction> actions;
   final List<FieldIcon> icons;
-  final Function onSubmit;
+
+  /// Default values
+  final Map<String, dynamic> values;
+  final OnSubmit onSubmit;
   JSONSchemaForm(
-      {@required this.schema, this.onSubmit, this.icons, this.actions});
+      {@required this.schema,
+      this.onSubmit,
+      this.icons,
+      this.actions,
+      this.values});
 
   @override
   _JSONSchemaFormState createState() => _JSONSchemaFormState();
@@ -20,20 +30,34 @@ class JSONSchemaForm extends StatefulWidget {
 
 class _JSONSchemaFormState extends State<JSONSchemaForm> {
   final _formKey = GlobalKey<FormState>();
-
   List<Schema> schemaList = [];
-  Function onSubmit;
   _JSONSchemaFormState();
 
   @override
   void initState() {
     super.initState();
     schemaList = Schema.convertFromList(widget.schema);
+
+    /// Merge actions
     if (widget.actions != null) {
+      PermissionHandler()
+          .requestPermissions([PermissionGroup.camera]).then((m) => null);
       schemaList = FieldAction().merge(schemaList, widget.actions);
     }
+
+    /// Merge icons
     if (widget.icons != null) {
       schemaList = FieldIcon().merge(schemaList, widget.icons);
+    }
+
+    /// Merge values
+    if (widget.values != null) {
+      schemaList = schemaList.map((s) {
+        if (widget.values.containsKey(s.name)) {
+          s.value = widget.values[s.name];
+        }
+        return s;
+      }).toList();
     }
   }
 
@@ -123,8 +147,8 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
                                 json.map((j) => j['key'] as String).toList(),
                                 json.map((j) => j['value']).toList());
                             // call on submit function
-                            if (this.onSubmit != null) {
-                              await this.onSubmit(ret);
+                            if (widget.onSubmit != null) {
+                              await widget.onSubmit(ret);
                             }
                             // clear the content
                             _formKey.currentState.reset();
