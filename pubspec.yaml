@@ -1,8 +1,8 @@
 name: json_schema_form
-description: A new Flutter package project.
+description: A JSON Schema form.
 version: 0.5.1
-author:
-homepage:
+author: sirily1997@gmail.com
+homepage: https://github.com/sirily11/json-textfrom
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
