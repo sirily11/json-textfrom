@@ -7,14 +7,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:json_textform/json_form/components/JSONSelectField.dart';
-import 'package:json_textform/json_form/components/JSONTextFormField.dart'
-    as prefix0;
-import 'package:json_textform/json_form/models/Schema.dart';
-
-import 'package:json_textform/main.dart';
-
-import '../lib/json_form/components/JSONTextFormField.dart';
+import 'package:json_schema_form/components/JSONSelectField.dart';
+import 'package:json_schema_form/components/JSONTextFormField.dart';
+import 'package:json_schema_form/models/Schema.dart';
 
 void main() {
   testWidgets('Test selection field', (WidgetTester tester) async {

@@ -1,0 +1,209 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:1:1-24:12
+INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:1:1-24:12
+INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:1:1-24:12
+INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:1:1-24:12
+MERGED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:1:1-24:12
+MERGED from [:barcode_scan] /Users/liqiwei/Desktop/json-textfrom/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-17:12
+MERGED from [com.google.android.material:material:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/material-1.0.0.aar/29486611b88beb312101ef921d7b1e91/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat:1.0.2] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/appcompat-1.0.2.aar/2238e515822950919fc36fd59cd7af3c/AndroidManifest.xml:17:1-22:12
+MERGED from [me.dm7.barcodescanner:zxing:1.9.13] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/zxing-1.9.13.aar/cfc8169acc400c63801f0a0e835ffab3/AndroidManifest.xml:2:1-13:12
+MERGED from [me.dm7.barcodescanner:core:1.9.13] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/jetified-core-1.9.13.aar/00d5dbc060afbb0bf5bfccdd6b8dab81/AndroidManifest.xml:2:1-13:12
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/legacy-support-v4-1.0.0.aar/f12ee15874421043ba57d5a193eec267/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/fragment-1.0.0.aar/4149bd9512c46ca0ff51eb2e83d6f127/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/recyclerview-1.0.0.aar/5003b385c48fc80478bd2f62601a085f/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/vectordrawable-animated-1.0.0.aar/5a501e429420e183bc58b3414c9f9c76/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/legacy-support-core-ui-1.0.0.aar/63093ec7b975cd31dfd5a6c905825e4e/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0.aar/0727c3f28537c761f445323dd69c9d63/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/transition-1.0.0.aar/dc62a49c67344474152c4c63f37d5547/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/cardview-1.0.0.aar/7ba04ddaa2f33ad10ee79db7e8345e46/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/vectordrawable-1.0.1.aar/8567c74052e3b922efdefd6a81a89525/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0.aar/afebfcc2ca0fd2b4ab8a0cf44328c70e/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0.aar/c539a56f3963f29589a94fe1ed2bd624/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/drawerlayout-1.0.0.aar/3312ab3dc348746040a537d1e77ea870/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-1.0.0.aar/1990857996e02a8beabd34e7f6155085/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/customview-1.0.0.aar/faa443ab38eae3bc643ab59173d7c9e7/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-1.0.0.aar/ebcbbd0c4ca340a66b6c54763db7812b/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-1.0.0.aar/9cf8c2371161116021bb712ca10443df/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/loader-1.0.0.aar/92c1587f9eabafc3ae1ad0e98c945df0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/media-1.0.0.aar/bc5e93783060aabf46b450068c2dda93/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.0.1] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/82b623f05d504ca41c03dc6490f03456/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0.aar/5e62305cf4b457b44438702e43888557/AndroidManifest.xml:17:1-25:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0.aar/66e0ba00448c983bb85175c19b0dd2d1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/interpolator-1.0.0.aar/c9e3a74cb02301bdb981d615ea790427/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/documentfile-1.0.0.aar/f3a7ba1a744f35eb0eb68e30ee3bc880/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-1.0.0.aar/5cfec35258b57b34da5631e444cd6329/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/print-1.0.0.aar/7c2c928816cb40490be4486006b1d8c6/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0.aar/da514837d997fe1024ca94469b1d5262/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.0.0.aar/526c46d4bc914eceace023ed2898c54e/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-2.0.0.aar/565c2545262dfc1ae57cb2cea7b3152a/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0.aar/a92787d4619fdad4922c0f5dd2cc4e85/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/core-runtime-2.0.0.aar/43719e2a71cbffa67d5755464ba3b29a/AndroidManifest.xml:17:1-22:12
+INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+	package
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:1:70-105
+		INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/debug/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:1:1-24:12
+		INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/debug/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:1:1-24:12
+		INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/debug/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:1:11-69
+application
+ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:8:5-22:19
+MERGED from [:barcode_scan] /Users/liqiwei/Desktop/json-textfrom/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-15:19
+MERGED from [:barcode_scan] /Users/liqiwei/Desktop/json-textfrom/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-15:19
+MERGED from [com.google.android.material:material:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/material-1.0.0.aar/29486611b88beb312101ef921d7b1e91/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/material-1.0.0.aar/29486611b88beb312101ef921d7b1e91/AndroidManifest.xml:22:5-20
+MERGED from [me.dm7.barcodescanner:zxing:1.9.13] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/zxing-1.9.13.aar/cfc8169acc400c63801f0a0e835ffab3/AndroidManifest.xml:11:5-20
+MERGED from [me.dm7.barcodescanner:zxing:1.9.13] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/zxing-1.9.13.aar/cfc8169acc400c63801f0a0e835ffab3/AndroidManifest.xml:11:5-20
+MERGED from [me.dm7.barcodescanner:core:1.9.13] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/jetified-core-1.9.13.aar/00d5dbc060afbb0bf5bfccdd6b8dab81/AndroidManifest.xml:11:5-20
+MERGED from [me.dm7.barcodescanner:core:1.9.13] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/jetified-core-1.9.13.aar/00d5dbc060afbb0bf5bfccdd6b8dab81/AndroidManifest.xml:11:5-20
+MERGED from [androidx.core:core:1.0.1] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/82b623f05d504ca41c03dc6490f03456/AndroidManifest.xml:22:5-89
+MERGED from [androidx.core:core:1.0.1] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/82b623f05d504ca41c03dc6490f03456/AndroidManifest.xml:22:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0.aar/5e62305cf4b457b44438702e43888557/AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0.aar/5e62305cf4b457b44438702e43888557/AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.0.1] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/82b623f05d504ca41c03dc6490f03456/AndroidManifest.xml:22:18-86
+	android:label
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:8:67-96
+	android:icon
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:8:97-131
+	android:name
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:8:18-66
+activity#com.example.json_textform.MainActivity
+ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:9:9-19:20
+	android:launchMode
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:9:48-78
+	android:hardwareAccelerated
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:9:246-280
+	android:windowSoftInputMode
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:9:281-323
+	android:configChanges
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:9:114-245
+	android:theme
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:9:79-113
+	android:name
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:9:19-47
+meta-data#io.flutter.app.android.SplashScreenUntilFirstFrame
+ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:14:13-113
+	android:value
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:14:90-110
+	android:name
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:14:24-89
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:15:13-18:29
+action#android.intent.action.MAIN
+ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:16:17-69
+	android:name
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:16:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:17:17-77
+	android:name
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:17:27-74
+activity#com.apptreesoftware.barcodescan.BarcodeScannerActivity
+ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:20:9-91
+MERGED from [:barcode_scan] /Users/liqiwei/Desktop/json-textfrom/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:14:9-91
+MERGED from [:barcode_scan] /Users/liqiwei/Desktop/json-textfrom/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:14:9-91
+	android:name
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:20:19-88
+uses-permission#android.permission.CAMERA
+ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:23:5-65
+MERGED from [:barcode_scan] /Users/liqiwei/Desktop/json-textfrom/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-65
+MERGED from [:barcode_scan] /Users/liqiwei/Desktop/json-textfrom/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-65
+	android:name
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml:23:22-62
+uses-sdk
+INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml
+INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml
+MERGED from [:barcode_scan] /Users/liqiwei/Desktop/json-textfrom/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:barcode_scan] /Users/liqiwei/Desktop/json-textfrom/build/barcode_scan/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.material:material:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/material-1.0.0.aar/29486611b88beb312101ef921d7b1e91/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/material-1.0.0.aar/29486611b88beb312101ef921d7b1e91/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.2] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/appcompat-1.0.2.aar/2238e515822950919fc36fd59cd7af3c/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.2] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/appcompat-1.0.2.aar/2238e515822950919fc36fd59cd7af3c/AndroidManifest.xml:20:5-44
+MERGED from [me.dm7.barcodescanner:zxing:1.9.13] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/zxing-1.9.13.aar/cfc8169acc400c63801f0a0e835ffab3/AndroidManifest.xml:7:5-9:41
+MERGED from [me.dm7.barcodescanner:zxing:1.9.13] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/zxing-1.9.13.aar/cfc8169acc400c63801f0a0e835ffab3/AndroidManifest.xml:7:5-9:41
+MERGED from [me.dm7.barcodescanner:core:1.9.13] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/jetified-core-1.9.13.aar/00d5dbc060afbb0bf5bfccdd6b8dab81/AndroidManifest.xml:7:5-9:41
+MERGED from [me.dm7.barcodescanner:core:1.9.13] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/jetified-core-1.9.13.aar/00d5dbc060afbb0bf5bfccdd6b8dab81/AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/legacy-support-v4-1.0.0.aar/f12ee15874421043ba57d5a193eec267/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/legacy-support-v4-1.0.0.aar/f12ee15874421043ba57d5a193eec267/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/fragment-1.0.0.aar/4149bd9512c46ca0ff51eb2e83d6f127/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/fragment-1.0.0.aar/4149bd9512c46ca0ff51eb2e83d6f127/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/recyclerview-1.0.0.aar/5003b385c48fc80478bd2f62601a085f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/recyclerview-1.0.0.aar/5003b385c48fc80478bd2f62601a085f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/vectordrawable-animated-1.0.0.aar/5a501e429420e183bc58b3414c9f9c76/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/vectordrawable-animated-1.0.0.aar/5a501e429420e183bc58b3414c9f9c76/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/legacy-support-core-ui-1.0.0.aar/63093ec7b975cd31dfd5a6c905825e4e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/legacy-support-core-ui-1.0.0.aar/63093ec7b975cd31dfd5a6c905825e4e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0.aar/0727c3f28537c761f445323dd69c9d63/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0.aar/0727c3f28537c761f445323dd69c9d63/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/transition-1.0.0.aar/dc62a49c67344474152c4c63f37d5547/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/transition-1.0.0.aar/dc62a49c67344474152c4c63f37d5547/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/cardview-1.0.0.aar/7ba04ddaa2f33ad10ee79db7e8345e46/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/cardview-1.0.0.aar/7ba04ddaa2f33ad10ee79db7e8345e46/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/vectordrawable-1.0.1.aar/8567c74052e3b922efdefd6a81a89525/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/vectordrawable-1.0.1.aar/8567c74052e3b922efdefd6a81a89525/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0.aar/afebfcc2ca0fd2b4ab8a0cf44328c70e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0.aar/afebfcc2ca0fd2b4ab8a0cf44328c70e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0.aar/c539a56f3963f29589a94fe1ed2bd624/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0.aar/c539a56f3963f29589a94fe1ed2bd624/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/drawerlayout-1.0.0.aar/3312ab3dc348746040a537d1e77ea870/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/drawerlayout-1.0.0.aar/3312ab3dc348746040a537d1e77ea870/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-1.0.0.aar/1990857996e02a8beabd34e7f6155085/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/slidingpanelayout-1.0.0.aar/1990857996e02a8beabd34e7f6155085/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/customview-1.0.0.aar/faa443ab38eae3bc643ab59173d7c9e7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/customview-1.0.0.aar/faa443ab38eae3bc643ab59173d7c9e7/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-1.0.0.aar/ebcbbd0c4ca340a66b6c54763db7812b/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/swiperefreshlayout-1.0.0.aar/ebcbbd0c4ca340a66b6c54763db7812b/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-1.0.0.aar/9cf8c2371161116021bb712ca10443df/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/asynclayoutinflater-1.0.0.aar/9cf8c2371161116021bb712ca10443df/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/loader-1.0.0.aar/92c1587f9eabafc3ae1ad0e98c945df0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/loader-1.0.0.aar/92c1587f9eabafc3ae1ad0e98c945df0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/media-1.0.0.aar/bc5e93783060aabf46b450068c2dda93/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/media-1.0.0.aar/bc5e93783060aabf46b450068c2dda93/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.1] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/82b623f05d504ca41c03dc6490f03456/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.1] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/core-1.0.1.aar/82b623f05d504ca41c03dc6490f03456/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0.aar/5e62305cf4b457b44438702e43888557/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0.aar/5e62305cf4b457b44438702e43888557/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0.aar/66e0ba00448c983bb85175c19b0dd2d1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0.aar/66e0ba00448c983bb85175c19b0dd2d1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/interpolator-1.0.0.aar/c9e3a74cb02301bdb981d615ea790427/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/interpolator-1.0.0.aar/c9e3a74cb02301bdb981d615ea790427/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/documentfile-1.0.0.aar/f3a7ba1a744f35eb0eb68e30ee3bc880/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/documentfile-1.0.0.aar/f3a7ba1a744f35eb0eb68e30ee3bc880/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-1.0.0.aar/5cfec35258b57b34da5631e444cd6329/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/localbroadcastmanager-1.0.0.aar/5cfec35258b57b34da5631e444cd6329/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/print-1.0.0.aar/7c2c928816cb40490be4486006b1d8c6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/print-1.0.0.aar/7c2c928816cb40490be4486006b1d8c6/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0.aar/da514837d997fe1024ca94469b1d5262/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0.aar/da514837d997fe1024ca94469b1d5262/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.0.0.aar/526c46d4bc914eceace023ed2898c54e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/lifecycle-runtime-2.0.0.aar/526c46d4bc914eceace023ed2898c54e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-2.0.0.aar/565c2545262dfc1ae57cb2cea7b3152a/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-2.0.0.aar/565c2545262dfc1ae57cb2cea7b3152a/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0.aar/a92787d4619fdad4922c0f5dd2cc4e85/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0.aar/a92787d4619fdad4922c0f5dd2cc4e85/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/core-runtime-2.0.0.aar/43719e2a71cbffa67d5755464ba3b29a/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/liqiwei/.gradle/caches/transforms-1/files-1.1/core-runtime-2.0.0.aar/43719e2a71cbffa67d5755464ba3b29a/AndroidManifest.xml:20:5-44
+INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/debug/AndroidManifest.xml
+INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/debug/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/debug/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/debug/AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/debug/AndroidManifest.xml:6:5-66
+	android:name
+		ADDED from /Users/liqiwei/Desktop/json-textfrom/android/app/src/debug/AndroidManifest.xml:6:22-64
