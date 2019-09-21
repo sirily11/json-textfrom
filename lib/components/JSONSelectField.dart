@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:json_schema_form/components/SelectionPage.dart';
 import 'package:json_schema_form/models/Schema.dart';
 
-
 class JSONSelectField extends StatelessWidget {
   final Schema schema;
   final Function onSaved;
@@ -17,9 +16,15 @@ class JSONSelectField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
+      child: Container(
+        decoration: isOutlined
+            ? BoxDecoration(
+                border: Border.all(),
+                borderRadius: BorderRadius.circular(10),
+              )
+            : null,
         child: ListTile(
           key: Key("selection-field"),
           leading: schema.icon != null ? Icon(schema.icon.iconData) : null,

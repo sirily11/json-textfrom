@@ -13,9 +13,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: MyHomePage(),
     );
   }
@@ -32,6 +29,11 @@ class _MyHomePageState extends State<MyHomePage> {
     return itemJSONData;
   }
 
+  ThemeData buildTheme() {
+    final ThemeData base = ThemeData();
+    return base.copyWith();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,8 +48,10 @@ class _MyHomePageState extends State<MyHomePage> {
             if (!snapshot.hasData) {
               return Container();
             }
-            return Container(
+            return Theme(
+              data: buildTheme(),
               child: JSONSchemaForm(
+                rounded: false,
                 schema: (snapshot.data['fields'] as List)
                     .map((s) => s as Map<String, dynamic>)
                     .toList(),

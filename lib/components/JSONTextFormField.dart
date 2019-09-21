@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:json_schema_form/models/Action.dart';
 import 'package:json_schema_form/models/Schema.dart';
 
-
 class JSONTextFormField extends StatefulWidget {
   final Schema schema;
   final Function onSaved;
@@ -87,7 +86,7 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
         child: TextFormField(
           key: Key("textfield"),
           controller: _controller,

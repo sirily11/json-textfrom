@@ -5,7 +5,6 @@ import 'package:json_schema_form/components/SelectionPage.dart';
 import 'package:json_schema_form/models/Schema.dart';
 import 'package:json_schema_form/utils.dart';
 
-
 class JSONForignKeyField extends StatelessWidget {
   final Schema schema;
   final Function onSaved;
@@ -35,30 +34,38 @@ class JSONForignKeyField extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 5,
-            child: ListTile(
-              trailing: Icon(Icons.expand_more),
-              title: Text("Select ${schema.label}"),
-              subtitle: Text("${schema.choice?.label}"),
-              onTap: () async {
-                List<Choice> choices =
-                    await _getSelections(schema.extra.relatedModel);
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (ctx) {
-                      return SelectionPage(
-                        onSelected: (value) {
-                          if (this.onSaved != null) {
-                            this.onSaved(value);
-                          }
-                        },
-                        title: "Select ${schema.label}",
-                        selections: choices,
-                        value: schema.value,
-                      );
-                    },
-                  ),
-                );
-              },
+            child: Container(
+              decoration: isOutlined
+                  ? BoxDecoration(
+                      border: Border.all(),
+                      borderRadius: BorderRadius.circular(10),
+                    )
+                  : null,
+              child: ListTile(
+                trailing: Icon(Icons.expand_more),
+                title: Text("Select ${schema.label}"),
+                subtitle: Text("${schema.choice?.label}"),
+                onTap: () async {
+                  List<Choice> choices =
+                      await _getSelections(schema.extra.relatedModel);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) {
+                        return SelectionPage(
+                          onSelected: (value) {
+                            if (this.onSaved != null) {
+                              this.onSaved(value);
+                            }
+                          },
+                          title: "Select ${schema.label}",
+                          selections: choices,
+                          value: schema.value,
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           Expanded(

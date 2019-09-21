@@ -16,24 +16,32 @@ class JSONSchemaForm extends StatefulWidget {
   /// Schema you want to have. This is a JSON object
   /// Using dart's map data structure
   final List<Map<String, dynamic>> schema;
+
   /// List of actions. Each field will only have one action.
   /// If not, the last one will replace the first one.
   final List<FieldAction> actions;
+
   /// List of icons. Each field will only have one icon.
   /// If not, the last one will replace the first one.
   final List<FieldIcon> icons;
 
   /// Default values for each field
   final Map<String, dynamic> values;
+
   /// Will call this function after user
   /// clicked the submit button
   final OnSubmit onSubmit;
-  JSONSchemaForm(
-      {@required this.schema,
-      this.onSubmit,
-      this.icons,
-      this.actions,
-      this.values});
+
+  /// Round corner of text field
+  final bool rounded;
+  JSONSchemaForm({
+    @required this.schema,
+    this.onSubmit,
+    this.icons,
+    this.actions,
+    this.values,
+    this.rounded,
+  });
 
   @override
   _JSONSchemaFormState createState() => _JSONSchemaFormState();
@@ -72,6 +80,7 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
     switch (schema.widget) {
       case (WidgetType.select):
         return JSONSelectField(
+          isOutlined: widget.rounded,
           schema: schema,
           onSaved: (Choice value) {
             setState(() {
@@ -83,6 +92,7 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
 
       case (WidgetType.foreignkey):
         return JSONForignKeyField(
+          isOutlined: widget.rounded,
           schema: schema,
           onSaved: (Choice value) {
             setState(() {
@@ -95,6 +105,7 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
       default:
         return JSONTextFormField(
           schema: schema,
+          isOutlined: widget.rounded,
           onSaved: (String value) {
             schema.value = value;
           },
