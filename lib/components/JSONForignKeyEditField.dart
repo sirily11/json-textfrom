@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
-
 import '../JSONSchemaForm.dart';
 import '../utils.dart';
 
@@ -83,21 +82,27 @@ class BaseEditField {
 class JSONForignKeyEditField extends StatefulWidget {
   /// Model path
   final String path;
+
   /// On submit button has been clicked
   final Function onSubmit;
+
   /// Page's title
   final String title;
+
   /// Model's id. This will be provided if
   /// and only if the mode is editing mode
   final dynamic id;
+
   /// Whether the mode is editing mode
   final bool isEdit;
+  final bool isOutlined;
 
   JSONForignKeyEditField(
       {@required this.path,
       this.onSubmit,
       this.title,
       this.id,
+      this.isOutlined = false,
       this.isEdit = false});
 
   @override
@@ -144,6 +149,7 @@ class _JSONForignKeyEditFieldState extends State<JSONForignKeyEditField>
         duration: Duration(milliseconds: 300),
         child: schemas.length > 0 && values != null
             ? JSONSchemaForm(
+                rounded: widget.isOutlined,
                 schema: schemas,
                 values: values,
                 onSubmit: (Map<String, dynamic> json) async {

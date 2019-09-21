@@ -83,6 +83,7 @@ class JSONForignKeyField extends StatelessWidget {
                   context,
                   MaterialPageRoute(builder: (ctx) {
                     return JSONForignKeyEditField(
+                      isOutlined: isOutlined,
                       title: "Add ${schema.label}",
                       path: schema.extra.relatedModel,
                       isEdit: false,
@@ -109,6 +110,7 @@ class JSONForignKeyField extends StatelessWidget {
                         context,
                         MaterialPageRoute(builder: (ctx) {
                           return JSONForignKeyEditField(
+                            isOutlined: isOutlined,
                             title: "Edit ${schema.label}",
                             path: schema.extra.relatedModel,
                             isEdit: true,

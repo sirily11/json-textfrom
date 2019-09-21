@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
             return Theme(
               data: buildTheme(),
               child: JSONSchemaForm(
-                rounded: false,
+                rounded: true,
                 schema: (snapshot.data['fields'] as List)
                     .map((s) => s as Map<String, dynamic>)
                     .toList(),

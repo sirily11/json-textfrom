@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/models/Schema.dart';
 
-
 class SelectionPage extends StatefulWidget {
   final String title;
   final List<Choice> selections;
   final Function onSelected;
-  dynamic value;
+  final bool isOutlined;
+  final dynamic value;
 
   SelectionPage(
       {@required this.selections,
       this.onSelected,
       @required this.title,
+      this.isOutlined = false,
       this.value});
 
   @override
