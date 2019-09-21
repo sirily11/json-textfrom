@@ -1,3 +1,4 @@
-## [0.0.1] - TODO: Add release date.
+## [0.5.1] - TODO: Add release date.
 
-* TODO: Describe initial release.
+- added tests
+- added basic supports for fields
