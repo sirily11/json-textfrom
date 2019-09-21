@@ -76,11 +76,21 @@ class BaseEditField {
   }
 }
 
+/// This is the field for forign key.
+/// For example if model b is forign key of model a
+/// This will create/ update model b
+/// based on the path
 class JSONForignKeyEditField extends StatefulWidget {
+  /// Model path
   final String path;
+  /// On submit button has been clicked
   final Function onSubmit;
+  /// Page's title
   final String title;
+  /// Model's id. This will be provided if
+  /// and only if the mode is editing mode
   final dynamic id;
+  /// Whether the mode is editing mode
   final bool isEdit;
 
   JSONForignKeyEditField(

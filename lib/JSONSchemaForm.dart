@@ -9,13 +9,24 @@ import 'package:permission_handler/permission_handler.dart';
 
 typedef Future OnSubmit(Map<String, dynamic> json);
 
+/// A JSON Schema Form Widget
+/// Which will take a schema input
+/// and generate a form
 class JSONSchemaForm extends StatefulWidget {
+  /// Schema you want to have. This is a JSON object
+  /// Using dart's map data structure
   final List<Map<String, dynamic>> schema;
+  /// List of actions. Each field will only have one action.
+  /// If not, the last one will replace the first one.
   final List<FieldAction> actions;
+  /// List of icons. Each field will only have one icon.
+  /// If not, the last one will replace the first one.
   final List<FieldIcon> icons;
 
-  /// Default values
+  /// Default values for each field
   final Map<String, dynamic> values;
+  /// Will call this function after user
+  /// clicked the submit button
   final OnSubmit onSubmit;
   JSONSchemaForm(
       {@required this.schema,
