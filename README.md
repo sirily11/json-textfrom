@@ -1,16 +1,69 @@
-# json_textform
+# Flutter JSON Form
 
-A new Flutter project.
+This is the plugin for flutter using JSON Schema to define the form itself.
+It supports:
 
-## Getting Started
+- Textfield
+- Selection field
+- forignkey field
+- qrcode scanning
+- custom field icon and action
 
-This project is a starting point for a Flutter application.
+# Getting start
 
-A few resources to get you started if this is your first Flutter project:
+> Important! The forign key field is using Django Rest Framework with DRF-schema-adapter. All the schema's structures are based on it. You can take a look what the structure is on this [page](https://drf-schema-adapter.readthedocs.io/en/latest/drf_auto_endpoint/metadata/)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## First prepare data
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```dart
+Map<String, dynamic> itemJSONData = {
+  "fields": [
+    {
+      "label": "ID",
+      "readonly": true,
+      "extra": {},
+      "name": "id",
+      "widget": "number",
+      "required": false,
+      "translated": false,
+      "validations": {}
+    },
+    {
+      "label": "Item Name",
+      "readonly": false,
+      "extra": {"help": "Please Enter your item name", "default": ""},
+      "name": "name",
+      "widget": "text",
+      "required": true,
+      "translated": false,
+      "validations": {
+        "length": {"maximum": 1024}
+      }
+    }]
+```
+
+## put the data into JSONSchemaForm
+
+```dart
+
+SONSchemaForm(
+                schema: (snapshot.data['fields'] as List)
+                    .map((s) => s as Map<String, dynamic>)
+                    .toList(),
+                icons: [
+                  FieldIcon(schemaName: "name", iconData: Icons.title),
+                ],
+                actions: [
+                  FieldAction(
+                      schemaName: "qr_code",
+                      actionTypes: ActionTypes.qrScan,
+                      actionDone: ActionDone.getInput)
+                ],
+                onSubmit: (value) {
+                  print(value);
+                },
+              ),
+
+```
+
+As you can see, you can provide actions and icons based on the name property in the schema's data.
