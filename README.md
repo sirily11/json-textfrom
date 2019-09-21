@@ -1,5 +1,7 @@
 # Flutter JSON Form
 
+[![Build Status](https://travis-ci.org/sirily11/json-textfrom.svg?branch=master)](https://travis-ci.org/sirily11/json-textfrom)
+
 This is the plugin for flutter using JSON Schema to define the form itself.
 It supports:
 
