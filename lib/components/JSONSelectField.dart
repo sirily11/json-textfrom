@@ -21,14 +21,26 @@ class JSONSelectField extends StatelessWidget {
       child: Container(
         decoration: isOutlined
             ? BoxDecoration(
-                border: Border.all(),
+                border: Border.all(
+                    color: Theme.of(context)
+                            .inputDecorationTheme
+                            ?.border
+                            ?.borderSide
+                            ?.color ??
+                        Colors.black),
                 borderRadius: BorderRadius.circular(10),
-              )
+                color: Theme.of(context).inputDecorationTheme.fillColor ?? null)
             : null,
         child: ListTile(
           key: Key("selection-field"),
-          leading: schema.icon != null ? Icon(schema.icon.iconData) : null,
-          trailing: Icon(Icons.expand_more),
+          leading: schema.icon != null
+              ? Icon(
+                  schema.icon.iconData,
+                  color: Theme.of(context).iconTheme.color,
+                )
+              : null,
+          trailing:
+              Icon(Icons.expand_more, color: Theme.of(context).iconTheme.color),
           onTap: schema?.extra?.choices == null
               ? null
               : () {

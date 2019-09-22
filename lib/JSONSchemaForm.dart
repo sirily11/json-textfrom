@@ -40,7 +40,7 @@ class JSONSchemaForm extends StatefulWidget {
     this.icons,
     this.actions,
     this.values,
-    this.rounded,
+    this.rounded = false,
   });
 
   @override
@@ -145,10 +145,14 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
                       width: 300,
                       height: 40,
                       child: RaisedButton(
-                        color: Colors.blue,
+                        color: Theme.of(context).buttonColor,
                         child: Text(
                           "Submit",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .primaryTextTheme
+                                  .title
+                                  .color),
                         ),
                         shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(30.0)),

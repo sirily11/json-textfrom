@@ -37,12 +37,22 @@ class JSONForignKeyField extends StatelessWidget {
             child: Container(
               decoration: isOutlined
                   ? BoxDecoration(
-                      border: Border.all(),
+                      border: Border.all(
+                          color: Theme.of(context)
+                                  .inputDecorationTheme
+                                  ?.border
+                                  ?.borderSide
+                                  ?.color ??
+                              Colors.black),
                       borderRadius: BorderRadius.circular(10),
-                    )
+                      color: Theme.of(context).inputDecorationTheme.fillColor ??
+                          null)
                   : null,
               child: ListTile(
-                trailing: Icon(Icons.expand_more),
+                trailing: Icon(
+                  Icons.expand_more,
+                  color: Theme.of(context).iconTheme.color,
+                ),
                 title: Text("Select ${schema.label}"),
                 subtitle: Text("${schema.choice?.label}"),
                 onTap: () async {

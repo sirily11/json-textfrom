@@ -7,6 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:json_schema_form/JSONSchemaForm.dart';
 import 'package:json_schema_form/components/JSONSelectField.dart';
 import 'package:json_schema_form/components/JSONTextFormField.dart';
 import 'package:json_schema_form/models/Schema.dart';
@@ -150,5 +151,41 @@ void main() {
     expect(find.byKey(Key("textfield")), findsOneWidget);
     TextFormField textfield = tester.widget(find.byKey(Key("textfield")));
     expect(textfield.controller.text, "cde");
+  });
+
+  testWidgets('Test if only schema provided', (WidgetTester tester) async {
+    List<Map<String, dynamic>> schema = [
+      {
+        "label": "Name",
+        "readonly": false,
+        "extra": {},
+        "name": "name",
+        "widget": "number",
+        "required": false,
+        "translated": false,
+        "validations": {}
+      },
+      {
+        "label": "author",
+        "readonly": true,
+        "extra": {"related_model": "storage-management/author"},
+        "name": "author_name",
+        "widget": "foreignkey",
+        "required": false,
+        "translated": false,
+        "validations": {}
+      }
+    ];
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Material(
+          child: JSONSchemaForm(
+            schema: schema,
+          ),
+        ),
+      ),
+    );
+    expect(find.byKey(Key("textfield")), findsOneWidget);
   });
 }

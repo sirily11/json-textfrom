@@ -31,7 +31,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   ThemeData buildTheme() {
     final ThemeData base = ThemeData();
-    return base.copyWith();
+    return base.copyWith(
+      textTheme: TextTheme(),
+      iconTheme: IconThemeData(color: Colors.white),
+      inputDecorationTheme: InputDecorationTheme(
+        fillColor: Colors.blue,
+        border: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.green),
+        ),
+      ),
+    );
   }
 
   @override
