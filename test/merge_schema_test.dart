@@ -3,7 +3,6 @@ import 'package:json_schema_form/models/Action.dart';
 import 'package:json_schema_form/models/Icon.dart';
 import 'package:json_schema_form/models/Schema.dart';
 
-
 void main() {
   test("Test merge", () {
     List<Schema> schemas = [
@@ -108,11 +107,53 @@ void main() {
   });
 
   test("Empty merge", () {
-    List<Schema> schemas = [
-    ];
+    List<Schema> schemas = [];
     Map<String, dynamic> values = {};
 
     List<Schema> newSchemas = Schema.mergeValues(schemas, values);
     expect(newSchemas.length, 0);
+  });
+
+  test("Merge values which is a selection", () {
+    List<Schema> schemas = [
+      Schema(
+          name: "a",
+          widget: WidgetType.select,
+          extra: Extra(choices: [
+            Choice(label: "abc", value: 123),
+            Choice(label: "cde", value: 345)
+          ])),
+      Schema(name: "b"),
+      Schema(name: "c")
+    ];
+
+    Map<String, dynamic> values = {"a": 123};
+
+    List<Schema> newSchemas = Schema.mergeValues(schemas, values);
+    expect(newSchemas.length, 3);
+    expect(newSchemas[0].value, 123);
+    expect(newSchemas[0].choice.value, 123);
+    expect(newSchemas[0].choice.label, "abc");
+  });
+
+  test("Merge values which is a forignkey", () {
+    List<Schema> schemas = [
+      Schema(
+        name: "a",
+        widget: WidgetType.foreignkey,
+      ),
+      Schema(name: "b"),
+      Schema(name: "c")
+    ];
+
+    Map<String, dynamic> values = {
+      "a": {"label": "abc", "value": 123}
+    };
+
+    List<Schema> newSchemas = Schema.mergeValues(schemas, values);
+    expect(newSchemas.length, 3);
+    expect(newSchemas[0].value, 123);
+    expect(newSchemas[0].choice.value, 123);
+    expect(newSchemas[0].choice.label, "abc");
   });
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:json_schema_form/models/Action.dart';
 import 'package:json_schema_form/models/Icon.dart';
 
-
 enum WidgetType { text, number, datetime, foreignkey, unknown, select }
 
 class Schema {
@@ -60,8 +59,26 @@ class Schema {
   static List<Schema> mergeValues(
       List<Schema> schemas, Map<String, dynamic> values) {
     return schemas.map((s) {
+      // if values match
       if (values.containsKey(s.name)) {
-        s.value = values[s.name];
+        var value = values[s.name];
+        // If the type is select
+        if (s.widget == WidgetType.select) {
+          Choice choice = s.extra?.choices
+              ?.firstWhere((c) => c.value == value, orElse: null);
+          s.choice = choice;
+          s.value = value;
+        } else if (s.widget == WidgetType.foreignkey) {
+          try {
+            Choice choice = Choice.fromJSON(value);
+            s.choice = choice;
+            s.value = choice.value;
+          } catch (err) {
+            print(err);
+          }
+        } else {
+          s.value = value;
+        }
       }
       return s;
     }).toList();

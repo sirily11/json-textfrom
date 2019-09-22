@@ -10,7 +10,8 @@ class JSONTextFormField extends StatefulWidget {
   final bool isOutlined;
 
   JSONTextFormField(
-      {@required this.schema, this.onSaved, this.isOutlined = false});
+      {@required this.schema, this.onSaved, this.isOutlined = false, Key key})
+      : super(key: key);
 
   @override
   _JSONTextFormFieldState createState() => _JSONTextFormFieldState();
@@ -22,6 +23,7 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
   @override
   void initState() {
     super.initState();
+    print("Build");
     String value = widget.schema.value ??
         widget.schema.extra?.defaultValue?.toString() ??
         "";
@@ -88,8 +90,14 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
         child: TextFormField(
+          onChanged: (value) {
+            widget.onSaved(value);
+          },
           key: Key("textfield"),
-          controller: _controller,
+          // controller: _controller,
+          initialValue: widget.schema.value ??
+              widget.schema.extra?.defaultValue?.toString() ??
+              "",
           keyboardType: widget.schema.widget == WidgetType.number
               ? TextInputType.number
               : null,

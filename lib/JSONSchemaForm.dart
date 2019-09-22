@@ -104,10 +104,13 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
 
       default:
         return JSONTextFormField(
+          key: Key(schema.name),
           schema: schema,
           isOutlined: widget.rounded,
           onSaved: (String value) {
-            schema.value = value;
+            setState(() {
+              schema.value = value;
+            });
           },
         );
     }

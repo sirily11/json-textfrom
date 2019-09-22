@@ -32,7 +32,6 @@ class _MyHomePageState extends State<MyHomePage> {
   ThemeData buildTheme() {
     final ThemeData base = ThemeData();
     return base.copyWith(
-      textTheme: TextTheme(),
       iconTheme: IconThemeData(color: Colors.white),
       inputDecorationTheme: InputDecorationTheme(
         fillColor: Colors.blue,
@@ -82,6 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
                 onSubmit: (value) {
                   print(value);
+                },
+                values: {
+                  "author_id": {"label": "sdfsdf", "value": 2}
                 },
               ),
             );
