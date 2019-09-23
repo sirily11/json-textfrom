@@ -11,3 +11,6 @@
 
 - fixed bugs
 - add tests
+
+## [0.5.6]
+- fixed lost text problem

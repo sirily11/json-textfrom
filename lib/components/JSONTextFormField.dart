@@ -23,7 +23,6 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
   @override
   void initState() {
     super.initState();
-    print("Build");
     String value = widget.schema.value ??
         widget.schema.extra?.defaultValue?.toString() ??
         "";

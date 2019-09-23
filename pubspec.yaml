@@ -1,6 +1,6 @@
 name: json_schema_form
 description: A JSON Schema form. This widget will provide you a simple way to generate form from JSON Schema.
-version: 0.5.5
+version: 0.5.7
 author: sirily11 <sirily1997@gmail.com>
 homepage: https://github.com/sirily11/json-textfrom
 
