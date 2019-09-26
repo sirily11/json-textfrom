@@ -13,4 +13,10 @@
 - add tests
 
 ## [0.5.6]
+
 - fixed lost text problem
+
+## [0.6.7]
+
+- Added more tests
+- Added URL param
