@@ -170,7 +170,7 @@ class _JSONForignKeyEditFieldState extends State<JSONForignKeyEditField>
               )
             : Container(
                 child: Center(
-                  child: Image.asset("assets/animat-cube-color.gif"),
+                  child: CircularProgressIndicator(),
                 ),
               ),
       ),
