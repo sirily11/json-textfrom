@@ -10,16 +10,18 @@ class JSONForignKeyField extends StatelessWidget {
   final Function onSaved;
   final bool showIcon;
   final bool isOutlined;
+  final String url;
 
   JSONForignKeyField(
       {@required this.schema,
       this.onSaved,
       this.showIcon = true,
-      this.isOutlined = false});
+      this.isOutlined = false,
+      @required this.url});
 
   Future<List<Choice>> _getSelections(String path) async {
     String p = "$path/".replaceFirst("-", "_");
-    String url = getURL(p);
+    String url = getURL(this.url, p);
     Response response = await Dio().get<List<dynamic>>(url);
     return (response.data as List)
         .map((d) => Choice(label: d['name'].toString(), value: d['id']))
@@ -93,6 +95,7 @@ class JSONForignKeyField extends StatelessWidget {
                   context,
                   MaterialPageRoute(builder: (ctx) {
                     return JSONForignKeyEditField(
+                      baseURL: this.url,
                       isOutlined: isOutlined,
                       title: "Add ${schema.label}",
                       path: schema.extra.relatedModel,
@@ -120,6 +123,7 @@ class JSONForignKeyField extends StatelessWidget {
                         context,
                         MaterialPageRoute(builder: (ctx) {
                           return JSONForignKeyEditField(
+                            baseURL: this.url,
                             isOutlined: isOutlined,
                             title: "Edit ${schema.label}",
                             path: schema.extra.relatedModel,

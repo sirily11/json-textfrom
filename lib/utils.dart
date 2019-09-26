@@ -1,4 +1,3 @@
-String getURL(String path) {
-  String base = "http://0.0.0.0";
+String getURL(String base, String path) {
   return "$base/$path";
 }

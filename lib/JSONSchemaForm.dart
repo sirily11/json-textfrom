@@ -32,16 +32,21 @@ class JSONSchemaForm extends StatefulWidget {
   /// clicked the submit button
   final OnSubmit onSubmit;
 
+  /// URL for forignkey
+  /// Forignkey field will use this to get editing data
+  /// Default is http://0.0.0.0
+  final String url;
+
   /// Round corner of text field
   final bool rounded;
-  JSONSchemaForm({
-    @required this.schema,
-    this.onSubmit,
-    this.icons,
-    this.actions,
-    this.values,
-    this.rounded = false,
-  });
+  JSONSchemaForm(
+      {@required this.schema,
+      this.onSubmit,
+      this.icons,
+      this.actions,
+      this.values,
+      this.rounded = false,
+      this.url = "http://0.0.0.0"});
 
   @override
   _JSONSchemaFormState createState() => _JSONSchemaFormState();
@@ -92,6 +97,7 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
 
       case (WidgetType.foreignkey):
         return JSONForignKeyField(
+          url: widget.url,
           isOutlined: widget.rounded,
           schema: schema,
           onSaved: (Choice value) {
