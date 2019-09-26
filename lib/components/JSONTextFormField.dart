@@ -35,7 +35,7 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
       case WidgetType.number:
         final n = num.tryParse(value);
         if (n == null) {
-          return '"$value" is not a valid number';
+          return '$value is not a valid number';
         }
         break;
       default:

@@ -114,4 +114,5 @@ void main() {
     expect(s.extra.choices[0].label, "美元");
     expect(s.extra.choices[0].value, "USD");
   });
+
 }
