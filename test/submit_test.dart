@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:json_schema_form/models/Schema.dart';
+import 'package:json_schema_form/utils.dart';
 
 void main() {
   group("Submit test", () {
@@ -32,8 +33,9 @@ void main() {
         expect(result['key'], data.name);
         expect(result['value'], data.value);
       });
+      var ret = getSubmitJSON(ss);
+      expect(ret.keys.toList().length, 2);
     });
-
 
     test("Submit value on forignkey", () {
       var testData = [
@@ -64,6 +66,8 @@ void main() {
         expect(result['key'], data.name);
         expect(result['value'], data.value);
       });
+      var ret = getSubmitJSON(ss);
+      expect(ret.keys.toList().length, 2);
     });
 
     test("Submit value on selectionfield", () {
@@ -95,6 +99,9 @@ void main() {
         expect(result['key'], data.name);
         expect(result['value'], data.value);
       });
+
+      var ret = getSubmitJSON(ss);
+      expect(ret.keys.toList().length, 2);
     });
   });
 }

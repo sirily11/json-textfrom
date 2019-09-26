@@ -5,6 +5,7 @@ import 'package:json_schema_form/components/JSONTextFormField.dart';
 import 'package:json_schema_form/models/Action.dart';
 import 'package:json_schema_form/models/Icon.dart';
 import 'package:json_schema_form/models/Schema.dart';
+import 'package:json_schema_form/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 typedef Future OnSubmit(Map<String, dynamic> json);
@@ -170,13 +171,8 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
                             _formKey.currentState.save();
                             // hide keyboard
                             FocusScope.of(context).requestFocus(FocusNode());
-                            List<Map<String, dynamic>> json = schemaList
-                                .where((s) => !s.readOnly)
-                                .map((schema) => schema.onSubmit())
-                                .toList();
-                            Map<String, dynamic> ret = Map.fromIterables(
-                                json.map((j) => j['key'] as String).toList(),
-                                json.map((j) => j['value']).toList());
+                            Map<String, dynamic> ret =
+                                getSubmitJSON(schemaList);
                             // call on submit function
                             if (widget.onSubmit != null) {
                               await widget.onSubmit(ret);
