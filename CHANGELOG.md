@@ -20,3 +20,7 @@
 
 - Added more tests
 - Added URL param
+
+## [0.6.8]
+
+- Added more tests
