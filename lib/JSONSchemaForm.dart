@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/components/JSONForignKeyField.dart';
 import 'package:json_schema_form/components/JSONSelectField.dart';
@@ -64,7 +66,7 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
     schemaList = Schema.convertFromList(widget.schema);
 
     /// Merge actions
-    if (widget.actions != null) {
+    if (widget.actions != null && (Platform.isIOS || Platform.isAndroid)) {
       PermissionHandler()
           .requestPermissions([PermissionGroup.camera]).then((m) => null);
       schemaList = FieldAction().merge(schemaList, widget.actions);
@@ -132,8 +134,7 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
           key: _formKey,
           child: Column(
             children: <Widget>[
-              Container(
-                height: MediaQuery.of(context).size.height - 200,
+              Expanded(
                 child: ListView.builder(
                   itemCount: widget.schema.length,
                   itemBuilder: (BuildContext context, int index) {

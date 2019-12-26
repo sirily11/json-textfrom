@@ -83,7 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   print(value);
                 },
                 values: {
-                  "author_id": {"label": "sdfsdf", "value": 2}
+                  "author_id": {"label": "sdfsdf", "value": 2},
+                  "name": "abc"
                 },
               ),
             );

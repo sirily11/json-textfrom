@@ -7,6 +7,7 @@ import '../utils.dart';
 
 class BaseEditField {
   GlobalKey<ScaffoldState> key = GlobalKey();
+  Dio httpClient = Dio();
 
   String _preProcessURL(String base, String path) {
     String p = "$path/".replaceFirst("-", "_");
@@ -20,7 +21,7 @@ class BaseEditField {
       String base, String path, Map<String, dynamic> json, dynamic id) async {
     try {
       String url = "${_preProcessURL(base, path)}$id/";
-      Response response = await Dio().patch(url, data: json);
+      Response response = await httpClient.patch(url, data: json);
       return;
     } on DioError catch (e) {
       _showSnackBar(e.message);
@@ -32,7 +33,7 @@ class BaseEditField {
   Future addField(String base, String path, Map<String, dynamic> json) async {
     try {
       String url = _preProcessURL(base, path);
-      Response response = await Dio().post(url, data: json);
+      Response response = await httpClient.post(url, data: json);
       return;
     } on DioError catch (e) {
       _showSnackBar(e.message);
@@ -45,10 +46,11 @@ class BaseEditField {
     try {
       String url = _preProcessURL(base, path);
       Response response =
-          await Dio().request(url, options: Options(method: "OPTIONS"));
-      return (response.data['fields'] as List)
-          .map((d) => d as Map<String, dynamic>)
-          .toList();
+          await httpClient.request(url, options: Options(method: "OPTIONS"));
+      if ((response.data as Map).containsKey("fields"))
+        return (response.data['fields'] as List)
+            .map((d) => d as Map<String, dynamic>)
+            .toList();
     } on DioError catch (e) {
       _showSnackBar(e.message);
     }
@@ -69,7 +71,7 @@ class BaseEditField {
       String base, String path, dynamic id) async {
     try {
       String url = "${_preProcessURL(base, path)}$id/";
-      Response response = await Dio().get(url);
+      Response response = await httpClient.get(url);
       return response.data;
     } on DioError catch (e) {
       _showSnackBar(e.message);
@@ -100,6 +102,7 @@ class JSONForignKeyEditField extends StatefulWidget {
   /// Whether the mode is editing mode
   final bool isEdit;
   final bool isOutlined;
+  final Dio httpClient;
 
   JSONForignKeyEditField(
       {@required this.path,
@@ -108,6 +111,7 @@ class JSONForignKeyEditField extends StatefulWidget {
       this.id,
       this.isOutlined = false,
       this.isEdit = false,
+      this.httpClient,
       @required this.baseURL});
 
   @override
@@ -122,10 +126,15 @@ class _JSONForignKeyEditFieldState extends State<JSONForignKeyEditField>
   @override
   void initState() {
     super.initState();
+    if (widget.httpClient != null) {
+      httpClient = widget.httpClient;
+    }
     getEditSchema(widget.baseURL, widget.path).then((value) {
-      setState(() {
-        schemas = value;
-      });
+      if (value != null) {
+        setState(() {
+          schemas = value;
+        });
+      }
     });
     if (widget.isEdit) {
       getValues(widget.baseURL, widget.path, widget.id).then((v) {

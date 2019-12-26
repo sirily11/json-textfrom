@@ -26,7 +26,6 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
     String value = widget.schema.value ??
         widget.schema.extra?.defaultValue?.toString() ??
         "";
-
     _controller = TextEditingController(text: value);
   }
 
@@ -48,7 +47,10 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
   _suffixIconAction({dynamic image, dynamic inputValue}) {
     switch (widget.schema.action.actionDone) {
       case ActionDone.getInput:
-        _controller.text = inputValue.toString();
+        setState(() {
+          _controller.text = inputValue.toString();
+        });
+
         break;
 
       case ActionDone.getImage:
@@ -94,9 +96,7 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
           },
           key: Key("textfield"),
           // controller: _controller,
-          initialValue: widget.schema.value ??
-              widget.schema.extra?.defaultValue?.toString() ??
-              "",
+          controller: _controller,
           keyboardType: widget.schema.widget == WidgetType.number
               ? TextInputType.number
               : null,

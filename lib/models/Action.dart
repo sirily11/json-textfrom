@@ -5,7 +5,14 @@ import 'package:json_schema_form/models/Schema.dart';
 enum ActionTypes { image, qrScan }
 
 /// Actions when the action is finished
-enum ActionDone { getInput, getImage }
+enum ActionDone {
+  /// get input from the action
+  /// And use the input to fill the field
+  getInput,
+  /// get image from the action
+  /// and use the image to fill the field
+  getImage,
+}
 
 /// Field Action class for each json field
 class FieldAction implements Field<FieldAction> {
