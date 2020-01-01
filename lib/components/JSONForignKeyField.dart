@@ -4,15 +4,16 @@ import 'package:json_schema_form/components/JSONForignKeyEditField.dart';
 import 'package:json_schema_form/components/SelectionPage.dart';
 import 'package:json_schema_form/models/Action.dart';
 import 'package:json_schema_form/models/Icon.dart';
+import 'package:json_schema_form/models/NetworkProvider.dart';
 import 'package:json_schema_form/models/Schema.dart';
 import 'package:json_schema_form/utils.dart';
+import 'package:provider/provider.dart';
 
 class JSONForignKeyField extends StatelessWidget {
   final Schema schema;
   final Function onSaved;
   final bool showIcon;
   final bool isOutlined;
-  final String url;
 
   /// List of actions. Each field will only have one action.
   /// If not, the last one will replace the first one.
@@ -27,21 +28,12 @@ class JSONForignKeyField extends StatelessWidget {
       this.onSaved,
       this.showIcon = true,
       this.isOutlined = false,
-      @required this.url,
       this.icons,
       this.actions});
 
-  Future<List<Choice>> _getSelections(String path) async {
-    String p = "$path/".replaceFirst("-", "_");
-    String url = getURL(this.url, p);
-    Response response = await Dio().get<List<dynamic>>(url);
-    return (response.data as List)
-        .map((d) => Choice(label: d['name'].toString(), value: d['id']))
-        .toList();
-  }
-
   @override
   Widget build(BuildContext context) {
+    NetworkProvider networkProvider = Provider.of(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -63,8 +55,8 @@ class JSONForignKeyField extends StatelessWidget {
                 title: Text("Select ${schema.label}"),
                 subtitle: Text("${schema.choice?.label}"),
                 onTap: () async {
-                  List<Choice> choices =
-                      await _getSelections(schema.extra.relatedModel);
+                  List<Choice> choices = await networkProvider
+                      .getSelections(schema.extra.relatedModel);
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (ctx) {
@@ -95,19 +87,25 @@ class JSONForignKeyField extends StatelessWidget {
               fillColor: Colors.blue,
               shape: new CircleBorder(),
               onPressed: () async {
+                NetworkProvider provider = Provider.of(context);
+
                 /// Add new field
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (ctx) {
-                    return JSONForignKeyEditField(
-                      baseURL: this.url,
-                      isOutlined: isOutlined,
-                      title: "Add ${schema.label}",
-                      path: schema.extra.relatedModel,
-                      isEdit: false,
-                      actions: actions,
-                      name: schema.name,
-                      icons: icons,
+                    return ChangeNotifierProvider(
+                      create: (_) => NetworkProvider(
+                          networkProvider: networkProvider.networkProvider,
+                          url: networkProvider.url),
+                      child: JSONForignKeyEditField(
+                        isOutlined: isOutlined,
+                        title: "Add ${schema.label}",
+                        path: schema.extra.relatedModel,
+                        isEdit: false,
+                        actions: actions,
+                        name: schema.name,
+                        icons: icons,
+                      ),
                     );
                   }),
                 );
@@ -130,16 +128,21 @@ class JSONForignKeyField extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (ctx) {
-                          return JSONForignKeyEditField(
-                            baseURL: this.url,
-                            isOutlined: isOutlined,
-                            title: "Edit ${schema.label}",
-                            path: schema.extra.relatedModel,
-                            isEdit: true,
-                            id: schema.choice.value,
-                            actions: actions,
-                            name: schema.name,
-                            icons: icons,
+                          return ChangeNotifierProvider<NetworkProvider>(
+                            create: (_) => NetworkProvider(
+                                networkProvider:
+                                    networkProvider.networkProvider,
+                                url: networkProvider.url),
+                            child: JSONForignKeyEditField(
+                              isOutlined: isOutlined,
+                              title: "Edit ${schema.label}",
+                              path: schema.extra.relatedModel,
+                              isEdit: true,
+                              id: schema.choice.value,
+                              actions: actions,
+                              name: schema.name,
+                              icons: icons,
+                            ),
                           );
                         }),
                       );

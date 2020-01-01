@@ -6,6 +6,7 @@ class SelectionPage extends StatefulWidget {
   final List<Choice> selections;
   final Function onSelected;
   final bool isOutlined;
+  /// Current selected value
   final dynamic value;
 
   SelectionPage(
