@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:json_schema_form/models/Action.dart';
 import 'package:json_schema_form/models/Schema.dart';
-import 'package:file_chooser/file_chooser.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class JSONTextFormField extends StatefulWidget {
@@ -106,13 +105,14 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
                                 source: ImageSource.gallery);
                             await _suffixIconAction(image: file);
                           } else if (Platform.isMacOS) {
-                            var result = await showOpenPanel();
-                            if (!result.canceled) {
-                              if (result.paths.length > 0) {
-                                await _suffixIconAction(
-                                    image: File(result.paths.first));
-                              }
-                            }
+                            //TODO: Added file_choicer package
+                            // var result = await showOpenPanel();
+                            // if (!result.canceled) {
+                            //   if (result.paths.length > 0) {
+                            //     await _suffixIconAction(
+                            //         image: File(result.paths.first));
+                            //   }
+                            // }
                           }
                         },
                       )

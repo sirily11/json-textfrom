@@ -14,8 +14,6 @@ dependencies:
   permission_handler: ^3.2.2
   progress_indicators: ^0.1.4
   image_picker: ^0.6.2+3
-  file_chooser:
-    path: plugins/file_chooser
 
 dev_dependencies:
   flutter_test:
