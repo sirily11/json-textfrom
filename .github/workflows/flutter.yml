@@ -3,9 +3,11 @@ name: Flutter test
 on: [push]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        flutter: ["dev", "stable", "beta"]
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
@@ -13,11 +15,6 @@ jobs:
           java-version: "12.x"
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: "1.9.1+hotfix.2"
+          channel: ${{ matrix.flutter }}
       - run: flutter pub get
       - run: flutter test
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
