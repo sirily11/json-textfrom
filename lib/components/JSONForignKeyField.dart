@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/components/JSONForignKeyEditField.dart';
 import 'package:json_schema_form/components/SelectionPage.dart';
+import 'package:json_schema_form/models/Action.dart';
+import 'package:json_schema_form/models/Icon.dart';
 import 'package:json_schema_form/models/Schema.dart';
 import 'package:json_schema_form/utils.dart';
 
@@ -12,12 +14,22 @@ class JSONForignKeyField extends StatelessWidget {
   final bool isOutlined;
   final String url;
 
+  /// List of actions. Each field will only have one action.
+  /// If not, the last one will replace the first one.
+  final List<FieldAction> actions;
+
+  /// List of icons. Each field will only have one icon.
+  /// If not, the last one will replace the first one.
+  final List<FieldIcon> icons;
+
   JSONForignKeyField(
       {@required this.schema,
       this.onSaved,
       this.showIcon = true,
       this.isOutlined = false,
-      @required this.url});
+      @required this.url,
+      this.icons,
+      this.actions});
 
   Future<List<Choice>> _getSelections(String path) async {
     String p = "$path/".replaceFirst("-", "_");
@@ -39,16 +51,9 @@ class JSONForignKeyField extends StatelessWidget {
             child: Container(
               decoration: isOutlined
                   ? BoxDecoration(
-                      border: Border.all(
-                          color: Theme.of(context)
-                                  .inputDecorationTheme
-                                  ?.border
-                                  ?.borderSide
-                                  ?.color ??
-                              Colors.black),
+                      border: Border.all(),
                       borderRadius: BorderRadius.circular(10),
-                      color: Theme.of(context).inputDecorationTheme.fillColor ??
-                          null)
+                      color: Theme.of(context).inputDecorationTheme.fillColor)
                   : null,
               child: ListTile(
                 trailing: Icon(
@@ -100,6 +105,9 @@ class JSONForignKeyField extends StatelessWidget {
                       title: "Add ${schema.label}",
                       path: schema.extra.relatedModel,
                       isEdit: false,
+                      actions: actions,
+                      name: schema.name,
+                      icons: icons,
                     );
                   }),
                 );
@@ -129,6 +137,9 @@ class JSONForignKeyField extends StatelessWidget {
                             path: schema.extra.relatedModel,
                             isEdit: true,
                             id: schema.choice.value,
+                            actions: actions,
+                            name: schema.name,
+                            icons: icons,
                           );
                         }),
                       );

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/JSONSchemaForm.dart';
 import 'package:json_schema_form/models/Action.dart';
@@ -74,14 +76,32 @@ class _MyHomePageState extends State<MyHomePage> {
                   FieldIcon(schemaName: "unit", iconData: Icons.g_translate)
                 ],
                 actions: [
-                  FieldAction(
+                  FieldAction<File>(
                       schemaName: "qr_code",
-                      actionTypes: ActionTypes.qrScan,
-                      actionDone: ActionDone.getInput)
+                      actionTypes: ActionTypes.image,
+                      actionDone: ActionDone.getImage,
+                      onDone: (File file) async {
+                        if (file is File) {
+                          print(file);
+                        }
+                        return file;
+                      }),
+                  FieldAction<File>(
+                      schemaName: "name",
+                      schemaFor: "category_id",
+                      actionTypes: ActionTypes.image,
+                      actionDone: ActionDone.getInput,
+                      onDone: (File file) async {
+                        if (file is File) {
+                          print(file);
+                        }
+                        return "abc";
+                      })
                 ],
                 onSubmit: (value) {
                   print(value);
                 },
+                url: "http://192.168.1.114:8000",
                 values: {
                   "author_id": {"label": "sdfsdf", "value": 2},
                   "name": "abc"

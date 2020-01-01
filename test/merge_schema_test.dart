@@ -17,7 +17,7 @@ void main() {
           actionDone: ActionDone.getInput)
     ];
 
-    List<Schema> newSchema = FieldAction().merge(schemas, actions);
+    List<Schema> newSchema = FieldAction().merge(schemas, actions, null);
     expect(newSchema.length, 3);
     expect(newSchema[0].action, actions[0]);
   });
@@ -25,7 +25,7 @@ void main() {
   test("Test with empty schema", () {
     List<Schema> schemas = [];
     List<FieldAction> actions = [];
-    List<Schema> newSchema = FieldAction().merge(schemas, actions);
+    List<Schema> newSchema = FieldAction().merge(schemas, actions, null);
     expect(newSchema.length, 0);
   });
 
@@ -42,7 +42,7 @@ void main() {
           actionDone: ActionDone.getInput)
     ];
 
-    List<Schema> newSchema = FieldAction().merge(schemas, actions);
+    List<Schema> newSchema = FieldAction().merge(schemas, actions, null);
     newSchema.forEach((s) => expect(s.action, null));
   });
 
@@ -54,7 +54,7 @@ void main() {
     ];
     List<FieldIcon> icons = [FieldIcon(schemaName: "a")];
 
-    List<Schema> newSchema = FieldIcon().merge(schemas, icons);
+    List<Schema> newSchema = FieldIcon().merge(schemas, icons, null);
     expect(newSchema.length, 3);
     expect(newSchema[0].icon, icons[0]);
   });
@@ -62,7 +62,7 @@ void main() {
   test("Test with empty schema", () {
     List<Schema> schemas = [];
     List<FieldIcon> icons = [];
-    List<Schema> newSchema = FieldIcon().merge(schemas, icons);
+    List<Schema> newSchema = FieldIcon().merge(schemas, icons, null);
     expect(newSchema.length, 0);
   });
 
@@ -74,7 +74,7 @@ void main() {
     ];
     List<FieldIcon> icons = [FieldIcon(schemaName: "d")];
 
-    List<Schema> newSchema = FieldIcon().merge(schemas, icons);
+    List<Schema> newSchema = FieldIcon().merge(schemas, icons, null);
     newSchema.forEach((s) => expect(s.action, null));
   });
 
@@ -155,5 +155,29 @@ void main() {
     expect(newSchemas[0].value, 123);
     expect(newSchemas[0].choice.value, 123);
     expect(newSchemas[0].choice.label, "abc");
+  });
+
+  test("icons and forignkey and main schema has same name", () {
+    List<Schema> schemas = [
+      Schema(name: "a"),
+      Schema(name: "b"),
+      Schema(name: "c")
+    ];
+    List<FieldIcon> icons = [FieldIcon(schemaName: "a", schemaFor: "abc")];
+
+    List<Schema> newSchema = FieldIcon().merge(schemas, icons, null);
+    newSchema.forEach((s) => expect(s.icon, null));
+  });
+
+  test("icons and forignkey and main schema has same name", () {
+    List<Schema> schemas = [
+      Schema(name: "a"),
+      Schema(name: "b"),
+      Schema(name: "c")
+    ];
+    List<FieldIcon> icons = [FieldIcon(schemaName: "a", schemaFor: "abc")];
+
+    List<Schema> newSchema = FieldIcon().merge(schemas, icons, "abc");
+    expect(newSchema[0].icon, icons.first);
   });
 }

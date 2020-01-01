@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:json_schema_form/models/Action.dart';
+import 'package:json_schema_form/models/Icon.dart';
+import 'package:json_schema_form/models/Schema.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
 import '../JSONSchemaForm.dart';
@@ -94,6 +97,11 @@ class JSONForignKeyEditField extends StatefulWidget {
   /// Page's title
   final String title;
 
+  /// Page's name
+  /// This one is different from the title
+  /// and will be used to merge actions and icons.
+  final String name;
+
   /// Model's id. This will be provided if
   /// and only if the mode is editing mode
   final dynamic id;
@@ -104,6 +112,14 @@ class JSONForignKeyEditField extends StatefulWidget {
   final bool isOutlined;
   final Dio httpClient;
 
+  /// List of actions. Each field will only have one action.
+  /// If not, the last one will replace the first one.
+  final List<FieldAction> actions;
+
+  /// List of icons. Each field will only have one icon.
+  /// If not, the last one will replace the first one.
+  final List<FieldIcon> icons;
+
   JSONForignKeyEditField(
       {@required this.path,
       this.onSubmit,
@@ -112,7 +128,10 @@ class JSONForignKeyEditField extends StatefulWidget {
       this.isOutlined = false,
       this.isEdit = false,
       this.httpClient,
-      @required this.baseURL});
+      @required this.name,
+      @required this.baseURL,
+      this.actions,
+      this.icons});
 
   @override
   _JSONForignKeyEditFieldState createState() => _JSONForignKeyEditFieldState();
@@ -163,11 +182,13 @@ class _JSONForignKeyEditFieldState extends State<JSONForignKeyEditField>
         duration: Duration(milliseconds: 300),
         child: schemas.length > 0 && values != null
             ? JSONSchemaForm(
+                schemaName: widget.name,
                 rounded: widget.isOutlined,
                 schema: schemas,
                 values: values,
+                actions: widget.actions,
+                icons: widget.icons,
                 onSubmit: (Map<String, dynamic> json) async {
-                  print(json);
                   if (widget.isEdit) {
                     await updateField(
                         widget.baseURL, widget.path, json, widget.id);

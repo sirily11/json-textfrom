@@ -16,6 +16,12 @@ typedef Future OnSubmit(Map<String, dynamic> json);
 /// Which will take a schema input
 /// and generate a form
 class JSONSchemaForm extends StatefulWidget {
+  /// Schema's name
+  /// Use this to identify the actions and icons
+  /// if forignkey text field has the same name as the home screen's field.
+  /// Default is null
+  final String schemaName;
+
   /// Schema you want to have. This is a JSON object
   /// Using dart's map data structure
   final List<Map<String, dynamic>> schema;
@@ -49,6 +55,7 @@ class JSONSchemaForm extends StatefulWidget {
       this.actions,
       this.values,
       this.rounded = false,
+      this.schemaName,
       this.url = "http://0.0.0.0"});
 
   @override
@@ -69,12 +76,14 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
     if (widget.actions != null && (Platform.isIOS || Platform.isAndroid)) {
       PermissionHandler()
           .requestPermissions([PermissionGroup.camera]).then((m) => null);
-      schemaList = FieldAction().merge(schemaList, widget.actions);
+      schemaList =
+          FieldAction().merge(schemaList, widget.actions, widget.schemaName);
     }
 
     /// Merge icons
     if (widget.icons != null) {
-      schemaList = FieldIcon().merge(schemaList, widget.icons);
+      schemaList =
+          FieldIcon().merge(schemaList, widget.icons, widget.schemaName);
     }
 
     /// Merge values
@@ -103,6 +112,8 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
           url: widget.url,
           isOutlined: widget.rounded,
           schema: schema,
+          actions: widget.actions,
+          icons: widget.icons,
           onSaved: (Choice value) {
             setState(() {
               schema.value = value.value;

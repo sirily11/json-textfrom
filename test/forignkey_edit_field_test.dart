@@ -22,6 +22,7 @@ void main() {
         MaterialApp(
           home: Material(
             child: JSONForignKeyEditField(
+              name: "abc",
               baseURL: "http://0.0.0.0",
               path: "/aaa",
               httpClient: httpClient,

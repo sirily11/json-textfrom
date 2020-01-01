@@ -21,15 +21,9 @@ class JSONSelectField extends StatelessWidget {
       child: Container(
         decoration: isOutlined
             ? BoxDecoration(
-                border: Border.all(
-                    color: Theme.of(context)
-                            .inputDecorationTheme
-                            ?.border
-                            ?.borderSide
-                            ?.color ??
-                        Colors.black),
+                border: Border.all(),
                 borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).inputDecorationTheme.fillColor ?? null)
+                color: Theme.of(context).inputDecorationTheme.fillColor)
             : null,
         child: ListTile(
           key: Key("selection-field"),
@@ -55,7 +49,7 @@ class JSONSelectField extends StatelessWidget {
                           },
                           title: "Select ${schema.name}",
                           selections: schema.extra.choices,
-                          value: schema.value,
+                          value: schema.value ?? schema.extra.defaultValue,
                         );
                       },
                     ),

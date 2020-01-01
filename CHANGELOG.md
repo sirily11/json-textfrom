@@ -24,3 +24,13 @@
 ## [0.6.8]
 
 - Added more tests
+
+## [0.6.9]
+
+- Fixed QR scanning issues
+
+## [0.7.3]
+
+- Added on action done callback
+- Added actions for forign key
+- Added get image action
