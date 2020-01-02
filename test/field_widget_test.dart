@@ -213,15 +213,18 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Material(
-            child: JSONForm(
-              schema: schema,
-              icons: [FieldIcon(iconData: Icons.home, schemaName: "name")],
-              actions: [
-                FieldAction(
-                  schemaName: "name",
-                  actionTypes: ActionTypes.qrScan,
-                )
-              ],
+            child: ChangeNotifierProvider(
+              create: (_) => MockProvider(),
+              child: JSONForm(
+                schema: schema,
+                icons: [FieldIcon(iconData: Icons.home, schemaName: "name")],
+                actions: [
+                  FieldAction(
+                    schemaName: "name",
+                    actionTypes: ActionTypes.qrScan,
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -260,21 +263,27 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Material(
-            child: JSONForm(
-              schema: schema,
-              icons: [
-                FieldIcon(
-                    iconData: Icons.home,
-                    schemaName: "name",
-                    schemaFor: "author_id")
-              ],
-              actions: [
-                FieldAction(
-                  schemaFor: "author_id",
-                  schemaName: "name",
-                  actionTypes: ActionTypes.qrScan,
-                )
-              ],
+            child: ChangeNotifierProvider(
+              create: (_) => MockProvider(),
+              child: ChangeNotifierProvider(
+                create: (_) => MockProvider(),
+                child: JSONForm(
+                  schema: schema,
+                  icons: [
+                    FieldIcon(
+                        iconData: Icons.home,
+                        schemaName: "name",
+                        schemaFor: "author_id")
+                  ],
+                  actions: [
+                    FieldAction(
+                      schemaFor: "author_id",
+                      schemaName: "name",
+                      actionTypes: ActionTypes.qrScan,
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
         ),

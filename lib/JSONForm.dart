@@ -7,11 +7,9 @@ import 'package:json_schema_form/components/JSONSelectField.dart';
 import 'package:json_schema_form/components/JSONTextFormField.dart';
 import 'package:json_schema_form/models/Action.dart';
 import 'package:json_schema_form/models/Icon.dart';
-import 'package:json_schema_form/models/NetworkProvider.dart';
 import 'package:json_schema_form/models/Schema.dart';
 import 'package:json_schema_form/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 
 typedef Future OnSubmit(Map<String, dynamic> json);
 
