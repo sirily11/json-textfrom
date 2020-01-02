@@ -7,10 +7,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:json_schema_form/JSONForm.dart';
 import 'package:json_schema_form/JSONSchemaForm.dart';
 import 'package:json_schema_form/components/JSONSelectField.dart';
 import 'package:json_schema_form/components/JSONTextFormField.dart';
+import 'package:json_schema_form/models/Action.dart';
+import 'package:json_schema_form/models/Icon.dart';
+import 'package:json_schema_form/models/NetworkProvider.dart';
 import 'package:json_schema_form/models/Schema.dart';
+import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
+
+import 'forignkey_edit_field_test.dart';
 
 void main() {
   group("Widget test", () {
@@ -187,6 +195,146 @@ void main() {
       );
       expect(find.byKey(Key("textfield")), findsOneWidget);
     });
-  });
 
+    testWidgets('Test icons', (WidgetTester tester) async {
+      List<Map<String, dynamic>> schema = [
+        {
+          "label": "Name",
+          "readonly": false,
+          "extra": {},
+          "name": "name",
+          "widget": "number",
+          "required": false,
+          "translated": false,
+          "validations": {}
+        },
+      ];
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Material(
+            child: JSONForm(
+              schema: schema,
+              icons: [FieldIcon(iconData: Icons.home, schemaName: "name")],
+              actions: [
+                FieldAction(
+                  schemaName: "name",
+                  actionTypes: ActionTypes.qrScan,
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(find.byIcon(Icons.home), findsOneWidget);
+      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+    });
+
+    testWidgets('Test icons while action is for forign key field',
+        (WidgetTester tester) async {
+      NetworkProvider provider = MockProvider();
+      List<Map<String, dynamic>> schema = [
+        {
+          "label": "Name",
+          "readonly": false,
+          "extra": {},
+          "name": "name",
+          "widget": "number",
+          "required": false,
+          "translated": false,
+          "validations": {}
+        },
+        {
+          "label": "author",
+          "readonly": false,
+          "extra": {"related_model": "storage-management/author"},
+          "name": "author_id",
+          "widget": "foreignkey",
+          "required": false,
+          "translated": false,
+          "validations": {}
+        }
+      ];
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Material(
+            child: JSONForm(
+              schema: schema,
+              icons: [
+                FieldIcon(
+                    iconData: Icons.home,
+                    schemaName: "name",
+                    schemaFor: "author_id")
+              ],
+              actions: [
+                FieldAction(
+                  schemaFor: "author_id",
+                  schemaName: "name",
+                  actionTypes: ActionTypes.qrScan,
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(find.byIcon(Icons.home), findsNothing);
+      expect(find.byIcon(Icons.camera_alt), findsNothing);
+    });
+
+    testWidgets('Test icons while action is for forign key field',
+        (WidgetTester tester) async {
+      List<Map<String, dynamic>> schema = [
+        {
+          "label": "Name",
+          "readonly": false,
+          "extra": {},
+          "name": "name",
+          "widget": "number",
+          "required": false,
+          "translated": false,
+          "validations": {}
+        },
+        {
+          "label": "author",
+          "readonly": false,
+          "extra": {"related_model": "storage-management/author"},
+          "name": "author_id",
+          "widget": "foreignkey",
+          "required": false,
+          "translated": false,
+          "validations": {}
+        }
+      ];
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Material(
+            child: JSONForm(
+              schemaName: "author_id",
+              schema: schema,
+              icons: [
+                FieldIcon(
+                    iconData: Icons.home,
+                    schemaName: "name",
+                    schemaFor: "author_id")
+              ],
+              actions: [
+                FieldAction(
+                  schemaFor: "author_id",
+                  schemaName: "name",
+                  actionTypes: ActionTypes.image,
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(find.byIcon(Icons.home), findsOneWidget);
+      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+    });
+  });
 }

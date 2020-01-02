@@ -95,7 +95,7 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
                                 await _suffixIconAction(image: file);
                               },
                             )
-                          : null,
+                          : Container(),
                       ListTile(
                         leading: Icon(Icons.filter),
                         title: Text("From Gallery"),

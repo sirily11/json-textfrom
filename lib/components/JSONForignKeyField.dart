@@ -87,8 +87,6 @@ class JSONForignKeyField extends StatelessWidget {
               fillColor: Colors.blue,
               shape: new CircleBorder(),
               onPressed: () async {
-                NetworkProvider provider = Provider.of(context);
-
                 /// Add new field
                 Navigator.push(
                   context,

@@ -72,9 +72,12 @@ class _JSONSchemaFormState extends State<JSONForm> {
     schemaList = Schema.convertFromList(widget.schema);
 
     /// Merge actions
-    if (widget.actions != null && (Platform.isIOS || Platform.isAndroid)) {
-      PermissionHandler()
-          .requestPermissions([PermissionGroup.camera]).then((m) => null);
+    if (widget.actions != null) {
+      if (Platform.isIOS || Platform.isAndroid) {
+        PermissionHandler()
+            .requestPermissions([PermissionGroup.camera]).then((m) => null);
+      }
+
       schemaList =
           FieldAction().merge(schemaList, widget.actions, widget.schemaName);
     }
