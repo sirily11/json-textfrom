@@ -5,6 +5,8 @@ import 'package:json_schema_form/components/SelectionPage.dart';
 import 'package:json_schema_form/models/Schema.dart';
 import 'package:mockito/mockito.dart';
 
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
 void main() {
   group("Selection Page Test", () {
     final Type radioListTileType = const RadioListTile<int>(
@@ -177,8 +179,11 @@ void main() {
         "translated": false,
         "validations": {}
       };
+      final mockObserver = MockNavigatorObserver();
+
       await tester.pumpWidget(
         MaterialApp(
+          navigatorObservers: [mockObserver],
           home: Material(
             child: JSONSelectField(
               schema: Schema.fromJSON(schema),
@@ -189,6 +194,11 @@ void main() {
 
       expect(find.text("Select unit"), findsOneWidget);
       expect(find.text("USD"), findsOneWidget);
+      await tester.tap(find.text("Select unit"));
+      await tester.pump();
+      await tester.pumpAndSettle();
+      verify(mockObserver.didPush(any, any));
+      expect(find.byType(SelectionPage), findsOneWidget);
     });
   });
 }
