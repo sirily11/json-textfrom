@@ -3,15 +3,18 @@ PODS:
     - Flutter
     - MTBBarcodeScanner
   - Flutter (1.0.0)
+  - flutter_plugin_android_lifecycle (0.0.1):
+    - Flutter
   - image_picker (0.0.1):
     - Flutter
   - MTBBarcodeScanner (5.0.11)
-  - permission_handler (3.2.2):
+  - permission_handler (3.3.0):
     - Flutter
 
 DEPENDENCIES:
   - barcode_scan (from `.symlinks/plugins/barcode_scan/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
+  - flutter_plugin_android_lifecycle (from `.symlinks/plugins/flutter_plugin_android_lifecycle/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
 
@@ -24,6 +27,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/barcode_scan/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
+  flutter_plugin_android_lifecycle:
+    :path: ".symlinks/plugins/flutter_plugin_android_lifecycle/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
   permission_handler:
@@ -32,9 +37,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   barcode_scan: 33f586d02270046fc6559135038b34b5754eaa4f
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_plugin_android_lifecycle: 47de533a02850f070f5696a623995e93eddcdb9b
   image_picker: e3eacd46b94694dde7cf2705955cece853aa1a8f
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
-  permission_handler: d59f41439f5bc6c4d1005f3355e98f05ddc68ece
+  permission_handler: 67637977b227d62d46bfbf524f335f8568de5a73
 
 PODFILE CHECKSUM: 10ae9c18d12c9ffc2275c9a159a3b1e281990db0
 

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:json_schema_form/components/JSONDateTimeField.dart';
 import 'package:json_schema_form/components/JSONForignKeyField.dart';
 import 'package:json_schema_form/components/JSONSelectField.dart';
 import 'package:json_schema_form/components/JSONTextFormField.dart';
@@ -95,6 +96,18 @@ class _JSONSchemaFormState extends State<JSONForm> {
   /// Render body widget based on widget type
   Widget _buildBody(Schema schema) {
     switch (schema.widget) {
+      case WidgetType.datetime:
+        return JSONDateTimeField(
+          key: Key(schema.name),
+          schema: schema,
+          isOutlined: widget.rounded,
+          onSaved: (String value) {
+            setState(() {
+              schema.value = value;
+            });
+          },
+        );
+
       case (WidgetType.select):
         return JSONSelectField(
           isOutlined: widget.rounded,

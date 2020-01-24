@@ -35,6 +35,16 @@ Map<String, dynamic> itemJSONData = {
       }
     },
     {
+      "label": "created time",
+      "readonly": false,
+      "extra": {"help": "Please enter your item description"},
+      "name": "time",
+      "widget": "datetime",
+      "required": true,
+      "translated": false,
+      "validations": {}
+    },
+    {
       "label": "price",
       "readonly": false,
       "extra": {"default": 0.0},

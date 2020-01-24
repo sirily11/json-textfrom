@@ -132,7 +132,7 @@ class Validation {
   Validation({this.length});
 
   factory Validation.fromJSON(Map<dynamic, dynamic> json) {
-    return Validation(length: Length.fromJSON(json['length']));
+    return Validation(length:  Length.fromJSON(json['length']));
   }
 }
 
