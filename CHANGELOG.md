@@ -34,3 +34,8 @@
 - Added on action done callback
 - Added actions for forign key
 - Added get image action
+
+## [0.8.0]
+
+- Added Datetime Field
+- Added Example for Datetime Field

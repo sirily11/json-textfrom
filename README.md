@@ -9,6 +9,7 @@ It supports:
 - Selection field
 - forignkey field
 - qrcode scanning
+- DateTime Field
 - custom field icon and action
 
 # Getting start
