@@ -47,7 +47,7 @@ class JSONSelectField extends StatelessWidget {
                               this.onSaved(value);
                             }
                           },
-                          title: "Select ${schema.name}",
+                          title: "Select ${schema.label}",
                           selections: schema.extra.choices,
                           value: schema.value ?? schema.extra.defaultValue,
                         );
@@ -55,7 +55,7 @@ class JSONSelectField extends StatelessWidget {
                     ),
                   );
                 },
-          title: Text("Select ${schema.name}"),
+          title: Text("Select ${schema.label}"),
           subtitle: Text(schema.value ?? schema?.extra?.defaultValue ?? ""),
         ),
       ),
