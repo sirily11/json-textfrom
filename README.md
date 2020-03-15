@@ -70,3 +70,5 @@ JSONSchemaForm(
 ```
 
 As you can see, you can provide actions and icons based on the name property in the schema's data.
+
+## More tutorials

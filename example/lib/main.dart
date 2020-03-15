@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/JSONSchemaForm.dart';
-import 'package:json_schema_form/models/Action.dart';
-import 'package:json_schema_form/models/Icon.dart';
+import 'package:json_schema_form/json_textform.dart';
+import 'package:json_schema_form/json_textform/JSONSchemaForm.dart';
+import 'package:json_schema_form/json_textform/models/Action.dart';
+import 'package:json_schema_form/json_textform/models/Icon.dart';
 
 import 'data/sample_data.dart';
 
@@ -26,6 +27,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  JSONSchemaController controller = JSONSchemaController();
+
   Future<Map<String, dynamic>> getSchema() async {
     await Future.delayed(Duration(milliseconds: 100));
     return itemJSONData;
@@ -52,6 +55,12 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text("Form"),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          var value = await this.controller.onSubmit(context);
+          print(value);
+        },
+      ),
       body: FutureBuilder<Map<String, dynamic>>(
           future: getSchema(),
           builder: (context, snapshot) {
@@ -62,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
               data: buildTheme(),
               child: JSONSchemaForm(
                 rounded: true,
+                controller: controller,
                 schema: (snapshot.data['fields'] as List)
                     .map((s) => s as Map<String, dynamic>)
                     .toList(),
@@ -98,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         return "abc";
                       })
                 ],
-                onSubmit: (value) {
+                onSubmit: (value) async {
                   print(value);
                 },
                 url: "http://192.168.1.114:8000",

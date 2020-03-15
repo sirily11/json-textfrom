@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:json_schema_form/json_textform.dart';
 import 'package:json_schema_form/json_textform/JSONForm.dart';
 import 'package:json_schema_form/json_textform/models/Action.dart';
 import 'package:json_schema_form/json_textform/models/Icon.dart';
@@ -16,6 +17,8 @@ typedef Future OnSubmit(Map<String, dynamic> json);
 /// Which will take a schema input
 /// and generate a form
 class JSONSchemaForm extends StatefulWidget {
+  final JSONSchemaController controller;
+
   /// Schema's name
   /// Use this to identify the actions and icons
   /// if forignkey text field has the same name as the home screen's field.
@@ -49,18 +52,22 @@ class JSONSchemaForm extends StatefulWidget {
   /// Round corner of text field
   final bool rounded;
 
+  /// Whether show submit button
+  final bool showSubmitButton;
+
   final Dio networkProvider = Dio();
 
-  JSONSchemaForm({
-    @required this.schema,
-    this.onSubmit,
-    this.icons,
-    this.actions,
-    this.values,
-    this.rounded = false,
-    this.schemaName,
-    this.url = "http://0.0.0.0",
-  });
+  JSONSchemaForm(
+      {@required this.schema,
+      this.onSubmit,
+      this.icons,
+      this.actions,
+      this.values,
+      this.rounded = false,
+      this.schemaName,
+      this.controller,
+      this.url = "http://0.0.0.0",
+      this.showSubmitButton = true});
 
   @override
   _JSONSchemaFormState createState() => _JSONSchemaFormState();
@@ -93,6 +100,8 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
         actions: widget.actions,
         values: widget.values,
         rounded: widget.rounded,
+        controller: widget.controller,
+        showSubmitButton: widget.showSubmitButton,
       ),
     );
   }

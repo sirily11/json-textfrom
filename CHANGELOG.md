@@ -39,3 +39,9 @@
 
 - Added Datetime Field
 - Added Example for Datetime Field
+
+## [0.8.3]
+
+- Added controller
+- Fixed bugs
+- Added docs

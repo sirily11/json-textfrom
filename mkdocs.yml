@@ -1,0 +1,8 @@
+site_name: JSON Schema Docs
+theme:
+  name: "material"
+nav:
+  - Home: index.md
+  - ForignKey: forignkey/index.md
+  - Selection Field: selection/index.md
+  - Examples: examples/index.md

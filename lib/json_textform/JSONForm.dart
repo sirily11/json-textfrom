@@ -7,6 +7,7 @@ import 'package:json_schema_form/json_textform/components/JSONForignKeyField.dar
 import 'package:json_schema_form/json_textform/components/JSONSelectField.dart';
 import 'package:json_schema_form/json_textform/components/JSONTextFormField.dart';
 import 'package:json_schema_form/json_textform/models/Action.dart';
+import 'package:json_schema_form/json_textform/models/Controller.dart';
 import 'package:json_schema_form/json_textform/models/Icon.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 import 'package:json_schema_form/json_textform/utils.dart';
@@ -18,6 +19,13 @@ typedef Future OnSubmit(Map<String, dynamic> json);
 /// Which will take a schema input
 /// and generate a form
 class JSONForm extends StatefulWidget {
+  final bool showSubmitButton;
+
+  /// [optional] Schema controller.
+  /// Call this to get value back from fields if you want to have
+  /// your custom submit button.
+  final JSONSchemaController controller;
+
   /// Schema's name
   /// Use this to identify the actions and icons
   /// if forignkey text field has the same name as the home screen's field.
@@ -46,15 +54,16 @@ class JSONForm extends StatefulWidget {
   /// Round corner of text field
   final bool rounded;
 
-  JSONForm({
-    @required this.schema,
-    this.onSubmit,
-    this.icons,
-    this.actions,
-    this.values,
-    this.rounded = false,
-    this.schemaName,
-  });
+  JSONForm(
+      {@required this.schema,
+      this.onSubmit,
+      this.icons,
+      this.actions,
+      this.values,
+      this.rounded = false,
+      this.schemaName,
+      this.controller,
+      this.showSubmitButton = false});
 
   @override
   _JSONSchemaFormState createState() => _JSONSchemaFormState();
@@ -90,6 +99,9 @@ class _JSONSchemaFormState extends State<JSONForm> {
     /// Merge values
     if (widget.values != null) {
       schemaList = Schema.mergeValues(schemaList, widget.values);
+    }
+    if (widget.controller != null) {
+      widget.controller.onSubmit = this.onPressSubmitButton;
     }
   }
 
@@ -169,51 +181,60 @@ class _JSONSchemaFormState extends State<JSONForm> {
                   },
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Container(
-                      width: 300,
-                      height: 40,
-                      child: RaisedButton(
-                        color: Theme.of(context).buttonColor,
-                        child: Text(
-                          "Submit",
-                          style: TextStyle(
-                              color: Theme.of(context)
-                                  .primaryTextTheme
-                                  .title
-                                  .color),
+              widget.showSubmitButton
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Container(
+                            width: 300,
+                            height: 40,
+                            child: RaisedButton(
+                              color: Theme.of(context).buttonColor,
+                              child: Text(
+                                "Submit",
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .primaryTextTheme
+                                        .title
+                                        .color),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      new BorderRadius.circular(30.0)),
+                              onPressed: () async {
+                                await onPressSubmitButton(context);
+                              },
+                            ),
+                          ),
                         ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(30.0)),
-                        onPressed: () async {
-                          if (_formKey.currentState.validate()) {
-                            _formKey.currentState.save();
-                            // hide keyboard
-                            FocusScope.of(context).requestFocus(FocusNode());
-                            Map<String, dynamic> ret =
-                                getSubmitJSON(schemaList);
-                            // call on submit function
-                            if (widget.onSubmit != null) {
-                              await widget.onSubmit(ret);
-                            }
-                            // clear the content
-                            _formKey.currentState.reset();
-                          }
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              )
+                      ],
+                    )
+                  : Container()
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<Map<String, dynamic>> onPressSubmitButton(BuildContext context) async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      // hide keyboard
+      FocusScope.of(context).requestFocus(FocusNode());
+      Map<String, dynamic> ret = getSubmitJSON(schemaList);
+      // call on submit function
+      if (widget.onSubmit != null) {
+        await widget.onSubmit(ret);
+      }
+      // clear the content
+      _formKey.currentState.reset();
+      return ret;
+    } else {
+      throw Exception("Form data is not vaild");
+    }
   }
 }
