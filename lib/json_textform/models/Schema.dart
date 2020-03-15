@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/models/Action.dart';
-import 'package:json_schema_form/models/Icon.dart';
-
+import 'package:json_schema_form/json_textform/models/Action.dart';
+import 'package:json_schema_form/json_textform/models/Icon.dart';
 enum WidgetType { text, number, datetime, foreignkey, unknown, select }
 
 class Schema {

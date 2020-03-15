@@ -7,14 +7,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:json_schema_form/JSONForm.dart';
-import 'package:json_schema_form/JSONSchemaForm.dart';
-import 'package:json_schema_form/components/JSONSelectField.dart';
-import 'package:json_schema_form/components/JSONTextFormField.dart';
-import 'package:json_schema_form/models/Action.dart';
-import 'package:json_schema_form/models/Icon.dart';
-import 'package:json_schema_form/models/NetworkProvider.dart';
-import 'package:json_schema_form/models/Schema.dart';
+import 'package:json_schema_form/json_textform/JSONSchemaForm.dart';
+import 'package:json_schema_form/json_textform/components/JSONSelectField.dart';
+import 'package:json_schema_form/json_textform/components/JSONTextFormField.dart';
+import 'package:json_schema_form/json_textform/models/Action.dart';
+import 'package:json_schema_form/json_textform/models/Icon.dart';
+import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
+import 'package:json_schema_form/json_textform/models/Schema.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 

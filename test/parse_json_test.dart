@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:json_schema_form/models/Schema.dart';
-
+import 'package:json_schema_form/json_textform/models/Schema.dart';
 
 void main() {
   test("Parse JSON", () {
@@ -114,5 +113,4 @@ void main() {
     expect(s.extra.choices[0].label, "美元");
     expect(s.extra.choices[0].value, "USD");
   });
-
 }

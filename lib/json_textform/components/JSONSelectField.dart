@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/components/SelectionPage.dart';
-import 'package:json_schema_form/models/Schema.dart';
+import 'package:json_schema_form/json_textform/components/SelectionPage.dart';
+import 'package:json_schema_form/json_textform/models/Schema.dart';
+
 
 class JSONSelectField extends StatelessWidget {
   final Schema schema;

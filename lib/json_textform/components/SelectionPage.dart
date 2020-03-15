@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/models/Schema.dart';
+import 'package:json_schema_form/json_textform/models/Schema.dart';
 
 class SelectionPage extends StatefulWidget {
   final String title;

@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:json_schema_form/models/Icon.dart';
-import 'package:json_schema_form/models/Schema.dart';
+import 'package:json_schema_form/json_textform/models/Icon.dart';
+import 'package:json_schema_form/json_textform/models/Schema.dart';
+
 
 /// Actions type
 enum ActionTypes { image, qrScan }

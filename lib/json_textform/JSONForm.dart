@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/components/JSONDateTimeField.dart';
-import 'package:json_schema_form/components/JSONForignKeyField.dart';
-import 'package:json_schema_form/components/JSONSelectField.dart';
-import 'package:json_schema_form/components/JSONTextFormField.dart';
-import 'package:json_schema_form/models/Action.dart';
-import 'package:json_schema_form/models/Icon.dart';
-import 'package:json_schema_form/models/Schema.dart';
-import 'package:json_schema_form/utils.dart';
+import 'package:json_schema_form/json_textform/components/JSONDateTimeField.dart';
+import 'package:json_schema_form/json_textform/components/JSONForignKeyField.dart';
+import 'package:json_schema_form/json_textform/components/JSONSelectField.dart';
+import 'package:json_schema_form/json_textform/components/JSONTextFormField.dart';
+import 'package:json_schema_form/json_textform/models/Action.dart';
+import 'package:json_schema_form/json_textform/models/Icon.dart';
+import 'package:json_schema_form/json_textform/models/Schema.dart';
+import 'package:json_schema_form/json_textform/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 typedef Future OnSubmit(Map<String, dynamic> json);

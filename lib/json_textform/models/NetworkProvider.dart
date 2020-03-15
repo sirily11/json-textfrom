@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/models/Schema.dart';
-import 'package:json_schema_form/utils.dart';
+import 'package:json_schema_form/json_textform/models/Schema.dart';
+import 'package:json_schema_form/json_textform/utils.dart';
 
 class NetworkProvider with ChangeNotifier {
   Dio networkProvider;

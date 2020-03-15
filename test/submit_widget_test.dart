@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:json_schema_form/JSONSchemaForm.dart';
+import 'package:json_schema_form/json_textform/JSONSchemaForm.dart';
 
 void main() {
   group("Submit widget test", () {

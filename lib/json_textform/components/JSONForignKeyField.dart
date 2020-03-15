@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/components/JSONForignKeyEditField.dart';
-import 'package:json_schema_form/components/SelectionPage.dart';
-import 'package:json_schema_form/models/Action.dart';
-import 'package:json_schema_form/models/Icon.dart';
-import 'package:json_schema_form/models/NetworkProvider.dart';
-import 'package:json_schema_form/models/Schema.dart';
-import 'package:json_schema_form/utils.dart';
+import 'package:json_schema_form/json_textform/components/JSONForignKeyEditField.dart';
+import 'package:json_schema_form/json_textform/components/SelectionPage.dart';
+import 'package:json_schema_form/json_textform/models/Action.dart';
+import 'package:json_schema_form/json_textform/models/Icon.dart';
+import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
+import 'package:json_schema_form/json_textform/models/Schema.dart';
 import 'package:provider/provider.dart';
 
 class JSONForignKeyField extends StatelessWidget {

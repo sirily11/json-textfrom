@@ -1,6 +1,6 @@
 # Flutter JSON Form
 
-[![Build Status](https://travis-ci.org/sirily11/json-textfrom.svg?branch=master)](https://travis-ci.org/sirily11/json-textfrom)
+![Flutter test](https://github.com/sirily11/json-textfrom/workflows/Flutter%20test/badge.svg)
 
 This is the plugin for flutter using JSON Schema to define the form itself.
 It supports:
@@ -49,7 +49,7 @@ Map<String, dynamic> itemJSONData = {
 
 ```dart
 
-SONSchemaForm(
+JSONSchemaForm(
                 schema: (snapshot.data['fields'] as List)
                     .map((s) => s as Map<String, dynamic>)
                     .toList(),

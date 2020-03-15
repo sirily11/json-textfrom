@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:json_schema_form/components/JSONForignKeyEditField.dart';
-import 'package:json_schema_form/models/NetworkProvider.dart';
+import 'package:json_schema_form/json_textform/components/JSONForignKeyEditField.dart';
+import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
+
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 
