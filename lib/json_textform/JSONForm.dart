@@ -234,7 +234,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
       _formKey.currentState.reset();
       return ret;
     } else {
-      throw Exception("Form data is not vaild");
+      print("Form is not vaild");
     }
   }
 }
