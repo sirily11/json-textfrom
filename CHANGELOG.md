@@ -45,3 +45,7 @@
 - Added controller
 - Fixed bugs
 - Added docs
+
+## [0.8.4]
+
+- update dependencies

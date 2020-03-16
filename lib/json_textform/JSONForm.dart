@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/components/JSONDateTimeField.dart';
 import 'package:json_schema_form/json_textform/components/JSONForignKeyField.dart';

@@ -1,14 +1,10 @@
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/JSONForm.dart';
 import 'package:json_schema_form/json_textform/models/Action.dart';
 import 'package:json_schema_form/json_textform/models/Icon.dart';
 import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:provider/provider.dart';
-
-import '../JSONSchemaForm.dart';
-import '../utils.dart';
 
 /// This is the field for forign key.
 /// For example if model b is forign key of model a
