@@ -72,3 +72,5 @@ JSONSchemaForm(
 As you can see, you can provide actions and icons based on the name property in the schema's data.
 
 ## More tutorials
+
+read more on [this](https://sirily11.github.io/json-textfrom/)
