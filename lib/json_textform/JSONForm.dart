@@ -233,6 +233,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
       return ret;
     } else {
       print("Form is not vaild");
+      return {};
     }
   }
 }

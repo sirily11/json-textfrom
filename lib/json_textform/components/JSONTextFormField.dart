@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:json_schema_form/json_textform/models/Action.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class JSONTextFormField extends StatefulWidget {
   final Schema schema;

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/JSONForm.dart';
 import 'package:json_schema_form/json_textform/models/Action.dart';
@@ -200,6 +199,7 @@ class JSONForignKeyEditField extends StatelessWidget {
                   schema: schemaSnapshot.data,
                   values: valueSnapshot.data,
                   actions: actions,
+                  showSubmitButton: true,
                   icons: icons,
                   onSubmit: (Map<String, dynamic> json) async {
                     if (isEdit) {

@@ -31,7 +31,7 @@ class NetworkProvider with ChangeNotifier {
   Future updateField(String path, Map<String, dynamic> json, dynamic id) async {
     try {
       String u = "${_preProcessURL(path)}$id/";
-      Response response = await networkProvider.patch(u, data: json);
+      await networkProvider.patch(u, data: json);
       return;
     } on DioError catch (e) {
       _showSnackBar(e.message);
@@ -43,7 +43,7 @@ class NetworkProvider with ChangeNotifier {
   Future addField(String path, Map<String, dynamic> json) async {
     try {
       String u = _preProcessURL(path);
-      Response response = await networkProvider.post(u, data: json);
+      await networkProvider.post(u, data: json);
       return;
     } on DioError catch (e) {
       _showSnackBar(e.message);
