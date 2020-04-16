@@ -49,3 +49,7 @@
 ## [0.8.4]
 
 - update dependencies
+
+## [0.8.5]
+
+- Fixed bugs

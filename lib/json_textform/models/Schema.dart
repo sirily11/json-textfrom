@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/models/Action.dart';
 import 'package:json_schema_form/json_textform/models/Icon.dart';
+
 enum WidgetType { text, number, datetime, foreignkey, unknown, select }
 
 class Schema {
@@ -131,7 +132,8 @@ class Validation {
   Validation({this.length});
 
   factory Validation.fromJSON(Map<dynamic, dynamic> json) {
-    return Validation(length:  Length.fromJSON(json['length']));
+    return Validation(
+        length: json != null ? Length.fromJSON(json['length']) : null);
   }
 }
 
