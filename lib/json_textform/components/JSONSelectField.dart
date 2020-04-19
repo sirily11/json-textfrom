@@ -1,22 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/components/SelectionPage.dart';
+import 'package:json_schema_form/json_textform/models/Icon.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 
+typedef void OnChange(Choice choice);
 
 class JSONSelectField extends StatelessWidget {
   final Schema schema;
-  final Function onSaved;
+  final OnChange onSaved;
   final bool showIcon;
   final bool isOutlined;
 
-  JSONSelectField(
-      {@required this.schema,
-      this.onSaved,
-      this.showIcon = true,
-      this.isOutlined = false});
+  /// implementation. Default is false
+  final bool useDropdownButton;
+
+  JSONSelectField({
+    @required this.schema,
+    this.onSaved,
+    this.showIcon = true,
+    this.isOutlined = false,
+    @required this.useDropdownButton,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (useDropdownButton) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
+        child: Row(
+          children: <Widget>[
+            if (schema.icon != null)
+              Icon(
+                schema.icon.iconData,
+                color: Theme.of(context).iconTheme.color,
+              ),
+            Spacer(),
+            Expanded(
+              flex: 9,
+              child: DropdownButton(
+                hint: Text("Select ${schema.label}"),
+                isExpanded: true,
+                onChanged: (v) {
+                  this.onSaved(v);
+                },
+                value: schema?.extra?.choices?.firstWhere(
+                  (element) => element.value == schema.value,
+                  orElse: () => null,
+                ),
+                items: schema?.extra?.choices
+                    ?.map(
+                      (e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(e.label),
+                      ),
+                    )
+                    ?.toList(),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
       child: Container(

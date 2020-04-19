@@ -1,6 +1,6 @@
 name: json_schema_form
 description: A JSON Schema form. This widget will provide you a simple way to generate form from JSON Schema.
-version: 0.8.5
+version: 1.0.0
 homepage: https://github.com/sirily11/json-textfrom
 
 environment:
@@ -9,11 +9,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^3.0.1
-  barcode_scan: ^2.0.1
-  permission_handler: ^4.4.0+hotfix.1
+  dio: ^3.0.9
+  barcode_scan: ^3.0.0
+  permission_handler: ^5.0.0+hotfix.3
   progress_indicators: ^0.1.4
-  image_picker: ^0.6.2+3
+  image_picker: ^0.6.5
   provider: ^4.0.1
 
 dev_dependencies:

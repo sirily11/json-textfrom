@@ -128,12 +128,13 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
             onPressed: () async {
               if (Platform.isAndroid || Platform.isIOS) {
                 try {
-                  String barcode = await BarcodeScanner.scan();
-                  await _suffixIconAction(inputValue: barcode);
+                  var result = await BarcodeScanner.scan();
+                  await _suffixIconAction(inputValue: result.rawContent);
                 } on PlatformException catch (e) {
-                  if (e.code == BarcodeScanner.CameraAccessDenied) {
-                  } else {}
-                } on FormatException {} catch (e) {}
+                  print(e);
+                } on FormatException {} catch (e) {
+                  print("format error: $e");
+                }
               } else if (Platform.isMacOS) {
                 //TODO: Add macOS support
               }
@@ -156,7 +157,7 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
             widget.onSaved(value);
           },
           key: Key("textfield"),
-          // controller: _controller,
+          maxLines: widget.schema.validation?.length?.maximum == null ? 10 : 1,
           controller: _controller,
           keyboardType: widget.schema.widget == WidgetType.number
               ? TextInputType.number

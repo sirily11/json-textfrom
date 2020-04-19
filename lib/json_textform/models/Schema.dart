@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/models/Action.dart';
 import 'package:json_schema_form/json_textform/models/Icon.dart';
 
-enum WidgetType { text, number, datetime, foreignkey, unknown, select }
+enum WidgetType {
+  text,
+  number,
+  datetime,
+  foreignkey,
+  unknown,
+  select,
+  checkbox
+}
 
 class Schema {
   /// Text which will be displayed at screen
@@ -116,13 +124,15 @@ class Extra {
   Extra({this.defaultValue, this.helpText, this.choices, this.relatedModel});
 
   factory Extra.fromJSON(Map<dynamic, dynamic> json) {
+    if (json == null) return null;
     List<Choice> choices =
         json['choices']?.map<Choice>((s) => Choice.fromJSON(s))?.toList();
     return Extra(
-        defaultValue: json['default'],
-        helpText: json['help'],
-        relatedModel: json['related_model'],
-        choices: choices);
+      defaultValue: json['default'],
+      helpText: json['help'],
+      relatedModel: json['related_model'],
+      choices: choices,
+    );
   }
 }
 

@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ThemeData buildTheme() {
     final ThemeData base = ThemeData();
     return base.copyWith(
-      iconTheme: IconThemeData(color: Colors.white),
+      iconTheme: IconThemeData(color: Colors.grey),
       inputDecorationTheme: InputDecorationTheme(
         fillColor: Colors.blue,
         border: OutlineInputBorder(
@@ -55,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text("Form"),
       ),
       floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.publish),
         onPressed: () async {
           var value = await this.controller.onSubmit(context);
           print(value);
@@ -71,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: JSONSchemaForm(
                 rounded: true,
                 controller: controller,
+                useDropdownButton: true,
                 schema: (snapshot.data['fields'] as List)
                     .map((s) => s as Map<String, dynamic>)
                     .toList(),

@@ -53,3 +53,9 @@
 ## [0.8.5]
 
 - Fixed bugs
+
+## [1.0.0]
+
+- Added checkbox field
+- Added dropdown menu for selection field
+- Added tests

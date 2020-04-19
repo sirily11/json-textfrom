@@ -52,19 +52,28 @@ class JSONSchemaForm extends StatefulWidget {
   /// Whether show submit button
   final bool showSubmitButton;
 
+  /// Whether use dropdown button instead of using
+  /// another page to show choices.
+  /// This will only apply for the select field,
+  /// but not forign key field based on current
+  /// implementation. Default is false
+  final bool useDropdownButton;
+
   final Dio networkProvider = Dio();
 
-  JSONSchemaForm(
-      {@required this.schema,
-      this.onSubmit,
-      this.icons,
-      this.actions,
-      this.values,
-      this.rounded = false,
-      this.schemaName,
-      this.controller,
-      this.url = "http://0.0.0.0",
-      this.showSubmitButton = true});
+  JSONSchemaForm({
+    @required this.schema,
+    this.onSubmit,
+    this.icons,
+    this.actions,
+    this.values,
+    this.rounded = false,
+    this.schemaName,
+    this.controller,
+    this.url = "http://0.0.0.0",
+    this.showSubmitButton = true,
+    this.useDropdownButton = false,
+  });
 
   @override
   _JSONSchemaFormState createState() => _JSONSchemaFormState();
@@ -99,6 +108,7 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
         rounded: widget.rounded,
         controller: widget.controller,
         showSubmitButton: widget.showSubmitButton,
+        useDropdownButton: widget.useDropdownButton,
       ),
     );
   }

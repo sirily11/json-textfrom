@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:json_schema_form/json_textform/components/JSONCheckboxField.dart';
 import 'package:json_schema_form/json_textform/components/JSONDateTimeField.dart';
 import 'package:json_schema_form/json_textform/components/JSONForignKeyField.dart';
 import 'package:json_schema_form/json_textform/components/JSONSelectField.dart';
@@ -52,16 +53,25 @@ class JSONForm extends StatefulWidget {
   /// Round corner of text field
   final bool rounded;
 
-  JSONForm(
-      {@required this.schema,
-      this.onSubmit,
-      this.icons,
-      this.actions,
-      this.values,
-      this.rounded = false,
-      this.schemaName,
-      this.controller,
-      this.showSubmitButton = false});
+  /// Whether use dropdown button instead of using
+  /// another page to show choices.
+  /// This will only apply for the select field,
+  /// but not forign key field based on current
+  /// implementation. Default is false
+  final bool useDropdownButton;
+
+  JSONForm({
+    @required this.schema,
+    this.onSubmit,
+    this.icons,
+    this.actions,
+    this.values,
+    this.rounded = false,
+    this.schemaName,
+    this.controller,
+    this.showSubmitButton = false,
+    this.useDropdownButton,
+  });
 
   @override
   _JSONSchemaFormState createState() => _JSONSchemaFormState();
@@ -80,8 +90,10 @@ class _JSONSchemaFormState extends State<JSONForm> {
     /// Merge actions
     if (widget.actions != null) {
       if (Platform.isIOS || Platform.isAndroid) {
-        PermissionHandler()
-            .requestPermissions([PermissionGroup.camera]).then((m) => null);
+        [
+          Permission.location,
+          Permission.storage,
+        ].request().then((v) => print("requested permission"));
       }
 
       schemaList =
@@ -117,11 +129,21 @@ class _JSONSchemaFormState extends State<JSONForm> {
             });
           },
         );
-
+      case WidgetType.checkbox:
+        return JSONCheckboxField(
+          schema: schema,
+          isOutlined: widget.rounded,
+          onSaved: (v) {
+            setState(() {
+              schema.value = v;
+            });
+          },
+        );
       case (WidgetType.select):
         return JSONSelectField(
           isOutlined: widget.rounded,
           schema: schema,
+          useDropdownButton: widget.useDropdownButton,
           onSaved: (Choice value) {
             setState(() {
               schema.value = value.value;

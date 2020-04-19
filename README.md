@@ -6,9 +6,10 @@ This is the plugin for flutter using JSON Schema to define the form itself.
 It supports:
 
 - Textfield
-- Selection field
-- forignkey field
+- Selection Field
+- forignkey Field
 - qrcode scanning
+- Checkbox Field
 - DateTime Field
 - custom field icon and action
 

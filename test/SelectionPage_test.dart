@@ -186,6 +186,7 @@ void main() {
           navigatorObservers: [mockObserver],
           home: Material(
             child: JSONSelectField(
+              useDropdownButton: false,
               schema: Schema.fromJSON(schema),
             ),
           ),

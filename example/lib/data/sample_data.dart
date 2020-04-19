@@ -440,6 +440,33 @@ Map<String, dynamic> itemJSONData2 = {
       "validations": {}
     },
     {
+      "label": "show in folder",
+      "readonly": false,
+      "extra": {"default": true, "help": "Select your widget"},
+      "name": "show_in_folder",
+      "widget": "checkbox",
+      "required": false,
+      "translated": false,
+      "validations": {}
+    },
+    {
+      "label": "unit",
+      "readonly": false,
+      "extra": {
+        "choices": [
+          {"label": "US Dollar", "value": "USD"},
+          {"label": "Hong Kong Dollar", "value": "HDK"},
+          {"label": "RMB", "value": "CNY"}
+        ],
+        "default": "USD"
+      },
+      "name": "unit",
+      "widget": "select",
+      "required": false,
+      "translated": false,
+      "validations": {}
+    },
+    {
       "label": "created time",
       "readonly": true,
       "extra": {},

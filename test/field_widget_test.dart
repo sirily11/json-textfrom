@@ -8,14 +8,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:json_schema_form/json_textform/JSONSchemaForm.dart';
+import 'package:json_schema_form/json_textform/components/JSONCheckboxField.dart';
 import 'package:json_schema_form/json_textform/components/JSONSelectField.dart';
 import 'package:json_schema_form/json_textform/components/JSONTextFormField.dart';
 import 'package:json_schema_form/json_textform/models/Action.dart';
 import 'package:json_schema_form/json_textform/models/Icon.dart';
 import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
 
 import 'forignkey_edit_field_test.dart';
 
@@ -30,6 +29,7 @@ void main() {
           home: Material(
             child: JSONSelectField(
               schema: schema,
+              useDropdownButton: false,
             ),
           ),
         ),
@@ -56,6 +56,7 @@ void main() {
           home: Material(
             child: JSONSelectField(
               schema: schema,
+              useDropdownButton: false,
             ),
           ),
         ),
@@ -79,6 +80,7 @@ void main() {
           home: Material(
             child: JSONSelectField(
               schema: schema,
+              useDropdownButton: false,
             ),
           ),
         ),
@@ -334,6 +336,60 @@ void main() {
       await tester.pump();
       expect(find.byIcon(Icons.home), findsOneWidget);
       expect(find.byIcon(Icons.camera_alt), findsOneWidget);
+    });
+
+    testWidgets("Test Checkbox", (tester) async {
+      var json = {
+        "label": "show in folder",
+        "readonly": false,
+        "extra": {"default": true, "help": "Select your widget"},
+        "name": "show_in_folder",
+        "widget": "checkbox",
+        "required": false,
+        "translated": false,
+        "validations": {}
+      };
+      Schema schema = Schema.fromJSON(json);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Material(
+            child: JSONCheckboxField(
+              schema: schema,
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(find.text("show in folder"), findsOneWidget);
+      expect(find.text("Select your widget"), findsOneWidget);
+    });
+
+    testWidgets("Test Checkbox", (tester) async {
+      var json = {
+        "label": "show in folder",
+        "readonly": false,
+        "name": "show_in_folder",
+        "widget": "checkbox",
+        "required": false,
+        "translated": false,
+        "validations": {}
+      };
+      Schema schema = Schema.fromJSON(json);
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Material(
+            child: JSONCheckboxField(
+              schema: schema,
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(find.text("show in folder"), findsOneWidget);
     });
   });
 }
