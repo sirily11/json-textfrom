@@ -157,7 +157,10 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
             widget.onSaved(value);
           },
           key: Key("textfield"),
-          maxLines: widget.schema.validation?.length?.maximum == null ? 10 : 1,
+          maxLines: widget.schema.validation?.length?.maximum == null &&
+                  widget.schema.widget == WidgetType.text
+              ? 10
+              : 1,
           controller: _controller,
           keyboardType: widget.schema.widget == WidgetType.number
               ? TextInputType.number
