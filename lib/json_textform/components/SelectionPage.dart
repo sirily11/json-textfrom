@@ -6,6 +6,7 @@ class SelectionPage extends StatefulWidget {
   final List<Choice> selections;
   final Function onSelected;
   final bool isOutlined;
+
   /// Current selected value
   final dynamic value;
 
@@ -45,7 +46,9 @@ class _SelectionPageState extends State<SelectionPage> {
             onPressed: () {
               if (widget.onSelected != null) {
                 widget.onSelected(
-                    _list.firstWhere((l) => l.value == _selectedValue));
+                  _list.firstWhere((l) => l.value == _selectedValue,
+                      orElse: () => null),
+                );
               }
               Navigator.pop(context);
             },

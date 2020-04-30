@@ -72,8 +72,10 @@ class Schema {
         var value = values[s.name];
         // If the type is select
         if (s.widget == WidgetType.select) {
-          Choice choice = s.extra?.choices
-              ?.firstWhere((c) => c.value == value, orElse: null);
+          Choice choice = s.extra?.choices?.firstWhere(
+            (c) => c.value == value,
+            orElse: () => null,
+          );
           s.choice = choice;
           s.value = value;
         } else if (s.widget == WidgetType.foreignkey) {
