@@ -1,3 +1,5 @@
+# @format
+
 name: json_schema_form_example
 description: A JSON Schema form.
 author: sirily11
@@ -13,7 +15,7 @@ homepage: https://github.com/sirily11/json-textfrom
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.5.0
+version: 1.0.2
 
 environment:
   sdk: ">=2.1.0 <3.0.0"

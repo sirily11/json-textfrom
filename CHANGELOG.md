@@ -62,7 +62,7 @@
 - Added dropdown menu for selection field
 - Added tests
 
-## [1.0.1]
+## [1.0.2]
 
 - Added onSchemaFetch
 - More tests

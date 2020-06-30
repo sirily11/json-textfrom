@@ -14,6 +14,8 @@ class JSONForignKeyField extends StatelessWidget {
   final Function onSaved;
   final bool showIcon;
   final bool isOutlined;
+  final OnUpdateForignKeyField onUpdateForignKeyField;
+  final OnAddForignKeyField onAddForignKeyField;
   final OnFetchingSchema onFetchingSchema;
   final OnFetchForignKeyChoices onFetchingForignKeyChoices;
 
@@ -34,6 +36,8 @@ class JSONForignKeyField extends StatelessWidget {
     this.actions,
     @required this.onFetchingSchema,
     @required this.onFetchingForignKeyChoices,
+    @required this.onAddForignKeyField,
+    @required this.onUpdateForignKeyField,
   });
 
   @override
@@ -102,6 +106,8 @@ class JSONForignKeyField extends StatelessWidget {
                           networkProvider: networkProvider.networkProvider,
                           url: networkProvider.url),
                       child: JSONForignKeyEditField(
+                        onAddForignKeyField: onAddForignKeyField,
+                        onUpdateForignKeyField: onUpdateForignKeyField,
                         onFetchingSchema: onFetchingSchema,
                         onFetchingForignKeyChoices: onFetchingForignKeyChoices,
                         isOutlined: isOutlined,
@@ -140,6 +146,8 @@ class JSONForignKeyField extends StatelessWidget {
                                     networkProvider.networkProvider,
                                 url: networkProvider.url),
                             child: JSONForignKeyEditField(
+                              onAddForignKeyField: onAddForignKeyField,
+                              onUpdateForignKeyField: onUpdateForignKeyField,
                               onFetchingSchema: onFetchingSchema,
                               onFetchingForignKeyChoices:
                                   onFetchingForignKeyChoices,

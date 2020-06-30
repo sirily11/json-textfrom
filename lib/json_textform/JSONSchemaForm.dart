@@ -14,7 +14,14 @@ import 'package:provider/provider.dart';
 class JSONSchemaForm extends StatefulWidget {
   final JSONSchemaController controller;
 
+  /// Fetching choices for forign key selections
   final OnFetchForignKeyChoices onFetchingForignKeyChoices;
+
+  /// Update forign key's value
+  final OnUpdateForignKeyField onUpdateForignKeyField;
+
+  /// Add new forign key
+  final OnAddForignKeyField onAddForignKeyField;
 
   // Fetching forign key's schema
   final OnFetchingSchema onFetchingSchema;
@@ -78,6 +85,8 @@ class JSONSchemaForm extends StatefulWidget {
     this.useDropdownButton = false,
     @required this.onFetchingSchema,
     @required this.onFetchingForignKeyChoices,
+    @required this.onAddForignKeyField,
+    @required this.onUpdateForignKeyField,
   });
 
   @override
@@ -118,6 +127,8 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
         useDropdownButton: widget.useDropdownButton,
         onFetchingSchema: widget.onFetchingSchema,
         onFetchForignKeyChoices: widget.onFetchingForignKeyChoices,
+        onAddForignKeyField: widget.onAddForignKeyField,
+        onUpdateForignKeyField: widget.onUpdateForignKeyField,
       ),
     );
   }
