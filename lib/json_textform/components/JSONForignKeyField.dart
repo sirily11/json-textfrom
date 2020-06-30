@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:json_schema_form/json_textform/JSONForm.dart';
 import 'package:json_schema_form/json_textform/components/JSONForignKeyEditField.dart';
 import 'package:json_schema_form/json_textform/components/SelectionPage.dart';
 import 'package:json_schema_form/json_textform/models/Action.dart';
@@ -13,6 +14,7 @@ class JSONForignKeyField extends StatelessWidget {
   final Function onSaved;
   final bool showIcon;
   final bool isOutlined;
+  final OnFetchingSchema onFetchingSchema;
 
   /// List of actions. Each field will only have one action.
   /// If not, the last one will replace the first one.
@@ -22,13 +24,15 @@ class JSONForignKeyField extends StatelessWidget {
   /// If not, the last one will replace the first one.
   final List<FieldIcon> icons;
 
-  JSONForignKeyField(
-      {@required this.schema,
-      this.onSaved,
-      this.showIcon = true,
-      this.isOutlined = false,
-      this.icons,
-      this.actions});
+  JSONForignKeyField({
+    @required this.schema,
+    this.onSaved,
+    this.showIcon = true,
+    this.isOutlined = false,
+    this.icons,
+    this.actions,
+    @required this.onFetchingSchema,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +99,7 @@ class JSONForignKeyField extends StatelessWidget {
                           networkProvider: networkProvider.networkProvider,
                           url: networkProvider.url),
                       child: JSONForignKeyEditField(
+                        onFetchingSchema: onFetchingSchema,
                         isOutlined: isOutlined,
                         title: "Add ${schema.label}",
                         path: schema.extra.relatedModel,
@@ -131,10 +136,11 @@ class JSONForignKeyField extends StatelessWidget {
                                     networkProvider.networkProvider,
                                 url: networkProvider.url),
                             child: JSONForignKeyEditField(
+                              onFetchingSchema: onFetchingSchema,
                               isOutlined: isOutlined,
                               title: "Edit ${schema.label}",
                               path: schema.extra.relatedModel,
-                              isEdit: true,
+                              isEdit: false,
                               id: schema.choice.value,
                               actions: actions,
                               name: schema.name,

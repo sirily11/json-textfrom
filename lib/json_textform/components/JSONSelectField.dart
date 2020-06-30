@@ -24,7 +24,7 @@ class JSONSelectField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (useDropdownButton) {
+    if (useDropdownButton != null && useDropdownButton) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
         child: Row(

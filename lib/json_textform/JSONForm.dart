@@ -12,13 +12,26 @@ import 'package:json_schema_form/json_textform/models/Schema.dart';
 import 'package:json_schema_form/json_textform/utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+class SchemaValues {
+  List<Map<String, dynamic>> schema;
+  Map<String, dynamic> values;
+
+  SchemaValues({@required this.schema, @required this.values});
+}
+
 typedef Future OnSubmit(Map<String, dynamic> json);
+
+typedef Future<SchemaValues> OnFetchingSchema(
+    String path, bool isEdit, dynamic id);
 
 /// A JSON Schema Form Widget
 /// Which will take a schema input
 /// and generate a form
 class JSONForm extends StatefulWidget {
   final bool showSubmitButton;
+
+  /// Fetching Forignkey's schema
+  final OnFetchingSchema onFetchingSchema;
 
   /// [optional] Schema controller.
   /// Call this to get value back from fields if you want to have
@@ -71,6 +84,7 @@ class JSONForm extends StatefulWidget {
     this.controller,
     this.showSubmitButton = false,
     this.useDropdownButton,
+    @required this.onFetchingSchema,
   });
 
   @override
@@ -152,6 +166,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
 
       case (WidgetType.foreignkey):
         return JSONForignKeyField(
+          onFetchingSchema: widget.onFetchingSchema,
           isOutlined: widget.rounded,
           schema: schema,
           actions: widget.actions,

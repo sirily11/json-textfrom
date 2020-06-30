@@ -127,6 +127,8 @@ import 'package:provider/provider.dart';
 // }
 
 class JSONForignKeyEditField extends StatelessWidget {
+  final OnFetchingSchema onFetchingSchema;
+
   /// Model path
   final String path;
 
@@ -165,6 +167,7 @@ class JSONForignKeyEditField extends StatelessWidget {
     this.isOutlined = false,
     this.isEdit = false,
     @required this.name,
+    @required this.onFetchingSchema,
     this.actions,
     this.icons,
   });
@@ -174,42 +177,40 @@ class JSONForignKeyEditField extends StatelessWidget {
     NetworkProvider provider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text("$title"),
       ),
       body: AnimatedSwitcher(
         duration: Duration(milliseconds: 100),
-        child: FutureBuilder<List<Map<String, dynamic>>>(
-          future: provider.getEditSchema(path),
+        child: FutureBuilder<SchemaValues>(
+          future: onFetchingSchema(path, isEdit, id),
           builder: (context, schemaSnapshot) {
             if (!schemaSnapshot.hasData) {
               return CircularProgressIndicator();
             }
+            if (schemaSnapshot.hasError) {
+              return Center(
+                child: Text("${schemaSnapshot.error}"),
+              );
+            }
             if (schemaSnapshot.data == null) {
               return Container();
             }
-            return FutureBuilder<Map<String, dynamic>>(
-              future: isEdit ? provider.getValues(path, id) : Future.value({}),
-              builder: (context, valueSnapshot) {
-                if (!valueSnapshot.hasData) {
-                  return CircularProgressIndicator();
+            return JSONForm(
+              onFetchingSchema: onFetchingSchema,
+              schemaName: name,
+              rounded: isOutlined,
+              schema: schemaSnapshot.data.schema,
+              values: schemaSnapshot.data.values,
+              actions: actions,
+              showSubmitButton: true,
+              icons: icons,
+              onSubmit: (Map<String, dynamic> json) async {
+                if (isEdit) {
+                  await provider.updateField(path, json, id);
+                } else {
+                  await provider.addField(path, json);
                 }
-                return JSONForm(
-                  schemaName: name,
-                  rounded: isOutlined,
-                  schema: schemaSnapshot.data,
-                  values: valueSnapshot.data,
-                  actions: actions,
-                  showSubmitButton: true,
-                  icons: icons,
-                  onSubmit: (Map<String, dynamic> json) async {
-                    if (isEdit) {
-                      await provider.updateField(path, json, id);
-                    } else {
-                      await provider.addField(path, json);
-                    }
-                    Navigator.pop(context);
-                  },
-                );
+                Navigator.pop(context);
               },
             );
           },

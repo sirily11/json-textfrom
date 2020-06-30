@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:json_schema_form/json_textform/JSONForm.dart';
 import 'package:json_schema_form/json_textform/JSONSchemaForm.dart';
 import 'package:json_schema_form/json_textform/models/Action.dart';
 import 'package:json_schema_form/json_textform/models/Controller.dart';
@@ -30,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<Map<String, dynamic>> getSchema() async {
     await Future.delayed(Duration(milliseconds: 100));
-    return itemJSONData2;
+    return itemJSONData;
   }
 
   ThemeData buildTheme() {
@@ -73,6 +74,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 rounded: true,
                 controller: controller,
                 useDropdownButton: true,
+                onFetchingSchema: (path, isEdit, id) async {
+                  print("$path $id");
+                  return SchemaValues(
+                    schema: (itemJSONData['fields'] as List)
+                        .map((s) => s as Map<String, dynamic>)
+                        .toList(),
+                    values: {},
+                  );
+                },
                 schema: (snapshot.data['fields'] as List)
                     .map((s) => s as Map<String, dynamic>)
                     .toList(),
@@ -112,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onSubmit: (value) async {
                   print(value);
                 },
-                url: "http://192.168.1.114:8000",
+                url: "http://192.168.1.120",
                 values: {
                   "author_id": {"label": "sdfsdf", "value": 2},
                   "name": "abc",

@@ -16,6 +16,9 @@ typedef Future OnSubmit(Map<String, dynamic> json);
 class JSONSchemaForm extends StatefulWidget {
   final JSONSchemaController controller;
 
+  // Fetching forign key's schema
+  final OnFetchingSchema onFetchingSchema;
+
   /// Schema's name
   /// Use this to identify the actions and icons
   /// if forignkey text field has the same name as the home screen's field.
@@ -73,6 +76,7 @@ class JSONSchemaForm extends StatefulWidget {
     this.url = "http://0.0.0.0",
     this.showSubmitButton = true,
     this.useDropdownButton = false,
+    @required this.onFetchingSchema,
   });
 
   @override
@@ -95,7 +99,9 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
       providers: [
         ChangeNotifierProvider<NetworkProvider>(
           create: (_) => NetworkProvider(
-              networkProvider: widget.networkProvider, url: widget.url),
+            networkProvider: widget.networkProvider,
+            url: widget.url,
+          ),
         )
       ],
       child: JSONForm(
@@ -109,6 +115,7 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
         controller: widget.controller,
         showSubmitButton: widget.showSubmitButton,
         useDropdownButton: widget.useDropdownButton,
+        onFetchingSchema: widget.onFetchingSchema,
       ),
     );
   }

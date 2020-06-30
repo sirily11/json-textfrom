@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 
 String getURL(String base, String path) {
@@ -19,3 +20,4 @@ Map<String, dynamic> getSubmitJSON(List<Schema> schemaList) {
       json.map((j) => j['value']).toList());
   return ret;
 }
+
