@@ -75,6 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 rounded: true,
                 controller: controller,
                 useDropdownButton: true,
+                onAddForignKeyField: (path, values) async {
+                  print("added");
+                },
+                onUpdateForignKeyField: (path, values, id) async {
+                  print("updated");
+                },
                 onFetchingForignKeyChoices: (path) async {
                   print("$path");
                   return [
@@ -84,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onFetchingSchema: (path, isEdit, id) async {
                   print("$path $id");
                   return SchemaValues(
-                    schema: (itemJSONData['fields'] as List)
+                    schema: (itemJSONData2['fields'] as List)
                         .map((s) => s as Map<String, dynamic>)
                         .toList(),
                     values: {},

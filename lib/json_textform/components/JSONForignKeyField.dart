@@ -154,7 +154,7 @@ class JSONForignKeyField extends StatelessWidget {
                               isOutlined: isOutlined,
                               title: "Edit ${schema.label}",
                               path: schema.extra.relatedModel,
-                              isEdit: false,
+                              isEdit: true,
                               id: schema.choice.value,
                               actions: actions,
                               name: schema.name,
