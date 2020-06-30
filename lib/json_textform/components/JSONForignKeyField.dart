@@ -15,6 +15,7 @@ class JSONForignKeyField extends StatelessWidget {
   final bool showIcon;
   final bool isOutlined;
   final OnFetchingSchema onFetchingSchema;
+  final OnFetchForignKeyChoices onFetchingForignKeyChoices;
 
   /// List of actions. Each field will only have one action.
   /// If not, the last one will replace the first one.
@@ -32,6 +33,7 @@ class JSONForignKeyField extends StatelessWidget {
     this.icons,
     this.actions,
     @required this.onFetchingSchema,
+    @required this.onFetchingForignKeyChoices,
   });
 
   @override
@@ -48,7 +50,8 @@ class JSONForignKeyField extends StatelessWidget {
                   ? BoxDecoration(
                       border: Border.all(),
                       borderRadius: BorderRadius.circular(10),
-                      color: Theme.of(context).inputDecorationTheme.fillColor)
+                      color: Theme.of(context).inputDecorationTheme.fillColor,
+                    )
                   : null,
               child: ListTile(
                 trailing: Icon(
@@ -58,8 +61,8 @@ class JSONForignKeyField extends StatelessWidget {
                 title: Text("Select ${schema.label}"),
                 subtitle: Text("${schema.choice?.label}"),
                 onTap: () async {
-                  List<Choice> choices = await networkProvider
-                      .getSelections(schema.extra.relatedModel);
+                  List<Choice> choices = await onFetchingForignKeyChoices(
+                      schema.extra.relatedModel);
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (ctx) {
@@ -100,6 +103,7 @@ class JSONForignKeyField extends StatelessWidget {
                           url: networkProvider.url),
                       child: JSONForignKeyEditField(
                         onFetchingSchema: onFetchingSchema,
+                        onFetchingForignKeyChoices: onFetchingForignKeyChoices,
                         isOutlined: isOutlined,
                         title: "Add ${schema.label}",
                         path: schema.extra.relatedModel,
@@ -137,6 +141,8 @@ class JSONForignKeyField extends StatelessWidget {
                                 url: networkProvider.url),
                             child: JSONForignKeyEditField(
                               onFetchingSchema: onFetchingSchema,
+                              onFetchingForignKeyChoices:
+                                  onFetchingForignKeyChoices,
                               isOutlined: isOutlined,
                               title: "Edit ${schema.label}",
                               path: schema.extra.relatedModel,

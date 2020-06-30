@@ -24,6 +24,8 @@ typedef Future OnSubmit(Map<String, dynamic> json);
 typedef Future<SchemaValues> OnFetchingSchema(
     String path, bool isEdit, dynamic id);
 
+typedef Future<List<Choice>> OnFetchForignKeyChoices(String path);
+
 /// A JSON Schema Form Widget
 /// Which will take a schema input
 /// and generate a form
@@ -32,6 +34,8 @@ class JSONForm extends StatefulWidget {
 
   /// Fetching Forignkey's schema
   final OnFetchingSchema onFetchingSchema;
+
+  final OnFetchForignKeyChoices onFetchForignKeyChoices;
 
   /// [optional] Schema controller.
   /// Call this to get value back from fields if you want to have
@@ -85,6 +89,7 @@ class JSONForm extends StatefulWidget {
     this.showSubmitButton = false,
     this.useDropdownButton,
     @required this.onFetchingSchema,
+    @required this.onFetchForignKeyChoices,
   });
 
   @override
@@ -166,6 +171,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
 
       case (WidgetType.foreignkey):
         return JSONForignKeyField(
+          onFetchingForignKeyChoices: widget.onFetchForignKeyChoices,
           onFetchingSchema: widget.onFetchingSchema,
           isOutlined: widget.rounded,
           schema: schema,

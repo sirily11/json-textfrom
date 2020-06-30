@@ -15,15 +15,6 @@ class NetworkProvider with ChangeNotifier {
     this.url,
   });
 
-  Future<List<Choice>> getSelections(String path) async {
-    String p = "$path/".replaceFirst("-", "_");
-    String url = getURL(this.url, p);
-    Response response = await Dio().get<List<dynamic>>(url);
-    return (response.data as List)
-        .map((d) => Choice(label: d['name'].toString(), value: d['id']))
-        .toList();
-  }
-
   String _preProcessURL(String path) {
     String p = "$path/".replaceFirst("-", "_");
     String url = getURL(this.url, p);
@@ -77,17 +68,5 @@ class NetworkProvider with ChangeNotifier {
         content: Text(message),
       ),
     );
-  }
-
-  /// get values
-  Future<Map<String, dynamic>> getValues(String path, dynamic id) async {
-    try {
-      String u = "${_preProcessURL(path)}$id/";
-      Response response = await httpClient.get(u);
-      return response.data;
-    } on DioError catch (e) {
-      _showSnackBar(e.message);
-    }
-    return null;
   }
 }

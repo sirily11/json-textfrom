@@ -128,6 +128,7 @@ import 'package:provider/provider.dart';
 
 class JSONForignKeyEditField extends StatelessWidget {
   final OnFetchingSchema onFetchingSchema;
+  final OnFetchForignKeyChoices onFetchingForignKeyChoices;
 
   /// Model path
   final String path;
@@ -168,6 +169,7 @@ class JSONForignKeyEditField extends StatelessWidget {
     this.isEdit = false,
     @required this.name,
     @required this.onFetchingSchema,
+    @required this.onFetchingForignKeyChoices,
     this.actions,
     this.icons,
   });
@@ -197,6 +199,7 @@ class JSONForignKeyEditField extends StatelessWidget {
             }
             return JSONForm(
               onFetchingSchema: onFetchingSchema,
+              onFetchForignKeyChoices: onFetchingForignKeyChoices,
               schemaName: name,
               rounded: isOutlined,
               schema: schemaSnapshot.data.schema,

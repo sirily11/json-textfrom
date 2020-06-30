@@ -1,3 +1,5 @@
+<!-- @format -->
+
 ## [0.5.1] - TODO: Add release date.
 
 - added tests
@@ -59,3 +61,8 @@
 - Added checkbox field
 - Added dropdown menu for selection field
 - Added tests
+
+## [1.0.1]
+
+- Added onSchemaFetch
+- More tests

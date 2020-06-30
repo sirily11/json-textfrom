@@ -5,6 +5,7 @@ import 'package:json_schema_form/json_textform/JSONSchemaForm.dart';
 import 'package:json_schema_form/json_textform/models/Action.dart';
 import 'package:json_schema_form/json_textform/models/Controller.dart';
 import 'package:json_schema_form/json_textform/models/Icon.dart';
+import 'package:json_schema_form/json_textform/models/Schema.dart';
 
 import 'data/sample_data.dart';
 
@@ -74,6 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 rounded: true,
                 controller: controller,
                 useDropdownButton: true,
+                onFetchingForignKeyChoices: (path) async {
+                  print("$path");
+                  return [
+                    Choice(label: "Hello", value: "1"),
+                  ];
+                },
                 onFetchingSchema: (path, isEdit, id) async {
                   print("$path $id");
                   return SchemaValues(

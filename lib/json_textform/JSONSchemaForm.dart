@@ -8,13 +8,13 @@ import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 import 'package:provider/provider.dart';
 
-typedef Future OnSubmit(Map<String, dynamic> json);
-
 /// A JSON Schema Form Widget
 /// Which will take a schema input
 /// and generate a form
 class JSONSchemaForm extends StatefulWidget {
   final JSONSchemaController controller;
+
+  final OnFetchForignKeyChoices onFetchingForignKeyChoices;
 
   // Fetching forign key's schema
   final OnFetchingSchema onFetchingSchema;
@@ -77,6 +77,7 @@ class JSONSchemaForm extends StatefulWidget {
     this.showSubmitButton = true,
     this.useDropdownButton = false,
     @required this.onFetchingSchema,
+    @required this.onFetchingForignKeyChoices,
   });
 
   @override
@@ -116,6 +117,7 @@ class _JSONSchemaFormState extends State<JSONSchemaForm> {
         showSubmitButton: widget.showSubmitButton,
         useDropdownButton: widget.useDropdownButton,
         onFetchingSchema: widget.onFetchingSchema,
+        onFetchForignKeyChoices: widget.onFetchingForignKeyChoices,
       ),
     );
   }
