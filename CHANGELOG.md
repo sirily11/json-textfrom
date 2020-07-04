@@ -66,3 +66,8 @@
 
 - Added onSchemaFetch
 - More tests
+
+## [1.0.3]
+
+- Fixed datetime field bugs
+- Added macos example

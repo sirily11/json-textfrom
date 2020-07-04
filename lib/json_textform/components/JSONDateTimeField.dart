@@ -5,10 +5,15 @@ class JSONDateTimeField extends StatefulWidget {
   final Schema schema;
   final Function onSaved;
   final bool isOutlined;
+  final bool filled;
 
-  JSONDateTimeField(
-      {@required this.schema, this.onSaved, this.isOutlined = false, Key key})
-      : super(key: key);
+  JSONDateTimeField({
+    @required this.schema,
+    this.onSaved,
+    this.isOutlined = false,
+    Key key,
+    @required this.filled,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -23,6 +28,18 @@ class _JSONDateTimeFieldState extends State<JSONDateTimeField> {
   @override
   void initState() {
     super.initState();
+    init();
+  }
+
+  @override
+  void didUpdateWidget(JSONDateTimeField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      init();
+    });
+  }
+
+  void init() {
     String value = widget.schema.value ??
         widget.schema.extra?.defaultValue?.toString() ??
         "${DateTime.now().toString()}";
@@ -59,6 +76,7 @@ class _JSONDateTimeFieldState extends State<JSONDateTimeField> {
           key: Key("datetimefield"),
           controller: _controller,
           decoration: InputDecoration(
+            filled: widget.filled,
             helperText: widget.schema.extra?.helpText,
             labelText: widget.schema.label,
             prefixIcon: widget.schema.icon != null

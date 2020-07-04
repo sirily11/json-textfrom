@@ -11,7 +11,11 @@ import 'package:provider/provider.dart';
 /// A JSON Schema Form Widget
 /// Which will take a schema input
 /// and generate a form
-class JSONSchemaForm extends StatefulWidget {
+class JSONSchemaForm extends StatelessWidget {
+  /// Text form is filled
+  final bool filled;
+
+  /// schema controller
   final JSONSchemaController controller;
 
   /// Fetching choices for forign key selections
@@ -73,6 +77,7 @@ class JSONSchemaForm extends StatefulWidget {
 
   JSONSchemaForm({
     @required this.schema,
+    this.filled = false,
     this.onSubmit,
     this.icons,
     this.actions,
@@ -90,45 +95,32 @@ class JSONSchemaForm extends StatefulWidget {
   });
 
   @override
-  _JSONSchemaFormState createState() => _JSONSchemaFormState();
-}
-
-class _JSONSchemaFormState extends State<JSONSchemaForm> {
-  final _formKey = GlobalKey<FormState>();
-  List<Schema> schemaList = [];
-  _JSONSchemaFormState();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<NetworkProvider>(
           create: (_) => NetworkProvider(
-            networkProvider: widget.networkProvider,
-            url: widget.url,
+            networkProvider: networkProvider,
+            url: url,
           ),
         )
       ],
       child: JSONForm(
-        schema: widget.schema,
-        schemaName: widget.schemaName,
-        onSubmit: widget.onSubmit,
-        icons: widget.icons,
-        actions: widget.actions,
-        values: widget.values,
-        rounded: widget.rounded,
-        controller: widget.controller,
-        showSubmitButton: widget.showSubmitButton,
-        useDropdownButton: widget.useDropdownButton,
-        onFetchingSchema: widget.onFetchingSchema,
-        onFetchForignKeyChoices: widget.onFetchingForignKeyChoices,
-        onAddForignKeyField: widget.onAddForignKeyField,
-        onUpdateForignKeyField: widget.onUpdateForignKeyField,
+        filled: filled,
+        schema: schema,
+        schemaName: schemaName,
+        onSubmit: onSubmit,
+        icons: icons,
+        actions: actions,
+        values: values,
+        rounded: rounded,
+        controller: controller,
+        showSubmitButton: showSubmitButton,
+        useDropdownButton: useDropdownButton,
+        onFetchingSchema: onFetchingSchema,
+        onFetchForignKeyChoices: onFetchingForignKeyChoices,
+        onAddForignKeyField: onAddForignKeyField,
+        onUpdateForignKeyField: onUpdateForignKeyField,
       ),
     );
   }

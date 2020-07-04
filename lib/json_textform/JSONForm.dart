@@ -35,6 +35,7 @@ typedef Future OnAddForignKeyField(String path, Map<String, dynamic> values);
 /// Which will take a schema input
 /// and generate a form
 class JSONForm extends StatefulWidget {
+  final bool filled;
   final bool showSubmitButton;
 
   /// Fetching Forignkey's schema
@@ -88,6 +89,7 @@ class JSONForm extends StatefulWidget {
 
   JSONForm({
     @required this.schema,
+    this.filled = false,
     this.onSubmit,
     this.icons,
     this.actions,
@@ -115,6 +117,18 @@ class _JSONSchemaFormState extends State<JSONForm> {
   @override
   void initState() {
     super.initState();
+    _init();
+  }
+
+  @override
+  void didUpdateWidget(JSONForm oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      this.schemaList = _init();
+    });
+  }
+
+  List<Schema> _init() {
     schemaList = Schema.convertFromList(widget.schema);
 
     /// Merge actions
@@ -141,6 +155,8 @@ class _JSONSchemaFormState extends State<JSONForm> {
     if (widget.controller != null) {
       widget.controller.onSubmit = this.onPressSubmitButton;
     }
+
+    return schemaList;
   }
 
   /// Render body widget based on widget type
@@ -148,6 +164,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
     switch (schema.widget) {
       case WidgetType.datetime:
         return JSONDateTimeField(
+          filled: widget.filled,
           key: Key(schema.name),
           schema: schema,
           isOutlined: widget.rounded,
@@ -203,6 +220,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
           key: Key(schema.name),
           schema: schema,
           isOutlined: widget.rounded,
+          filled: widget.filled,
           onSaved: (String value) {
             setState(() {
               schema.value = value;

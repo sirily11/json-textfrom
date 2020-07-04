@@ -11,9 +11,14 @@ class JSONTextFormField extends StatefulWidget {
   final Schema schema;
   final Function onSaved;
   final bool isOutlined;
+  final bool filled;
 
   JSONTextFormField(
-      {@required this.schema, this.onSaved, this.isOutlined = false, Key key})
+      {@required this.schema,
+      this.onSaved,
+      this.isOutlined = false,
+      Key key,
+      @required this.filled})
       : super(key: key);
 
   @override
@@ -26,10 +31,26 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
   @override
   void initState() {
     super.initState();
+    init();
+  }
+
+  @override
+  void didUpdateWidget(JSONTextFormField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      init();
+    });
+  }
+
+  void init() {
     String value = widget.schema.value ??
         widget.schema.extra?.defaultValue?.toString() ??
         "";
-    _controller = TextEditingController(text: value);
+    if (_controller == null) {
+      _controller = TextEditingController(text: value);
+    } else {
+      _controller.text = value;
+    }
   }
 
   String validation(String value) {
@@ -169,6 +190,7 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
           maxLength: widget.schema.validation?.length?.maximum,
           obscureText: widget.schema.name == "password",
           decoration: InputDecoration(
+            filled: widget.filled,
             helperText: widget.schema.extra?.helpText,
             labelText: widget.schema.label,
             prefixIcon: widget.schema.icon != null

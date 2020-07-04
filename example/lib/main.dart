@@ -72,7 +72,6 @@ class _MyHomePageState extends State<MyHomePage> {
             return Theme(
               data: buildTheme(),
               child: JSONSchemaForm(
-                rounded: true,
                 controller: controller,
                 useDropdownButton: true,
                 onAddForignKeyField: (path, values) async {
@@ -96,6 +95,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     values: {},
                   );
                 },
+                filled: false,
+                rounded: false,
                 schema: (snapshot.data['fields'] as List)
                     .map((s) => s as Map<String, dynamic>)
                     .toList(),
@@ -137,9 +138,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 url: "http://192.168.1.120",
                 values: {
-                  "author_id": {"label": "sdfsdf", "value": 2},
-                  "name": "abc",
-                  "time": DateTime(2016, 1, 2, 1).toIso8601String(),
+                  "author_id": {"label": "sdfsdfa", "value": 2},
+                  "name": "abcdefhaha",
+                  "time": DateTime(2016, 1, 4, 1).toIso8601String(),
                 },
               ),
             );
