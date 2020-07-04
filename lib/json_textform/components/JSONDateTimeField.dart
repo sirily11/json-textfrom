@@ -46,9 +46,9 @@ class _JSONDateTimeFieldState extends State<JSONDateTimeField> {
               context: context,
               initialDate: dateTime,
               firstDate: DateTime(1900),
-              lastDate: DateTime.now(),
+              lastDate: DateTime(2077),
             );
-            if (dateTime != null) {
+            if (selectedDate != null) {
               setState(() {
                 dateTime = selectedDate;
                 _controller.text =
