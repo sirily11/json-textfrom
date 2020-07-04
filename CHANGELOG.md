@@ -71,3 +71,7 @@
 
 - Fixed datetime field bugs
 - Added macos example
+
+## [1.0.4]
+
+- Added hot reload support for some field

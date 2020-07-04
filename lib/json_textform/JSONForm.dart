@@ -123,9 +123,8 @@ class _JSONSchemaFormState extends State<JSONForm> {
   @override
   void didUpdateWidget(JSONForm oldWidget) {
     super.didUpdateWidget(oldWidget);
-    setState(() {
-      this.schemaList = _init();
-    });
+
+    this.schemaList = _init();
   }
 
   List<Schema> _init() {

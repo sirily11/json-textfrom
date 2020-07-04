@@ -37,9 +37,8 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
   @override
   void didUpdateWidget(JSONTextFormField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    setState(() {
-      init();
-    });
+
+    init();
   }
 
   void init() {

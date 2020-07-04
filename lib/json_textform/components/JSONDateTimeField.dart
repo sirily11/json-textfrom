@@ -34,9 +34,8 @@ class _JSONDateTimeFieldState extends State<JSONDateTimeField> {
   @override
   void didUpdateWidget(JSONDateTimeField oldWidget) {
     super.didUpdateWidget(oldWidget);
-    setState(() {
-      init();
-    });
+
+    init();
   }
 
   void init() {
