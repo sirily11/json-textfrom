@@ -35,16 +35,26 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
   }
 
   @override
-  void didUpdateWidget(JSONTextFormField oldWidget) {
-    super.didUpdateWidget(oldWidget);
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    _controller.dispose();
+    super.dispose();
+  }
 
-    init();
+  @override
+  void didUpdateWidget(JSONTextFormField oldWidget) {
+    if (oldWidget.schema.value != widget.schema.value) {
+      Future.delayed(Duration(milliseconds: 50)).then((value) => init());
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   void init() {
-    String value = widget.schema.value.toString() ??
+    String value = widget.schema.value?.toString() ??
         widget.schema.extra?.defaultValue?.toString() ??
         "";
+
     if (_controller == null) {
       _controller = TextEditingController(text: value);
     } else {
