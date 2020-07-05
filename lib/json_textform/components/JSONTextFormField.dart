@@ -42,7 +42,7 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
   }
 
   void init() {
-    String value = widget.schema.value ??
+    String value = widget.schema.value.toString() ??
         widget.schema.extra?.defaultValue?.toString() ??
         "";
     if (_controller == null) {
