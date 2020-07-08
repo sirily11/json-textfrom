@@ -132,10 +132,10 @@ class _JSONSchemaFormState extends State<JSONForm> {
 
     /// Merge actions
     if (widget.actions != null) {
-      if (Platform.isIOS || Platform.isAndroid) {
-        PermissionHandler()
-            .requestPermissions([PermissionGroup.camera]).then((m) => null);
-      }
+      // if (Platform.isIOS || Platform.isAndroid) {
+      //   PermissionHandler()
+      //       .requestPermissions([PermissionGroup.camera]).then((m) => null);
+      // }
 
       schemaList =
           FieldAction().merge(schemaList, widget.actions, widget.schemaName);

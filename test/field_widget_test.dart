@@ -112,7 +112,7 @@ void main() {
         ),
       );
 
-      expect(find.byKey(Key("textfield")), findsOneWidget);
+      expect(find.byKey(Key("textfield-hello")), findsOneWidget);
       expect(find.text("value"), findsOneWidget);
     });
 
@@ -134,7 +134,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byKey(Key("textfield")), findsOneWidget);
+      expect(find.byKey(Key("textfield-hello")), findsOneWidget);
       expect(find.text("abc"), findsOneWidget);
     });
 
@@ -157,7 +157,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byKey(Key("textfield")), findsOneWidget);
+      expect(find.byKey(Key("textfield-hello")), findsOneWidget);
       expect(find.text("cde"), findsOneWidget);
     });
 
@@ -194,7 +194,7 @@ void main() {
           ),
         ),
       );
-      expect(find.byKey(Key("textfield")), findsOneWidget);
+      expect(find.byKey(Key("textfield-name")), findsOneWidget);
     });
 
     testWidgets('Test icons', (WidgetTester tester) async {

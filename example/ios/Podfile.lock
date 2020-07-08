@@ -9,7 +9,7 @@ PODS:
   - image_picker (0.0.1):
     - Flutter
   - MTBBarcodeScanner (5.0.11)
-  - "permission_handler (4.4.0+hotfix.4)":
+  - "permission_handler (5.0.1+1)":
     - Flutter
   - SwiftProtobuf (1.8.0)
 
@@ -44,7 +44,7 @@ SPEC CHECKSUMS:
   flutter_plugin_android_lifecycle: 47de533a02850f070f5696a623995e93eddcdb9b
   image_picker: e3eacd46b94694dde7cf2705955cece853aa1a8f
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
-  permission_handler: 8278954f2382902f63f00dd8828769c0bd6d511b
+  permission_handler: eac8e15b4a1a3fba55b761d19f3f4e6b005d15b6
   SwiftProtobuf: 2cbd9409689b7df170d82a92a33443c8e3e14a70
 
 PODFILE CHECKSUM: c34e2287a9ccaa606aeceab922830efb9a6ff69a
