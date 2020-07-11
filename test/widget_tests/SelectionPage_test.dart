@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:json_schema_form/json_textform/components/JSONSelectField.dart';
-import 'package:json_schema_form/json_textform/components/SelectionPage.dart';
+import 'package:json_schema_form/json_textform/components/pages/SelectionPage.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 import 'package:mockito/mockito.dart';
 

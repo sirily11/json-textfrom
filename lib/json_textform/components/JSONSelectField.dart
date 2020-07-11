@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/json_textform/components/SelectionPage.dart';
-import 'package:json_schema_form/json_textform/models/Icon.dart';
+import 'package:json_schema_form/json_textform/components/pages/SelectionPage.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
+import 'package:json_schema_form/json_textform/utils-components/OutlineButtonContainer.dart';
 
 typedef void OnChange(Choice choice);
 
 class JSONSelectField extends StatelessWidget {
+  final bool filled;
   final Schema schema;
   final OnChange onSaved;
   final bool showIcon;
@@ -19,6 +20,7 @@ class JSONSelectField extends StatelessWidget {
     this.onSaved,
     this.showIcon = true,
     this.isOutlined = false,
+    this.filled,
     @required this.useDropdownButton,
   });
 
@@ -63,13 +65,9 @@ class JSONSelectField extends StatelessWidget {
     }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 2),
-      child: Container(
-        decoration: isOutlined
-            ? BoxDecoration(
-                border: Border.all(),
-                borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).inputDecorationTheme.fillColor)
-            : null,
+      child: OutlineButtonContainer(
+        isFilled: filled,
+        isOutlined: isOutlined,
         child: ListTile(
           key: Key("selection-field"),
           leading: schema.icon != null

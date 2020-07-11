@@ -1,23 +1,27 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/JSONForm.dart';
-import 'package:json_schema_form/json_textform/components/JSONForignKeyEditField.dart';
-import 'package:json_schema_form/json_textform/components/SelectionPage.dart';
-import 'package:json_schema_form/json_textform/models/Action.dart';
-import 'package:json_schema_form/json_textform/models/Icon.dart';
+import 'package:json_schema_form/json_textform/components/pages/JSONForignKeyEditField.dart';
+import 'package:json_schema_form/json_textform/components/pages/SelectionPage.dart';
+import 'package:json_schema_form/json_textform/models/components/Action.dart';
 import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
+import 'package:json_schema_form/json_textform/models/components/Icon.dart';
+import 'package:json_schema_form/json_textform/utils-components/OutlineButtonContainer.dart';
 import 'package:provider/provider.dart';
+
+typedef OnSaved(Choice choice);
 
 class JSONForignKeyField extends StatelessWidget {
   final Schema schema;
-  final Function onSaved;
+  final OnSaved onSaved;
   final bool showIcon;
   final bool isOutlined;
+  final bool filled;
   final OnUpdateForignKeyField onUpdateForignKeyField;
   final OnAddForignKeyField onAddForignKeyField;
   final OnFetchingSchema onFetchingSchema;
   final OnFetchForignKeyChoices onFetchingForignKeyChoices;
+  final OnFileUpload onFileUpload;
 
   /// List of actions. Each field will only have one action.
   /// If not, the last one will replace the first one.
@@ -34,10 +38,12 @@ class JSONForignKeyField extends StatelessWidget {
     this.isOutlined = false,
     this.icons,
     this.actions,
+    @required this.filled,
     @required this.onFetchingSchema,
     @required this.onFetchingForignKeyChoices,
     @required this.onAddForignKeyField,
     @required this.onUpdateForignKeyField,
+    @required this.onFileUpload,
   });
 
   @override
@@ -49,14 +55,9 @@ class JSONForignKeyField extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 5,
-            child: Container(
-              decoration: isOutlined
-                  ? BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(10),
-                      color: Theme.of(context).inputDecorationTheme.fillColor,
-                    )
-                  : null,
+            child: OutlineButtonContainer(
+              isFilled: filled,
+              isOutlined: isOutlined,
               child: ListTile(
                 trailing: Icon(
                   Icons.expand_more,
@@ -110,6 +111,7 @@ class JSONForignKeyField extends StatelessWidget {
                         onUpdateForignKeyField: onUpdateForignKeyField,
                         onFetchingSchema: onFetchingSchema,
                         onFetchingForignKeyChoices: onFetchingForignKeyChoices,
+                        onFileUpload: onFileUpload,
                         isOutlined: isOutlined,
                         title: "Add ${schema.label}",
                         path: schema.extra.relatedModel,
@@ -137,7 +139,7 @@ class JSONForignKeyField extends StatelessWidget {
                   ? null
                   : () async {
                       /// Edit current field
-                      Navigator.push(
+                      Choice choice = await Navigator.push(
                         context,
                         MaterialPageRoute(builder: (ctx) {
                           return ChangeNotifierProvider<NetworkProvider>(
@@ -146,6 +148,7 @@ class JSONForignKeyField extends StatelessWidget {
                                     networkProvider.networkProvider,
                                 url: networkProvider.url),
                             child: JSONForignKeyEditField(
+                              onFileUpload: onFileUpload,
                               onAddForignKeyField: onAddForignKeyField,
                               onUpdateForignKeyField: onUpdateForignKeyField,
                               onFetchingSchema: onFetchingSchema,
@@ -163,6 +166,9 @@ class JSONForignKeyField extends StatelessWidget {
                           );
                         }),
                       );
+                      if (choice != null) {
+                        onSaved(choice);
+                      }
                     },
             ),
           ),

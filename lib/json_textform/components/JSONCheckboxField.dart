@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/json_textform/components/SelectionPage.dart';
-import 'package:json_schema_form/json_textform/models/Icon.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 
 typedef void OnChange(bool value);

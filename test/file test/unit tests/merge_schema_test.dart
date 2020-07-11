@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:json_schema_form/json_textform/models/Action.dart';
-import 'package:json_schema_form/json_textform/models/Schema.dart';
-import 'package:json_schema_form/json_textform/models/Icon.dart';
+import 'package:json_schema_form/json_schema_form.dart';
+import 'package:json_schema_form/json_textform/models/components/Action.dart';
+import 'package:json_schema_form/json_textform/models/components/AvaliableWidgetTypes.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 
 void main() {
@@ -81,9 +81,9 @@ void main() {
 
   test("Merge values", () {
     List<Schema> schemas = [
-      Schema(name: "a"),
-      Schema(name: "b"),
-      Schema(name: "c")
+      Schema(name: "a", widget: WidgetType.text),
+      Schema(name: "b", widget: WidgetType.text),
+      Schema(name: "c", widget: WidgetType.text)
     ];
 
     Map<String, dynamic> values = {"a": 123};

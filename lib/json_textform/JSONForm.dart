@@ -1,16 +1,20 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/components/JSONCheckboxField.dart';
 import 'package:json_schema_form/json_textform/components/JSONDateTimeField.dart';
+import 'package:json_schema_form/json_textform/components/JSONFileField.dart';
 import 'package:json_schema_form/json_textform/components/JSONForignKeyField.dart';
+import 'package:json_schema_form/json_textform/components/JSONManyToManyField.dart';
 import 'package:json_schema_form/json_textform/components/JSONSelectField.dart';
 import 'package:json_schema_form/json_textform/components/JSONTextFormField.dart';
-import 'package:json_schema_form/json_textform/models/Action.dart';
+import 'package:json_schema_form/json_textform/models/components/Action.dart';
 import 'package:json_schema_form/json_textform/models/Controller.dart';
-import 'package:json_schema_form/json_textform/models/Icon.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 import 'package:json_schema_form/json_textform/utils.dart';
-import 'package:permission_handler/permission_handler.dart';
+
+import 'models/components/AvaliableWidgetTypes.dart';
+import 'models/components/Icon.dart';
 
 class SchemaValues {
   List<Map<String, dynamic>> schema;
@@ -26,10 +30,12 @@ typedef Future<SchemaValues> OnFetchingSchema(
 
 typedef Future<List<Choice>> OnFetchForignKeyChoices(String path);
 
-typedef Future OnUpdateForignKeyField(
+typedef Future<Choice> OnUpdateForignKeyField(
     String path, Map<String, dynamic> values, dynamic id);
 
 typedef Future OnAddForignKeyField(String path, Map<String, dynamic> values);
+
+typedef Future<File> OnFileUpload(String path);
 
 /// A JSON Schema Form Widget
 /// Which will take a schema input
@@ -42,10 +48,12 @@ class JSONForm extends StatefulWidget {
   final OnFetchingSchema onFetchingSchema;
 
   final OnFetchForignKeyChoices onFetchForignKeyChoices;
-
+  
   final OnUpdateForignKeyField onUpdateForignKeyField;
 
   final OnAddForignKeyField onAddForignKeyField;
+
+  final OnFileUpload onFileUpload;
 
   /// [optional] Schema controller.
   /// Call this to get value back from fields if you want to have
@@ -99,6 +107,7 @@ class JSONForm extends StatefulWidget {
     this.controller,
     this.showSubmitButton = false,
     this.useDropdownButton,
+    @required this.onFileUpload,
     @required this.onFetchingSchema,
     @required this.onFetchForignKeyChoices,
     @required this.onAddForignKeyField,
@@ -123,8 +132,14 @@ class _JSONSchemaFormState extends State<JSONForm> {
   @override
   void didUpdateWidget(JSONForm oldWidget) {
     super.didUpdateWidget(oldWidget);
+    bool schemaEquals =
+        jsonEncode(widget.schema) == jsonEncode(oldWidget.schema);
+    bool valueEquals =
+        jsonEncode(widget.values) == jsonEncode(oldWidget.values);
 
-    this.schemaList = _init();
+    if (!schemaEquals || !valueEquals) {
+      this.schemaList = _init();
+    }
   }
 
   List<Schema> _init() {
@@ -183,8 +198,9 @@ class _JSONSchemaFormState extends State<JSONForm> {
             });
           },
         );
-      case (WidgetType.select):
+      case WidgetType.select:
         return JSONSelectField(
+          filled: widget.filled,
           isOutlined: widget.rounded,
           schema: schema,
           useDropdownButton: widget.useDropdownButton,
@@ -195,13 +211,34 @@ class _JSONSchemaFormState extends State<JSONForm> {
             });
           },
         );
-
-      case (WidgetType.foreignkey):
-        return JSONForignKeyField(
+      case WidgetType.manytomanyLists:
+        return JSONManyToManyField(
+          schema: schema,
+          filled: widget.filled,
+          isOutlined: widget.rounded,
           onAddForignKeyField: widget.onAddForignKeyField,
           onUpdateForignKeyField: widget.onUpdateForignKeyField,
           onFetchingForignKeyChoices: widget.onFetchForignKeyChoices,
           onFetchingSchema: widget.onFetchingSchema,
+          onFileUpload: widget.onFileUpload,
+          icons: widget.icons,
+          actions: widget.actions,
+          onSaved: (choices) {
+            setState(() {
+              schema.value = choices.map((e) => e.value).toList();
+              schema.choices = choices;
+            });
+          },
+        );
+
+      case WidgetType.foreignkey:
+        return JSONForignKeyField(
+          filled: widget.filled,
+          onAddForignKeyField: widget.onAddForignKeyField,
+          onUpdateForignKeyField: widget.onUpdateForignKeyField,
+          onFetchingForignKeyChoices: widget.onFetchForignKeyChoices,
+          onFetchingSchema: widget.onFetchingSchema,
+          onFileUpload: widget.onFileUpload,
           isOutlined: widget.rounded,
           schema: schema,
           actions: widget.actions,
@@ -214,7 +251,22 @@ class _JSONSchemaFormState extends State<JSONForm> {
           },
         );
 
-      default:
+      case WidgetType.file:
+        return JSONFileField(
+          schema: schema,
+          isOutlined: widget.rounded,
+          filled: widget.filled,
+          onFileUpload: widget.onFileUpload,
+          onSaved: (value) {
+            setState(() {
+              schema.value = value;
+            });
+          },
+        );
+
+      case WidgetType.text:
+      case WidgetType.number:
+      case WidgetType.unknown:
         return JSONTextFormField(
           key: Key(schema.name),
           schema: schema,
@@ -267,7 +319,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
                                 style: TextStyle(
                                     color: Theme.of(context)
                                         .primaryTextTheme
-                                        .title
+                                        .headline6
                                         .color),
                               ),
                               shape: RoundedRectangleBorder(
@@ -289,11 +341,14 @@ class _JSONSchemaFormState extends State<JSONForm> {
     );
   }
 
-  Future<Map<String, dynamic>> onPressSubmitButton(BuildContext context) async {
+  Future<Map<String, dynamic>> onPressSubmitButton(
+      [BuildContext context]) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       // hide keyboard
-      FocusScope.of(context).requestFocus(FocusNode());
+      if (context != null) {
+        FocusScope.of(context).requestFocus(FocusNode());
+      }
       Map<String, dynamic> ret = getSubmitJSON(schemaList);
       // call on submit function
       if (widget.onSubmit != null) {

@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:json_schema_form/json_schema_form.dart';
 import 'package:json_schema_form/json_textform/JSONForm.dart';
 import 'package:json_schema_form/json_textform/JSONSchemaForm.dart';
-import 'package:json_schema_form/json_textform/models/Action.dart';
+import 'package:json_schema_form/json_textform/models/components/Action.dart';
 import 'package:json_schema_form/json_textform/models/Controller.dart';
-import 'package:json_schema_form/json_textform/models/Icon.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 
 import 'data/sample_data.dart';
@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<Map<String, dynamic>> getSchema() async {
     await Future.delayed(Duration(milliseconds: 100));
-    return itemJSONData;
+    return itemJSONData3;
   }
 
   ThemeData buildTheme() {
@@ -81,7 +81,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   print("updated");
                 },
                 onFetchingForignKeyChoices: (path) async {
-                  print("$path");
+                  if (path == "podcast/collection") {
+                    return [
+                      Choice(label: "Video 1", value: 2),
+                      Choice(label: "Video 2", value: 3),
+                    ];
+                  }
+
                   return [
                     Choice(label: "Hello", value: "1"),
                   ];
@@ -96,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
                 filled: false,
-                rounded: false,
+                rounded: true,
                 schema: (snapshot.data['fields'] as List)
                     .map((s) => s as Map<String, dynamic>)
                     .toList(),
@@ -139,8 +145,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 url: "http://192.168.1.120",
                 values: {
                   "author_id": {"label": "sdfsdfa", "value": 2},
-                  "name": "abcdefhahabaa1a",
+                  "name": "abcdefhahabaa1a1",
                   "time": DateTime(2016, 1, 5, 1).toIso8601String(),
+                  'subtitle': FileFieldValue(path: "s3.amazon.com/a.jpg"),
+                  "asset_collections": [
+                    {"label": "Video 1", "value": 2}
+                  ]
                 },
               ),
             );

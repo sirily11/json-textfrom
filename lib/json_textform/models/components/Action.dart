@@ -1,7 +1,7 @@
 import 'dart:io';
-
-import 'package:json_schema_form/json_textform/models/Icon.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
+
+import 'Icon.dart';
 
 
 /// Actions type

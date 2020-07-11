@@ -1,3 +1,5 @@
+# @format
+
 name: Flutter test
 
 on: [push]
@@ -18,7 +20,13 @@ jobs:
           channel: ${{ matrix.flutter }}
       - run: flutter pub get
       - run: flutter test --coverage
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
+      - uses: codecov/codecov-action@v1
+        with:
+          file: ./coverage/lcov.info
+          flags: uitests,unittests
+          name: codecov-storage_management
+          fail_ci_if_error: false
+
+      - uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

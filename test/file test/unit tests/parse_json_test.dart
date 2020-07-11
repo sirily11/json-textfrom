@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:json_schema_form/json_textform/models/components/AvaliableWidgetTypes.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 
 void main() {

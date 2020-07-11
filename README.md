@@ -1,6 +1,16 @@
+<!-- @format -->
+
 # Flutter JSON Form
 
 ![Flutter test](https://github.com/sirily11/json-textfrom/workflows/Flutter%20test/badge.svg)
+
+## Setup
+
+Before you use this plugin, you need to setup your ios/android project inorder to use file field(File upload).
+
+Reference [this page](https://pub.dev/packages/file_picker#-readme-tab-) to setup.
+
+## Introduction
 
 This is the plugin for flutter using JSON Schema to define the form itself.
 It supports:
@@ -12,6 +22,8 @@ It supports:
 - Checkbox Field
 - DateTime Field
 - custom field icon and action
+- ManyToMany Field
+- File Field
 
 # Getting start
 

@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/JSONForm.dart';
-import 'package:json_schema_form/json_textform/models/Action.dart';
+import 'package:json_schema_form/json_textform/models/components/Action.dart';
 import 'package:json_schema_form/json_textform/models/Controller.dart';
-import 'package:json_schema_form/json_textform/models/Icon.dart';
 import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
-import 'package:json_schema_form/json_textform/models/Schema.dart';
 import 'package:provider/provider.dart';
+import 'models/components/Icon.dart';
 
 /// A JSON Schema Form Widget
 /// Which will take a schema input
@@ -15,13 +14,17 @@ class JSONSchemaForm extends StatelessWidget {
   /// Text form is filled
   final bool filled;
 
+  /// Will be called when user using file field
+  final OnFileUpload onFileUpload;
+
   /// schema controller
   final JSONSchemaController controller;
 
   /// Fetching choices for forign key selections
   final OnFetchForignKeyChoices onFetchingForignKeyChoices;
 
-  /// Update forign key's value
+  /// Update forign key's value and return Choice represents the update value.
+  /// return null if nothing change
   final OnUpdateForignKeyField onUpdateForignKeyField;
 
   /// Add new forign key
@@ -88,6 +91,7 @@ class JSONSchemaForm extends StatelessWidget {
     this.url = "http://0.0.0.0",
     this.showSubmitButton = true,
     this.useDropdownButton = false,
+    this.onFileUpload,
     @required this.onFetchingSchema,
     @required this.onFetchingForignKeyChoices,
     @required this.onAddForignKeyField,
@@ -121,6 +125,7 @@ class JSONSchemaForm extends StatelessWidget {
         onFetchForignKeyChoices: onFetchingForignKeyChoices,
         onAddForignKeyField: onAddForignKeyField,
         onUpdateForignKeyField: onUpdateForignKeyField,
+        onFileUpload: onFileUpload,
       ),
     );
   }

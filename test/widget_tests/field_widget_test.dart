@@ -7,15 +7,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:json_schema_form/json_schema_form.dart';
 import 'package:json_schema_form/json_textform/JSONSchemaForm.dart';
 import 'package:json_schema_form/json_textform/components/JSONCheckboxField.dart';
 import 'package:json_schema_form/json_textform/components/JSONSelectField.dart';
 import 'package:json_schema_form/json_textform/components/JSONTextFormField.dart';
-import 'package:json_schema_form/json_textform/models/Action.dart';
-import 'package:json_schema_form/json_textform/models/Icon.dart';
+import 'package:json_schema_form/json_textform/models/components/Action.dart';
+
 import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
-
 import 'forignkey_edit_field_test.dart';
 
 void main() {

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/JSONForm.dart';
-import 'package:json_schema_form/json_textform/models/Action.dart';
-import 'package:json_schema_form/json_textform/models/Icon.dart';
+import 'package:json_schema_form/json_textform/models/Schema.dart';
+import 'package:json_schema_form/json_textform/models/components/Action.dart';
 import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
+import 'package:json_schema_form/json_textform/models/components/Icon.dart';
 import 'package:provider/provider.dart';
 
+/// Edit forignkey field
 class JSONForignKeyEditField extends StatelessWidget {
+  final OnFileUpload onFileUpload;
   final OnUpdateForignKeyField onUpdateForignKeyField;
   final OnAddForignKeyField onAddForignKeyField;
   final OnFetchingSchema onFetchingSchema;
@@ -13,9 +16,6 @@ class JSONForignKeyEditField extends StatelessWidget {
 
   /// Model path
   final String path;
-
-  /// On submit button has been clicked
-  final Function onSubmit;
 
   /// Page's title
   final String title;
@@ -26,10 +26,10 @@ class JSONForignKeyEditField extends StatelessWidget {
   final String name;
 
   /// Model's id. This will be provided if
-  /// and only if the mode is editing mode
+  /// and only if the mode is in editing mode
   final dynamic id;
 
-  /// Whether the mode is editing mode
+  /// Whether the mode is in editing mode
   final bool isEdit;
   final bool isOutlined;
 
@@ -43,7 +43,6 @@ class JSONForignKeyEditField extends StatelessWidget {
 
   const JSONForignKeyEditField({
     @required this.path,
-    this.onSubmit,
     this.title,
     this.id,
     this.isOutlined = false,
@@ -53,6 +52,7 @@ class JSONForignKeyEditField extends StatelessWidget {
     @required this.onFetchingForignKeyChoices,
     @required this.onAddForignKeyField,
     @required this.onUpdateForignKeyField,
+    @required this.onFileUpload,
     this.actions,
     this.icons,
   });
@@ -63,6 +63,9 @@ class JSONForignKeyEditField extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("$title"),
+        leading: BackButton(
+          key: Key("Back"),
+        ),
       ),
       body: AnimatedSwitcher(
         duration: Duration(milliseconds: 100),
@@ -70,7 +73,9 @@ class JSONForignKeyEditField extends StatelessWidget {
           future: onFetchingSchema(path, isEdit, id),
           builder: (context, schemaSnapshot) {
             if (!schemaSnapshot.hasData) {
-              return CircularProgressIndicator();
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             }
             if (schemaSnapshot.hasError) {
               return Center(
@@ -92,13 +97,15 @@ class JSONForignKeyEditField extends StatelessWidget {
               icons: icons,
               onAddForignKeyField: onAddForignKeyField,
               onUpdateForignKeyField: onUpdateForignKeyField,
+              onFileUpload: onFileUpload,
               onSubmit: (Map<String, dynamic> json) async {
                 if (isEdit) {
-                  await onUpdateForignKeyField(path, json, id);
+                  Choice choice = await onUpdateForignKeyField(path, json, id);
+                  Navigator.pop(context, choice);
                 } else {
                   await onAddForignKeyField(path, json);
+                  Navigator.pop(context);
                 }
-                Navigator.pop(context);
               },
             );
           },

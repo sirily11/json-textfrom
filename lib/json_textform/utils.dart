@@ -14,10 +14,12 @@ Map<String, dynamic> getSubmitJSON(List<Schema> schemaList) {
   List<Map<String, dynamic>> json = schemaList
       .where((s) => !s.readOnly)
       .map((schema) => schema.onSubmit())
+      .where((schema) => schema != null)
       .toList();
   Map<String, dynamic> ret = Map.fromIterables(
       json.map((j) => j['key'] as String).toList(),
-      json.map((j) => j['value']).toList());
+      json.map((j) {
+        return j['value'];
+      }).toList());
   return ret;
 }
-
