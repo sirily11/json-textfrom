@@ -2,7 +2,7 @@
 
 # Flutter JSON Form
 
-![Flutter test](https://github.com/sirily11/json-textfrom/workflows/Flutter%20test/badge.svg)
+![Flutter test](https://github.com/sirily11/json-textfrom/workflows/Flutter%20test/badge.svg) [![codecov](https://codecov.io/gh/sirily11/json-textfrom/branch/master/graph/badge.svg)](https://codecov.io/gh/sirily11/json-textfrom)
 
 ## Setup
 

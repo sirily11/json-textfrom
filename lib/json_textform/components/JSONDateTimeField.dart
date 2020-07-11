@@ -34,7 +34,6 @@ class _JSONDateTimeFieldState extends State<JSONDateTimeField> {
   @override
   void didUpdateWidget(JSONDateTimeField oldWidget) {
     super.didUpdateWidget(oldWidget);
-
     init();
   }
 
@@ -45,6 +44,9 @@ class _JSONDateTimeFieldState extends State<JSONDateTimeField> {
     dateTime = DateTime.parse(value);
     _controller = TextEditingController(
         text: "${dateTime.year}-${dateTime.month}-${dateTime.day}");
+    _controller.addListener(() {
+      _controller.text = "${dateTime.year}-${dateTime.month}-${dateTime.day}";
+    });
   }
 
   @override
@@ -53,10 +55,6 @@ class _JSONDateTimeFieldState extends State<JSONDateTimeField> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
         child: TextFormField(
-          onChanged: (v) {
-            _controller.text =
-                "${dateTime.year}-${dateTime.month}-${dateTime.day}";
-          },
           onTap: () async {
             DateTime selectedDate = await showDatePicker(
               context: context,
