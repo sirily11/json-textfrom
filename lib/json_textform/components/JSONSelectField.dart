@@ -40,6 +40,7 @@ class JSONSelectField extends StatelessWidget {
             Expanded(
               flex: 9,
               child: DropdownButton(
+                key: Key("Dropdown"),
                 hint: Text("Select ${schema.label}"),
                 isExpanded: true,
                 onChanged: (v) {
@@ -52,6 +53,7 @@ class JSONSelectField extends StatelessWidget {
                 items: schema?.extra?.choices
                     ?.map(
                       (e) => DropdownMenuItem(
+                        key: Key("Dropdown-${e.label}"),
                         value: e,
                         child: Text(e.label),
                       ),

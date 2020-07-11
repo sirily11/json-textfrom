@@ -40,6 +40,9 @@ class _SelectionPageState extends State<SelectionPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        leading: BackButton(
+          key: Key("Back"),
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.done),
@@ -73,7 +76,9 @@ class _SelectionPageState extends State<SelectionPage> {
               itemCount: _list.length,
               itemBuilder: (ctx, index) {
                 Choice selection = _list[index];
+                bool checked = selection.value == _selectedValue;
                 return RadioListTile(
+                  key: Key("${selection.label}-$checked"),
                   groupValue: _selectedValue,
                   title: Text(selection.label),
                   value: selection.value,
