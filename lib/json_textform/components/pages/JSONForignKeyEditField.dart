@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/JSONForm.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 import 'package:json_schema_form/json_textform/models/components/Action.dart';
-import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
 import 'package:json_schema_form/json_textform/models/components/Icon.dart';
-import 'package:provider/provider.dart';
+
+enum RequestAction { delete, update, add }
+
+class ReturnChoice {
+  Choice choice;
+  RequestAction action;
+
+  ReturnChoice({this.choice, this.action});
+}
 
 /// Edit forignkey field
 class JSONForignKeyEditField extends StatelessWidget {
+  final OnDeleteForignKeyField onDeleteForignKeyField;
   final OnFileUpload onFileUpload;
   final OnUpdateForignKeyField onUpdateForignKeyField;
   final OnAddForignKeyField onAddForignKeyField;
@@ -53,19 +61,34 @@ class JSONForignKeyEditField extends StatelessWidget {
     @required this.onAddForignKeyField,
     @required this.onUpdateForignKeyField,
     @required this.onFileUpload,
+    @required this.onDeleteForignKeyField,
     this.actions,
     this.icons,
   });
 
   @override
   Widget build(BuildContext context) {
-    NetworkProvider provider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("$title"),
         leading: BackButton(
           key: Key("Back"),
         ),
+        actions: <Widget>[
+          if (isEdit)
+            IconButton(
+              onPressed: () async {
+                if (onDeleteForignKeyField != null) {
+                  Choice choice = await onDeleteForignKeyField(path, id);
+                  Navigator.pop(
+                    context,
+                    ReturnChoice(action: RequestAction.delete, choice: choice),
+                  );
+                }
+              },
+              icon: Icon(Icons.delete),
+            )
+        ],
       ),
       body: AnimatedSwitcher(
         duration: Duration(milliseconds: 100),
@@ -97,14 +120,29 @@ class JSONForignKeyEditField extends StatelessWidget {
               icons: icons,
               onAddForignKeyField: onAddForignKeyField,
               onUpdateForignKeyField: onUpdateForignKeyField,
+              onDeleteForignKeyField: onDeleteForignKeyField,
               onFileUpload: onFileUpload,
               onSubmit: (Map<String, dynamic> json) async {
                 if (isEdit) {
-                  Choice choice = await onUpdateForignKeyField(path, json, id);
-                  Navigator.pop(context, choice);
+                  if (onUpdateForignKeyField != null) {
+                    Choice choice =
+                        await onUpdateForignKeyField(path, json, id);
+                    Navigator.pop<ReturnChoice>(
+                      context,
+                      ReturnChoice(
+                        action: RequestAction.update,
+                        choice: choice,
+                      ),
+                    );
+                  }
                 } else {
-                  await onAddForignKeyField(path, json);
-                  Navigator.pop(context);
+                  if (onAddForignKeyField != null) {
+                    Choice choice = await onAddForignKeyField(path, json);
+                    Navigator.pop(
+                      context,
+                      ReturnChoice(action: RequestAction.add, choice: choice),
+                    );
+                  }
                 }
               },
             );

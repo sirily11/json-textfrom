@@ -11,13 +11,14 @@ import 'models/components/Icon.dart';
 /// Which will take a schema input
 /// and generate a form
 class JSONSchemaForm extends StatelessWidget {
-  /// Text form is filled
+  /// Text form style is filled
   final bool filled;
 
-  /// Will be called when user using file field
+  /// Whenever user click the button inside filefield,
+  /// this function callback will be called
   final OnFileUpload onFileUpload;
 
-  /// schema controller
+  /// schema controller to control the form
   final JSONSchemaController controller;
 
   /// Fetching choices for forign key selections
@@ -27,11 +28,17 @@ class JSONSchemaForm extends StatelessWidget {
   /// return null if nothing change
   final OnUpdateForignKeyField onUpdateForignKeyField;
 
-  /// Add new forign key
+  /// Whenever user want to add forignkey, this function will be called.
+  /// Should return a choice object after creating forignkey.
   final OnAddForignKeyField onAddForignKeyField;
 
-  // Fetching forign key's schema
+  /// Fetching forign key's schema. Will be used to generate form for
+  /// forignkey.
   final OnFetchingSchema onFetchingSchema;
+
+  /// Whenever user want to delete a forignkey object, this function
+  /// will be called
+  final OnDeleteForignKeyField onDeleteForignKeyField;
 
   /// Schema's name
   /// Use this to identify the actions and icons
@@ -96,6 +103,7 @@ class JSONSchemaForm extends StatelessWidget {
     @required this.onFetchingForignKeyChoices,
     @required this.onAddForignKeyField,
     @required this.onUpdateForignKeyField,
+    @required this.onDeleteForignKeyField,
   });
 
   @override
@@ -125,6 +133,7 @@ class JSONSchemaForm extends StatelessWidget {
         onFetchForignKeyChoices: onFetchingForignKeyChoices,
         onAddForignKeyField: onAddForignKeyField,
         onUpdateForignKeyField: onUpdateForignKeyField,
+        onDeleteForignKeyField: onDeleteForignKeyField,
         onFileUpload: onFileUpload,
       ),
     );

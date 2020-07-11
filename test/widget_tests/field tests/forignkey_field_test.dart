@@ -67,6 +67,7 @@ void main() {
                 onUpdateForignKeyField: (path, values, id) async {
                   return Choice(label: values['title'], value: values['title']);
                 },
+                onDeleteForignKeyField: null,
               ),
             ),
           ),
@@ -105,6 +106,7 @@ void main() {
                 onFetchingForignKeyChoices: (path) {
                   return;
                 },
+                onDeleteForignKeyField: null,
                 onAddForignKeyField: (path, values) async {
                   return;
                 },

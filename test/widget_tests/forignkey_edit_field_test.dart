@@ -29,6 +29,10 @@ void main() {
             home: Material(
               child: JSONForignKeyEditField(
                 isEdit: false,
+                onFetchingForignKeyChoices: null,
+                onAddForignKeyField: null,
+                onUpdateForignKeyField: null,
+                onDeleteForignKeyField: null,
                 onFetchingSchema: (path, isEdit, id) async {
                   return SchemaValues(
                     schema: [
@@ -50,6 +54,7 @@ void main() {
                 },
                 path: "abc",
                 name: "name_id",
+                onFileUpload: (String path) {},
               ),
             ),
           ),
@@ -73,6 +78,10 @@ void main() {
             home: Material(
               child: JSONForignKeyEditField(
                 isEdit: false,
+                onFetchingForignKeyChoices: null,
+                onAddForignKeyField: null,
+                onUpdateForignKeyField: null,
+                onDeleteForignKeyField: null,
                 onFetchingSchema: (path, isEdit, id) async {
                   return SchemaValues(
                     schema: [
@@ -96,6 +105,7 @@ void main() {
                 },
                 path: "abc",
                 name: "name_id",
+                onFileUpload: (String path) {},
               ),
             ),
           ),

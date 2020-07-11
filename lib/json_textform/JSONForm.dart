@@ -16,25 +16,52 @@ import 'package:json_schema_form/json_textform/utils.dart';
 import 'models/components/AvaliableWidgetTypes.dart';
 import 'models/components/Icon.dart';
 
+/// A schema values which represents both schema and its values.
 class SchemaValues {
+  /// schema data.
   List<Map<String, dynamic>> schema;
+
+  /// schema's value
   Map<String, dynamic> values;
 
   SchemaValues({@required this.schema, @required this.values});
 }
 
+/// Will be called when user clicks submit button or uses controller to submit
 typedef Future OnSubmit(Map<String, dynamic> json);
 
+/// Fetch schema based on the [path] and [id].
+/// If this function has been called when user want to edit a forignkey's value,
+/// then [isEdit] will be true and id will be provided. Otherwise, id will be null.
+///
+/// This function should return a [schemaValues] which includes both schema and its value.
 typedef Future<SchemaValues> OnFetchingSchema(
     String path, bool isEdit, dynamic id);
 
+/// Fetch list of forignkey's selections based on the [path].
+/// This will be called when user want to select a forignkey(s).
 typedef Future<List<Choice>> OnFetchForignKeyChoices(String path);
 
+/// This function will be called when user wants
+/// to update a forign key's value based on the [path].
+///
+/// [values] and [id] will be provided for you so that you can use them
+/// to do something like making an api request.
 typedef Future<Choice> OnUpdateForignKeyField(
     String path, Map<String, dynamic> values, dynamic id);
 
-typedef Future OnAddForignKeyField(String path, Map<String, dynamic> values);
+/// This function will be called when user wants to add a forignkey.
+/// The [values] and [path] will be provided so that you can use them
+/// to make a api request.
+typedef Future<Choice> OnAddForignKeyField(
+    String path, Map<String, dynamic> values);
 
+/// Delete a forignkey based on the [path] and [id]
+typedef Future<Choice> OnDeleteForignKeyField(String path, dynamic id);
+
+/// Open a file based on the platform.
+///
+/// For example, use [FilePicker] to pick a file on mobile platform
 typedef Future<File> OnFileUpload(String path);
 
 /// A JSON Schema Form Widget
@@ -48,12 +75,14 @@ class JSONForm extends StatefulWidget {
   final OnFetchingSchema onFetchingSchema;
 
   final OnFetchForignKeyChoices onFetchForignKeyChoices;
-  
+
   final OnUpdateForignKeyField onUpdateForignKeyField;
 
   final OnAddForignKeyField onAddForignKeyField;
 
   final OnFileUpload onFileUpload;
+
+  final OnDeleteForignKeyField onDeleteForignKeyField;
 
   /// [optional] Schema controller.
   /// Call this to get value back from fields if you want to have
@@ -107,6 +136,7 @@ class JSONForm extends StatefulWidget {
     this.controller,
     this.showSubmitButton = false,
     this.useDropdownButton,
+    @required this.onDeleteForignKeyField,
     @required this.onFileUpload,
     @required this.onFetchingSchema,
     @required this.onFetchForignKeyChoices,
@@ -219,6 +249,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
           onAddForignKeyField: widget.onAddForignKeyField,
           onUpdateForignKeyField: widget.onUpdateForignKeyField,
           onFetchingForignKeyChoices: widget.onFetchForignKeyChoices,
+          onDeleteForignKeyField: widget.onDeleteForignKeyField,
           onFetchingSchema: widget.onFetchingSchema,
           onFileUpload: widget.onFileUpload,
           icons: widget.icons,
@@ -236,6 +267,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
           filled: widget.filled,
           onAddForignKeyField: widget.onAddForignKeyField,
           onUpdateForignKeyField: widget.onUpdateForignKeyField,
+          onDeleteForignKeyField: widget.onDeleteForignKeyField,
           onFetchingForignKeyChoices: widget.onFetchForignKeyChoices,
           onFetchingSchema: widget.onFetchingSchema,
           onFileUpload: widget.onFileUpload,
@@ -279,6 +311,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
           },
         );
     }
+    return Container();
   }
 
   @override

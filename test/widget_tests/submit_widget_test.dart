@@ -24,10 +24,15 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Material(
-              child: JSONSchemaForm(
-            schema: schema,
-            onSubmit: (value) {},
-          )),
+            child: JSONSchemaForm(
+              schema: schema,
+              onFetchingSchema: null,
+              onFetchingForignKeyChoices: null,
+              onAddForignKeyField: null,
+              onUpdateForignKeyField: null,
+              onDeleteForignKeyField: null,
+            ),
+          ),
         ),
       );
       // if the field is required
@@ -61,7 +66,12 @@ void main() {
               child: JSONSchemaForm(
             schema: schema,
             values: {"name": "abc"},
-            onSubmit: (value) {},
+            onSubmit: (json) {},
+            onFetchingSchema: null,
+            onFetchingForignKeyChoices: null,
+            onAddForignKeyField: null,
+            onUpdateForignKeyField: null,
+            onDeleteForignKeyField: null,
           )),
         ),
       );
@@ -98,6 +108,11 @@ void main() {
             onSubmit: (value) async {
               print(value);
             },
+            onFetchingSchema: null,
+            onFetchingForignKeyChoices: null,
+            onAddForignKeyField: null,
+            onUpdateForignKeyField: null,
+            onDeleteForignKeyField: null,
           )),
         ),
       );
@@ -132,9 +147,15 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Material(
-              child: JSONSchemaForm(
-            schema: schema,
-          )),
+            child: JSONSchemaForm(
+              schema: schema,
+              onFetchingSchema: null,
+              onFetchingForignKeyChoices: null,
+              onAddForignKeyField: null,
+              onUpdateForignKeyField: null,
+              onDeleteForignKeyField: null,
+            ),
+          ),
         ),
       );
       expect(find.text("abc"), findsOneWidget);
@@ -164,6 +185,11 @@ void main() {
           home: Material(
               child: JSONSchemaForm(
             schema: schema,
+            onFetchingSchema: null,
+            onFetchingForignKeyChoices: null,
+            onAddForignKeyField: null,
+            onUpdateForignKeyField: null,
+            onDeleteForignKeyField: null,
           )),
         ),
       );
@@ -197,10 +223,16 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Material(
-              child: JSONSchemaForm(
-            schema: schema,
-            values: {"unit": "USD"},
-          )),
+            child: JSONSchemaForm(
+              schema: schema,
+              values: {"unit": "USD"},
+              onFetchingSchema: null,
+              onFetchingForignKeyChoices: null,
+              onAddForignKeyField: null,
+              onUpdateForignKeyField: null,
+              onDeleteForignKeyField: null,
+            ),
+          ),
         ),
       );
       expect(find.text("USD"), findsOneWidget);

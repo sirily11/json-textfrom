@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 
 String getURL(String base, String path) {

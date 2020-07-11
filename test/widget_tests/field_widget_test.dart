@@ -107,6 +107,7 @@ void main() {
           home: Material(
             child: JSONTextFormField(
               schema: schema,
+              filled: false,
             ),
           ),
         ),
@@ -130,6 +131,7 @@ void main() {
           home: Material(
             child: JSONTextFormField(
               schema: schema,
+              filled: false,
             ),
           ),
         ),
@@ -153,6 +155,7 @@ void main() {
           home: Material(
             child: JSONTextFormField(
               schema: schema,
+              filled: false,
             ),
           ),
         ),
@@ -190,6 +193,11 @@ void main() {
           home: Material(
             child: JSONSchemaForm(
               schema: schema,
+              onFetchingSchema: null,
+              onFetchingForignKeyChoices: null,
+              onAddForignKeyField: null,
+              onUpdateForignKeyField: null,
+              onDeleteForignKeyField: null,
             ),
           ),
         ),
@@ -216,6 +224,11 @@ void main() {
           home: Material(
             child: JSONSchemaForm(
               schema: schema,
+              onFetchingSchema: null,
+              onFetchingForignKeyChoices: null,
+              onAddForignKeyField: null,
+              onUpdateForignKeyField: null,
+              onDeleteForignKeyField: null,
               icons: [FieldIcon(iconData: Icons.home, schemaName: "name")],
               actions: [
                 FieldAction(
@@ -263,6 +276,11 @@ void main() {
           home: Material(
             child: JSONSchemaForm(
               schema: schema,
+              onFetchingSchema: null,
+              onFetchingForignKeyChoices: null,
+              onAddForignKeyField: null,
+              onUpdateForignKeyField: null,
+              onDeleteForignKeyField: null,
               icons: [
                 FieldIcon(
                     iconData: Icons.home,
@@ -316,6 +334,11 @@ void main() {
             child: JSONSchemaForm(
               schemaName: "author_id",
               schema: schema,
+              onFetchingSchema: null,
+              onFetchingForignKeyChoices: null,
+              onAddForignKeyField: null,
+              onUpdateForignKeyField: null,
+              onDeleteForignKeyField: null,
               icons: [
                 FieldIcon(
                     iconData: Icons.home,

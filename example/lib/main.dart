@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<Map<String, dynamic>> getSchema() async {
     await Future.delayed(Duration(milliseconds: 100));
-    return itemJSONData;
+    return itemJSONData3;
   }
 
   ThemeData buildTheme() {
@@ -76,9 +76,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 useDropdownButton: true,
                 onAddForignKeyField: (path, values) async {
                   print("added");
+                  return Choice(label: "A", value: 1);
+                },
+                onDeleteForignKeyField: (path, id) async {
+                  return Choice(label: "a", value: id);
                 },
                 onUpdateForignKeyField: (path, values, id) async {
                   print("updated");
+                  return Choice(label: "B", value: id);
                 },
                 onFetchingForignKeyChoices: (path) async {
                   if (path == "podcast/collection") {
@@ -93,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ];
                 },
                 onFetchingSchema: (path, isEdit, id) async {
-                  print("$path $id");
+                  // print("$path $id");
                   return SchemaValues(
                     schema: (itemJSONData2['fields'] as List)
                         .map((s) => s as Map<String, dynamic>)

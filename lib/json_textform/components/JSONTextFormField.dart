@@ -63,6 +63,7 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
     }
   }
 
+  // ignore: missing_return
   String validation(String value) {
     switch (widget.schema.widget) {
       case WidgetType.number:

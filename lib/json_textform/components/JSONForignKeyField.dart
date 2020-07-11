@@ -22,6 +22,7 @@ class JSONForignKeyField extends StatelessWidget {
   final OnFetchingSchema onFetchingSchema;
   final OnFetchForignKeyChoices onFetchingForignKeyChoices;
   final OnFileUpload onFileUpload;
+  final OnDeleteForignKeyField onDeleteForignKeyField;
 
   /// List of actions. Each field will only have one action.
   /// If not, the last one will replace the first one.
@@ -44,6 +45,7 @@ class JSONForignKeyField extends StatelessWidget {
     @required this.onAddForignKeyField,
     @required this.onUpdateForignKeyField,
     @required this.onFileUpload,
+    @required this.onDeleteForignKeyField,
   });
 
   @override
@@ -102,16 +104,15 @@ class JSONForignKeyField extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (ctx) {
-                    return ChangeNotifierProvider(
-                      create: (_) => NetworkProvider(
-                          networkProvider: networkProvider.networkProvider,
-                          url: networkProvider.url),
+                    return ChangeNotifierProvider.value(
+                      value: networkProvider,
                       child: JSONForignKeyEditField(
                         onAddForignKeyField: onAddForignKeyField,
                         onUpdateForignKeyField: onUpdateForignKeyField,
                         onFetchingSchema: onFetchingSchema,
                         onFetchingForignKeyChoices: onFetchingForignKeyChoices,
                         onFileUpload: onFileUpload,
+                        onDeleteForignKeyField: onDeleteForignKeyField,
                         isOutlined: isOutlined,
                         title: "Add ${schema.label}",
                         path: schema.extra.relatedModel,
@@ -139,15 +140,16 @@ class JSONForignKeyField extends StatelessWidget {
                   ? null
                   : () async {
                       /// Edit current field
-                      Choice choice = await Navigator.push(
+                      ReturnChoice choice = await Navigator.push(
                         context,
                         MaterialPageRoute(builder: (ctx) {
                           return ChangeNotifierProvider<NetworkProvider>(
                             create: (_) => NetworkProvider(
-                                networkProvider:
-                                    networkProvider.networkProvider,
-                                url: networkProvider.url),
+                              networkProvider: networkProvider.networkProvider,
+                              url: networkProvider.url,
+                            ),
                             child: JSONForignKeyEditField(
+                              onDeleteForignKeyField: onDeleteForignKeyField,
                               onFileUpload: onFileUpload,
                               onAddForignKeyField: onAddForignKeyField,
                               onUpdateForignKeyField: onUpdateForignKeyField,
@@ -167,7 +169,7 @@ class JSONForignKeyField extends StatelessWidget {
                         }),
                       );
                       if (choice != null) {
-                        onSaved(choice);
+                        onSaved(choice.choice);
                       }
                     },
             ),

@@ -74,8 +74,14 @@ class JSONFileField extends StatelessWidget {
                               ),
                             ),
                             deleteIcon: !value.willClear
-                                ? Icon(Icons.cancel)
-                                : Icon(Icons.restore),
+                                ? Icon(
+                                    Icons.cancel,
+                                    key: Key("Delete Old"),
+                                  )
+                                : Icon(
+                                    Icons.restore,
+                                    key: Key("Restore"),
+                                  ),
                             onDeleted: () {
                               if (value.willClear) {
                                 value.restoreOld();
@@ -91,6 +97,10 @@ class JSONFileField extends StatelessWidget {
                               "New: ${value.file.path}",
                               maxLines: 1,
                             ),
+                            deleteIcon: Icon(
+                              Icons.cancel,
+                              key: Key("Delete New"),
+                            ),
                             onDeleted: () {
                               value.clearNew();
                               onSaved(value);
@@ -100,6 +110,7 @@ class JSONFileField extends StatelessWidget {
                     ),
                   ),
                   IconButton(
+                    key: Key("Upload"),
                     onPressed: () async {
                       File file;
                       if (onFileUpload != null) {

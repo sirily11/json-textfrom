@@ -1,8 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/json_textform/JSONForm.dart';
-import 'package:json_schema_form/json_textform/models/Schema.dart';
-import 'package:json_schema_form/json_textform/utils.dart';
 
 class NetworkProvider with ChangeNotifier {
   Dio networkProvider;
@@ -14,12 +11,6 @@ class NetworkProvider with ChangeNotifier {
     this.networkProvider,
     this.url,
   });
-
-  String _preProcessURL(String path) {
-    String p = "$path/".replaceFirst("-", "_");
-    String url = getURL(this.url, p);
-    return url;
-  }
 
   /// Get schema
   // Future<List<Map<String, dynamic>>> getEditSchema(String path) async {
@@ -37,12 +28,4 @@ class NetworkProvider with ChangeNotifier {
   //   return null;
   // }
 
-  /// show error message
-  void _showSnackBar(String message) {
-    key.currentState.showSnackBar(
-      SnackBar(
-        content: Text(message),
-      ),
-    );
-  }
 }
