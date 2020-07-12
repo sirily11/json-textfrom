@@ -86,3 +86,7 @@
 ## [1.1.1]
 
 - Added support for macos
+
+## [1.1.2]
+
+- Added Dialog style
