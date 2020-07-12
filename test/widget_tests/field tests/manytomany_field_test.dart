@@ -56,6 +56,7 @@ void main() {
             child: ManyToManySelectionPage(
               title: "Select selections",
               useDialog: false,
+              filled: false,
               icons: [],
               actions: [],
               isOutlined: false,

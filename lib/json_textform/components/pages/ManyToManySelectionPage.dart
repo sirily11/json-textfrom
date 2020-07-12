@@ -20,6 +20,7 @@ class ManyToManySelectionPage extends StatefulWidget {
   final String title;
   final bool isOutlined;
   final bool useDialog;
+  final bool filled;
 
   /// Page's name
   /// This one is different from the title
@@ -41,6 +42,7 @@ class ManyToManySelectionPage extends StatefulWidget {
     @required this.title,
     this.isOutlined = false,
     this.value,
+    @required this.filled,
     @required this.useDialog,
     @required this.onFetchingforeignKeyChoices,
     @required this.onAddforeignKeyField,
@@ -165,7 +167,12 @@ class _ManyToManySelectionPageState extends State<ManyToManySelectionPage> {
                       Icons.edit,
                     ),
                   ),
-                  Text(selection.label),
+                  Expanded(
+                    child: Text(
+                      selection.label,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ],
               ),
               value: checked,
@@ -215,6 +222,7 @@ class _ManyToManySelectionPageState extends State<ManyToManySelectionPage> {
     return ChangeNotifierProvider.value(
       value: networkProvider,
       child: JSONforeignKeyEditField(
+        filled: widget.filled,
         useDialog: widget.useDialog,
         onDeleteforeignKeyField: widget.onDeleteforeignKeyField,
         title: "Add ${widget.schema.label}",
@@ -264,6 +272,7 @@ class _ManyToManySelectionPageState extends State<ManyToManySelectionPage> {
         url: networkProvider.url,
       ),
       child: JSONforeignKeyEditField(
+        filled: widget.filled,
         useDialog: widget.useDialog,
         title: "Edit ${widget.schema.label}",
         isEdit: true,

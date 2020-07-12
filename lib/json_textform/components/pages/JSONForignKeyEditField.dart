@@ -24,6 +24,8 @@ class JSONforeignKeyEditField extends StatefulWidget {
   final OnFetchforeignKeyChoices onFetchingforeignKeyChoices;
   final bool useDialog;
 
+  final bool filled;
+
   /// Model path
   final String path;
 
@@ -57,6 +59,7 @@ class JSONforeignKeyEditField extends StatefulWidget {
     this.id,
     this.isOutlined = false,
     this.isEdit = false,
+    @required this.filled,
     @required this.useDialog,
     @required this.name,
     @required this.onFetchingSchema,
@@ -97,6 +100,7 @@ class _JSONforeignKeyEditFieldState extends State<JSONforeignKeyEditField> {
             return Container();
           }
           return JSONForm(
+            filled: widget.filled,
             controller: controller,
             useDialog: widget.useDialog,
             onFetchingSchema: widget.onFetchingSchema,

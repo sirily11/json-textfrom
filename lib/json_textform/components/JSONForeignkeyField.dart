@@ -177,6 +177,7 @@ class JSONForeignkeyField extends StatelessWidget {
         url: networkProvider.url,
       ),
       child: JSONforeignKeyEditField(
+        filled: filled,
         useDialog: useDialog,
         onDeleteforeignKeyField: onDeleteforeignKeyField,
         onFileUpload: onFileUpload,
@@ -200,6 +201,7 @@ class JSONForeignkeyField extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: networkProvider,
       child: JSONforeignKeyEditField(
+        filled: filled,
         useDialog: useDialog,
         onAddforeignKeyField: onAddforeignKeyField,
         onUpdateforeignKeyField: onUpdateforeignKeyField,

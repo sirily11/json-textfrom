@@ -39,7 +39,7 @@ class JSONManyToManyField extends StatelessWidget {
     this.onSaved,
     this.showIcon = true,
     this.isOutlined = false,
-    this.filled,
+    @required this.filled,
   });
 
   @override
@@ -87,6 +87,7 @@ class JSONManyToManyField extends StatelessWidget {
         url: networkProvider.url,
       ),
       child: ManyToManySelectionPage(
+        filled: filled,
         useDialog: useDialog,
         onDeleteforeignKeyField: onDeleteforeignKeyField,
         onFileUpload: onFileUpload,
