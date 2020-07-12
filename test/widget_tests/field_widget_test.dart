@@ -29,6 +29,7 @@ void main() {
         MaterialApp(
           home: Material(
             child: JSONSelectField(
+              useDialog: false,
               schema: schema,
               useDropdownButton: false,
               isOutlined: false,
@@ -58,6 +59,7 @@ void main() {
         MaterialApp(
           home: Material(
             child: JSONSelectField(
+              useDialog: false,
               schema: schema,
               useDropdownButton: false,
               isOutlined: false,
@@ -84,6 +86,7 @@ void main() {
         MaterialApp(
           home: Material(
             child: JSONSelectField(
+              useDialog: false,
               schema: schema,
               useDropdownButton: false,
               isOutlined: false,

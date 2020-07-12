@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/JSONForm.dart';
+import 'package:json_schema_form/json_textform/models/Controller.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 import 'package:json_schema_form/json_textform/models/components/Action.dart';
 import 'package:json_schema_form/json_textform/models/components/Icon.dart';
@@ -14,13 +15,14 @@ class ReturnChoice {
 }
 
 /// Edit foreignkey field
-class JSONforeignKeyEditField extends StatelessWidget {
+class JSONforeignKeyEditField extends StatefulWidget {
   final OnDeleteforeignKeyField onDeleteforeignKeyField;
   final OnFileUpload onFileUpload;
   final OnUpdateforeignKeyField onUpdateforeignKeyField;
   final OnAddforeignKeyField onAddforeignKeyField;
   final OnFetchingSchema onFetchingSchema;
   final OnFetchforeignKeyChoices onFetchingforeignKeyChoices;
+  final bool useDialog;
 
   /// Model path
   final String path;
@@ -55,6 +57,7 @@ class JSONforeignKeyEditField extends StatelessWidget {
     this.id,
     this.isOutlined = false,
     this.isEdit = false,
+    @required this.useDialog,
     @required this.name,
     @required this.onFetchingSchema,
     @required this.onFetchingforeignKeyChoices,
@@ -67,88 +70,138 @@ class JSONforeignKeyEditField extends StatelessWidget {
   });
 
   @override
+  _JSONforeignKeyEditFieldState createState() =>
+      _JSONforeignKeyEditFieldState();
+}
+
+class _JSONforeignKeyEditFieldState extends State<JSONforeignKeyEditField> {
+  final JSONSchemaController controller = JSONSchemaController();
+
+  Widget buildBody() {
+    return AnimatedSwitcher(
+      duration: Duration(milliseconds: 100),
+      child: FutureBuilder<SchemaValues>(
+        future: widget.onFetchingSchema(widget.path, widget.isEdit, widget.id),
+        builder: (context, schemaSnapshot) {
+          if (!schemaSnapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (schemaSnapshot.hasError) {
+            return Center(
+              child: Text("${schemaSnapshot.error}"),
+            );
+          }
+          if (schemaSnapshot.data == null) {
+            return Container();
+          }
+          return JSONForm(
+            controller: controller,
+            useDialog: widget.useDialog,
+            onFetchingSchema: widget.onFetchingSchema,
+            onFetchforeignKeyChoices: widget.onFetchingforeignKeyChoices,
+            schemaName: widget.name,
+            rounded: widget.isOutlined,
+            schema: schemaSnapshot.data.schema,
+            values: schemaSnapshot.data.values,
+            actions: widget.actions,
+            showSubmitButton: !widget.useDialog,
+            icons: widget.icons,
+            onAddforeignKeyField: widget.onAddforeignKeyField,
+            onUpdateforeignKeyField: widget.onUpdateforeignKeyField,
+            onDeleteforeignKeyField: widget.onDeleteforeignKeyField,
+            onFileUpload: widget.onFileUpload,
+            onSubmit: (Map<String, dynamic> json) async {
+              await onSubmit(json, context);
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  Future<void> onSubmit(Map<String, dynamic> json, BuildContext context) async {
+    if (json == null) {
+      return;
+    }
+
+    if (widget.isEdit) {
+      if (widget.onUpdateforeignKeyField != null) {
+        Choice choice =
+            await widget.onUpdateforeignKeyField(widget.path, json, widget.id);
+        Navigator.pop<ReturnChoice>(
+          context,
+          ReturnChoice(
+            action: RequestAction.update,
+            choice: choice,
+          ),
+        );
+      }
+    } else {
+      if (widget.onAddforeignKeyField != null) {
+        Choice choice = await widget.onAddforeignKeyField(widget.path, json);
+        Navigator.pop(
+          context,
+          ReturnChoice(action: RequestAction.add, choice: choice),
+        );
+      }
+    }
+  }
+
+  IconButton buildDeleteButton(BuildContext context) {
+    return IconButton(
+      onPressed: () async {
+        if (widget.onDeleteforeignKeyField != null) {
+          Choice choice =
+              await widget.onDeleteforeignKeyField(widget.path, widget.id);
+          Navigator.pop(
+            context,
+            ReturnChoice(action: RequestAction.delete, choice: choice),
+          );
+        }
+      },
+      icon: Icon(Icons.delete),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (widget.useDialog) {
+      return AlertDialog(
+        title: Row(
+          children: [
+            Text("${widget.title}"),
+            if (widget.isEdit) buildDeleteButton(context)
+          ],
+        ),
+        content: Container(
+          width: 600,
+          child: buildBody(),
+        ),
+        actions: [
+          FlatButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Cancel"),
+          ),
+          FlatButton(
+            onPressed: () async {
+              await controller.onSubmit(context);
+            },
+            child: Text("Submit"),
+          )
+        ],
+      );
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text("$title"),
+        title: Text("${widget.title}"),
         leading: BackButton(
           key: Key("Back"),
         ),
-        actions: <Widget>[
-          if (isEdit)
-            IconButton(
-              onPressed: () async {
-                if (onDeleteforeignKeyField != null) {
-                  Choice choice = await onDeleteforeignKeyField(path, id);
-                  Navigator.pop(
-                    context,
-                    ReturnChoice(action: RequestAction.delete, choice: choice),
-                  );
-                }
-              },
-              icon: Icon(Icons.delete),
-            )
-        ],
+        actions: <Widget>[if (widget.isEdit) buildDeleteButton(context)],
       ),
-      body: AnimatedSwitcher(
-        duration: Duration(milliseconds: 100),
-        child: FutureBuilder<SchemaValues>(
-          future: onFetchingSchema(path, isEdit, id),
-          builder: (context, schemaSnapshot) {
-            if (!schemaSnapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (schemaSnapshot.hasError) {
-              return Center(
-                child: Text("${schemaSnapshot.error}"),
-              );
-            }
-            if (schemaSnapshot.data == null) {
-              return Container();
-            }
-            return JSONForm(
-              onFetchingSchema: onFetchingSchema,
-              onFetchforeignKeyChoices: onFetchingforeignKeyChoices,
-              schemaName: name,
-              rounded: isOutlined,
-              schema: schemaSnapshot.data.schema,
-              values: schemaSnapshot.data.values,
-              actions: actions,
-              showSubmitButton: true,
-              icons: icons,
-              onAddforeignKeyField: onAddforeignKeyField,
-              onUpdateforeignKeyField: onUpdateforeignKeyField,
-              onDeleteforeignKeyField: onDeleteforeignKeyField,
-              onFileUpload: onFileUpload,
-              onSubmit: (Map<String, dynamic> json) async {
-                if (isEdit) {
-                  if (onUpdateforeignKeyField != null) {
-                    Choice choice =
-                        await onUpdateforeignKeyField(path, json, id);
-                    Navigator.pop<ReturnChoice>(
-                      context,
-                      ReturnChoice(
-                        action: RequestAction.update,
-                        choice: choice,
-                      ),
-                    );
-                  }
-                } else {
-                  if (onAddforeignKeyField != null) {
-                    Choice choice = await onAddforeignKeyField(path, json);
-                    Navigator.pop(
-                      context,
-                      ReturnChoice(action: RequestAction.add, choice: choice),
-                    );
-                  }
-                }
-              },
-            );
-          },
-        ),
-      ),
+      body: buildBody(),
     );
   }
 }

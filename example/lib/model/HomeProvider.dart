@@ -5,6 +5,14 @@ class HomeProvider with ChangeNotifier {
   bool _showSubmitButton = true;
   bool _isRounded = false;
   bool _useDropdown = false;
+  bool _useDialog = false;
+
+  bool get useDialog => _useDialog;
+
+  set useDialog(bool value) {
+    _useDialog = value;
+    notifyListeners();
+  }
 
   bool get useDropdown => _useDropdown;
 

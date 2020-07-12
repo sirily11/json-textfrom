@@ -7,23 +7,23 @@ import 'package:json_schema_form_example/menubutton/MenuButton.dart';
 import 'package:json_schema_form_example/model/HomeProvider.dart';
 import 'package:provider/provider.dart';
 
-class ForeignkeyDemo extends StatefulWidget {
+class ManyToManyFieldDemo extends StatefulWidget {
   @override
-  _ForeignkeyDemoState createState() => _ForeignkeyDemoState();
+  _ManyToManyFieldDemoState createState() => _ManyToManyFieldDemoState();
 }
 
-class _ForeignkeyDemoState extends State<ForeignkeyDemo> {
+class _ManyToManyFieldDemoState extends State<ManyToManyFieldDemo> {
   List<Choice> choices = [];
 
   @override
   Widget build(BuildContext context) {
     final schema = [
       {
-        "label": "location",
+        "label": "videos",
         "readonly": false,
-        "extra": {"related_model": "storage-management/location"},
-        "name": "location_id",
-        "widget": "foreignkey",
+        "extra": {"related_model": "podcast/video"},
+        "name": "video_list",
+        "widget": "manytomany-lists",
         "required": false,
         "translated": false,
         "validations": {}
@@ -49,7 +49,7 @@ class _ForeignkeyDemoState extends State<ForeignkeyDemo> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("ForeignKey Preview"),
+        title: Text("ManyToManyField Preview"),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,

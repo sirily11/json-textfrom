@@ -29,6 +29,7 @@ void main() {
             home: Material(
               child: JSONforeignKeyEditField(
                 isEdit: false,
+                useDialog: false,
                 onFetchingforeignKeyChoices: null,
                 onAddforeignKeyField: null,
                 onUpdateforeignKeyField: null,
@@ -78,6 +79,7 @@ void main() {
             home: Material(
               child: JSONforeignKeyEditField(
                 isEdit: false,
+                useDialog: false,
                 onFetchingforeignKeyChoices: null,
                 onAddforeignKeyField: null,
                 onUpdateforeignKeyField: null,

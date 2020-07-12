@@ -55,6 +55,7 @@ void main() {
           home: Material(
             child: ManyToManySelectionPage(
               title: "Select selections",
+              useDialog: false,
               icons: [],
               actions: [],
               isOutlined: false,

@@ -25,6 +25,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: SelectionPage(
+            useDialog: false,
             title: "ABC",
             selections: [
               Choice(label: "a", value: "a"),
@@ -47,6 +48,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: SelectionPage(
+            useDialog: false,
             title: "ABC",
             selections: [
               Choice(label: "a", value: "a"),
@@ -70,6 +72,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: SelectionPage(
+            useDialog: false,
             title: "ABC",
             selections: [
               Choice(label: "a", value: "a"),
@@ -93,6 +96,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: SelectionPage(
+            useDialog: false,
             title: "ABC",
             selections: [
               Choice(label: "a", value: "a"),
@@ -118,6 +122,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: SelectionPage(
+            useDialog: false,
             title: "ABC",
             onSelected: (Choice v) {
               expect(v.label, "b");
@@ -145,6 +150,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: SelectionPage(
+            useDialog: false,
             title: "ABC",
             selections: [
               Choice(label: "a", value: "a"),
@@ -186,6 +192,7 @@ void main() {
           navigatorObservers: [mockObserver],
           home: Material(
             child: JSONSelectField(
+              useDialog: false,
               useDropdownButton: false,
               schema: Schema.fromJSON(schema),
               isOutlined: false,

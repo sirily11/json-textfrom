@@ -23,8 +23,10 @@ class JSONManyToManyField extends StatelessWidget {
   final bool isOutlined;
   final List<FieldAction<dynamic>> actions;
   final List<FieldIcon> icons;
+  final bool useDialog;
 
   JSONManyToManyField({
+    @required this.useDialog,
     @required this.schema,
     @required this.onAddforeignKeyField,
     @required this.onFetchingforeignKeyChoices,
@@ -50,31 +52,20 @@ class JSONManyToManyField extends StatelessWidget {
         isFilled: isOutlined,
         child: ListTile(
           onTap: () async {
-            List<Choice> choices = await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (c) => ChangeNotifierProvider(
-                  create: (context) => NetworkProvider(
-                    networkProvider: networkProvider.networkProvider,
-                    url: networkProvider.url,
-                  ),
-                  child: ManyToManySelectionPage(
-                    onDeleteforeignKeyField: onDeleteforeignKeyField,
-                    onFileUpload: onFileUpload,
-                    onAddforeignKeyField: onAddforeignKeyField,
-                    onFetchingforeignKeyChoices: onFetchingforeignKeyChoices,
-                    onFetchingSchema: onFetchingSchema,
-                    onUpdateforeignKeyField: onUpdateforeignKeyField,
-                    schema: schema,
-                    title: "Select ${schema.label} ",
-                    name: schema.name,
-                    actions: actions,
-                    icons: icons,
-                    value: schema.choices,
-                  ),
+            List<Choice> choices;
+            if (useDialog) {
+              choices = await showDialog(
+                context: context,
+                builder: (context) => buildSelectionPage(networkProvider),
+              );
+            } else {
+              choices = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (c) => buildSelectionPage(networkProvider),
                 ),
-              ),
-            );
+              );
+            }
 
             if (choices != null) {
               onSaved(choices);
@@ -84,6 +75,31 @@ class JSONManyToManyField extends StatelessWidget {
           subtitle: Text("${schema.choices.length} selection"),
           trailing: Icon(Icons.chevron_right),
         ),
+      ),
+    );
+  }
+
+  ChangeNotifierProvider<NetworkProvider> buildSelectionPage(
+      NetworkProvider networkProvider) {
+    return ChangeNotifierProvider(
+      create: (context) => NetworkProvider(
+        networkProvider: networkProvider.networkProvider,
+        url: networkProvider.url,
+      ),
+      child: ManyToManySelectionPage(
+        useDialog: useDialog,
+        onDeleteforeignKeyField: onDeleteforeignKeyField,
+        onFileUpload: onFileUpload,
+        onAddforeignKeyField: onAddforeignKeyField,
+        onFetchingforeignKeyChoices: onFetchingforeignKeyChoices,
+        onFetchingSchema: onFetchingSchema,
+        onUpdateforeignKeyField: onUpdateforeignKeyField,
+        schema: schema,
+        title: "Select ${schema.label} ",
+        name: schema.name,
+        actions: actions,
+        icons: icons,
+        value: schema.choices,
       ),
     );
   }

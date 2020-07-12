@@ -19,6 +19,7 @@ class ManyToManySelectionPage extends StatefulWidget {
   final Schema schema;
   final String title;
   final bool isOutlined;
+  final bool useDialog;
 
   /// Page's name
   /// This one is different from the title
@@ -40,6 +41,7 @@ class ManyToManySelectionPage extends StatefulWidget {
     @required this.title,
     this.isOutlined = false,
     this.value,
+    @required this.useDialog,
     @required this.onFetchingforeignKeyChoices,
     @required this.onAddforeignKeyField,
     @required this.onFetchingSchema,
@@ -91,176 +93,237 @@ class _ManyToManySelectionPageState extends State<ManyToManySelectionPage> {
     }
   }
 
+  void _onBack(BuildContext context) {
+    Navigator.pop(context, null);
+  }
+
+  void _onDone(BuildContext context) {
+    Navigator.pop(context, selections);
+  }
+
+  Widget buildBody() {
+    return Builder(builder: (context) {
+      if (isLoading) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+
+      if (error != null) {
+        return Center(
+          child: Text("$error"),
+        );
+      }
+
+      List<Choice> choices = avaliableSelections
+          .where(
+            (element) => element.label.contains(_filterText),
+          )
+          .toList();
+
+      return Scrollbar(
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: choices.length + 1,
+          itemBuilder: (ctx, index) {
+            if (index == 0) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: TextField(
+                        key: Key("Filter"),
+                        decoration: InputDecoration(labelText: "Search..."),
+                        onChanged: (value) {
+                          setState(() {
+                            _filterText = value;
+                          });
+                        },
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: _onAdd,
+                      icon: Icon(Icons.add),
+                    )
+                  ],
+                ),
+              );
+            }
+            Choice selection = choices[index - 1];
+            bool checked = selections.contains(selection);
+            return CheckboxListTile(
+              key: Key("Checkbox-${selection.label}-$checked"),
+              title: Row(
+                children: <Widget>[
+                  IconButton(
+                    key: Key("Edit"),
+                    onPressed: () async {
+                      await _onUpdate(selection);
+                    },
+                    icon: Icon(
+                      Icons.edit,
+                    ),
+                  ),
+                  Text(selection.label),
+                ],
+              ),
+              value: checked,
+              onChanged: (checked) {
+                if (checked) {
+                  selections.add(selection);
+                } else {
+                  selections.remove(selection);
+                }
+
+                setState(() {
+                  selections = selections;
+                });
+              },
+            );
+          },
+        ),
+      );
+    });
+  }
+
   Future<void> _onAdd() async {
     NetworkProvider networkProvider = Provider.of(context, listen: false);
-    ReturnChoice response = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider.value(
-          value: networkProvider,
-          child: JSONforeignKeyEditField(
-            onDeleteforeignKeyField: widget.onDeleteforeignKeyField,
-            title: "Add ${widget.schema.label}",
-            isEdit: false,
-            icons: widget.icons,
-            actions: widget.actions,
-            isOutlined: widget.isOutlined,
-            path: widget.schema.extra.relatedModel,
-            name: widget.schema.name,
-            onFetchingSchema: widget.onFetchingSchema,
-            onFetchingforeignKeyChoices: widget.onFetchingforeignKeyChoices,
-            onAddforeignKeyField: widget.onAddforeignKeyField,
-            onUpdateforeignKeyField: widget.onUpdateforeignKeyField,
-            onFileUpload: widget.onFileUpload,
-          ),
+    ReturnChoice response;
+
+    if (widget.useDialog) {
+      response = await showDialog(
+        context: context,
+        builder: (context) => buildOnAddView(networkProvider),
+      );
+    } else {
+      response = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => buildOnAddView(networkProvider),
         ),
-      ),
-    );
+      );
+    }
 
     if (response != null) {
       await init();
     }
+  }
+
+  ChangeNotifierProvider<NetworkProvider> buildOnAddView(
+      NetworkProvider networkProvider) {
+    return ChangeNotifierProvider.value(
+      value: networkProvider,
+      child: JSONforeignKeyEditField(
+        useDialog: widget.useDialog,
+        onDeleteforeignKeyField: widget.onDeleteforeignKeyField,
+        title: "Add ${widget.schema.label}",
+        isEdit: false,
+        icons: widget.icons,
+        actions: widget.actions,
+        isOutlined: widget.isOutlined,
+        path: widget.schema.extra.relatedModel,
+        name: widget.schema.name,
+        onFetchingSchema: widget.onFetchingSchema,
+        onFetchingforeignKeyChoices: widget.onFetchingforeignKeyChoices,
+        onAddforeignKeyField: widget.onAddforeignKeyField,
+        onUpdateforeignKeyField: widget.onUpdateforeignKeyField,
+        onFileUpload: widget.onFileUpload,
+      ),
+    );
   }
 
   Future<void> _onUpdate(Choice choice) async {
     NetworkProvider networkProvider = Provider.of(context, listen: false);
-    ReturnChoice response = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ChangeNotifierProvider(
-          create: (context) => NetworkProvider(
-            networkProvider: networkProvider.networkProvider,
-            url: networkProvider.url,
-          ),
-          child: JSONforeignKeyEditField(
-            title: "Edit ${widget.schema.label}",
-            isEdit: true,
-            id: choice.value,
-            icons: widget.icons,
-            actions: widget.actions,
-            isOutlined: widget.isOutlined,
-            path: widget.schema.extra.relatedModel,
-            name: widget.schema.name,
-            onFetchingSchema: widget.onFetchingSchema,
-            onFetchingforeignKeyChoices: widget.onFetchingforeignKeyChoices,
-            onAddforeignKeyField: widget.onAddforeignKeyField,
-            onUpdateforeignKeyField: widget.onUpdateforeignKeyField,
-            onFileUpload: widget.onFileUpload,
-            onDeleteforeignKeyField: widget.onDeleteforeignKeyField,
-          ),
+    ReturnChoice response;
+
+    if (widget.useDialog) {
+      response = await showDialog(
+        context: context,
+        builder: (context) => buildOnUpdateView(networkProvider, choice),
+      );
+    } else {
+      response = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => buildOnUpdateView(networkProvider, choice),
         ),
-      ),
-    );
+      );
+    }
 
     if (response != null) {
       await init();
     }
   }
 
+  ChangeNotifierProvider<NetworkProvider> buildOnUpdateView(
+      NetworkProvider networkProvider, Choice choice) {
+    return ChangeNotifierProvider(
+      create: (context) => NetworkProvider(
+        networkProvider: networkProvider.networkProvider,
+        url: networkProvider.url,
+      ),
+      child: JSONforeignKeyEditField(
+        useDialog: widget.useDialog,
+        title: "Edit ${widget.schema.label}",
+        isEdit: true,
+        id: choice.value,
+        icons: widget.icons,
+        actions: widget.actions,
+        isOutlined: widget.isOutlined,
+        path: widget.schema.extra.relatedModel,
+        name: widget.schema.name,
+        onFetchingSchema: widget.onFetchingSchema,
+        onFetchingforeignKeyChoices: widget.onFetchingforeignKeyChoices,
+        onAddforeignKeyField: widget.onAddforeignKeyField,
+        onUpdateforeignKeyField: widget.onUpdateforeignKeyField,
+        onFileUpload: widget.onFileUpload,
+        onDeleteforeignKeyField: widget.onDeleteforeignKeyField,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (widget.useDialog) {
+      return AlertDialog(
+        title: Text("${widget.title}"),
+        content: Container(
+          width: 600,
+          child: buildBody(),
+        ),
+        actions: [
+          FlatButton(
+            onPressed: () => _onBack(context),
+            child: Text("Cancel"),
+          ),
+          FlatButton(
+            onPressed: () => _onDone(context),
+            child: Text("OK"),
+          ),
+        ],
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
           key: Key("Back"),
           onPressed: () {
-            Navigator.pop(context, null);
+            _onBack(context);
           },
         ),
-        title: Text(widget.title),
+        title: Text("${widget.title}"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.done),
             onPressed: () {
-              Navigator.pop(context, selections);
+              _onDone(context);
             },
           )
         ],
       ),
-      body: Builder(builder: (context) {
-        if (isLoading) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        if (error != null) {
-          return Center(
-            child: Text("$error"),
-          );
-        }
-
-        List<Choice> choices = avaliableSelections
-            .where(
-              (element) => element.label.contains(_filterText),
-            )
-            .toList();
-
-        return Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      key: Key("Filter"),
-                      decoration: InputDecoration(labelText: "Search..."),
-                      onChanged: (value) {
-                        setState(() {
-                          _filterText = value;
-                        });
-                      },
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: _onAdd,
-                    icon: Icon(Icons.add),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: choices.length,
-                itemBuilder: (ctx, index) {
-                  Choice selection = choices[index];
-                  bool checked = selections.contains(selection);
-                  return CheckboxListTile(
-                    key: Key("Checkbox-${selection.label}-$checked"),
-                    title: Row(
-                      children: <Widget>[
-                        IconButton(
-                          key: Key("Edit"),
-                          onPressed: () async {
-                            await _onUpdate(selection);
-                          },
-                          icon: Icon(
-                            Icons.edit,
-                          ),
-                        ),
-                        Text(selection.label),
-                      ],
-                    ),
-                    value: checked,
-                    onChanged: (checked) {
-                      if (checked) {
-                        selections.add(selection);
-                      } else {
-                        selections.remove(selection);
-                      }
-
-                      setState(() {
-                        selections = selections;
-                      });
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
-        );
-      }),
+      body: buildBody(),
     );
   }
 }

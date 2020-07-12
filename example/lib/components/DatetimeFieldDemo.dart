@@ -24,7 +24,7 @@ class DatetimeFieldDemo extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("CheckBox Preview"),
+        title: Text("Datetime Field Preview"),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,

@@ -37,7 +37,7 @@ class TextFieldInListView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("TextField Preview"),
+        title: Text("TextField List View Preview"),
       ),
       body: Stack(
         children: <Widget>[

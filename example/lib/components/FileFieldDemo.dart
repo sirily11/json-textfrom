@@ -28,7 +28,7 @@ class FileFieldDemo extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("CheckBox Preview"),
+        title: Text("FileField Preview"),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,

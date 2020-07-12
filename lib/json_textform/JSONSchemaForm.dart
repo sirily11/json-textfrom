@@ -11,6 +11,9 @@ import 'models/components/Icon.dart';
 /// Which will take a schema input
 /// and generate a form
 class JSONSchemaForm extends StatelessWidget {
+  /// Use dialog instead of normal materialPageRoute
+  final bool useDialog;
+
   /// Text form style is filled
   final bool filled;
 
@@ -26,18 +29,35 @@ class JSONSchemaForm extends StatelessWidget {
 
   /// Update foreign key's value and return Choice represents the update value.
   /// return null if nothing change
+  ///
+  /// * [path] A string represents current model's relatedModel value
+  /// * [values] A map of values where key represents field's name
+  /// and value represents field's value
+  /// * [id] a string/number represents the current object
   final OnUpdateforeignKeyField onUpdateforeignKeyField;
 
   /// Whenever user want to add foreignkey, this function will be called.
   /// Should return a choice object after creating foreignkey.
+  ///
+  /// * [path] A string represents current model's relatedModel value
+  /// * [values] A map of values where key represents field's name
+  /// and value represents field's value
   final OnAddforeignKeyField onAddforeignKeyField;
 
   /// Fetching foreign key's schema. Will be used to generate form for
   /// foreignkey.
+  ///
+  /// * [path] A string represents current model's relatedModel value
+  /// * [isEdit] A bool represents current mode. If true, then
+  /// should return a schema and values, otherwise, should return schema only
+  /// * [id] A value represents current object. Will be null if [isEdit] is false.
   final OnFetchingSchema onFetchingSchema;
 
   /// Whenever user want to delete a foreignkey object, this function
   /// will be called
+  ///
+  /// * [path] A string represents current model's relatedModel value
+  /// * [id] a string/number represents the current object
   final OnDeleteforeignKeyField onDeleteforeignKeyField;
 
   /// Schema's name
@@ -63,6 +83,9 @@ class JSONSchemaForm extends StatelessWidget {
 
   /// Will call this function after user
   /// clicked the submit button
+  ///
+  /// * [json] A map. keys represent fields' name
+  /// and values represent fields' value
   final OnSubmit onSubmit;
 
   /// URL for foreignkey
@@ -99,6 +122,7 @@ class JSONSchemaForm extends StatelessWidget {
     this.showSubmitButton = true,
     this.useDropdownButton = false,
     this.onFileUpload,
+    this.useDialog = false,
     @required this.onFetchingSchema,
     @required this.onFetchingforeignKeyChoices,
     @required this.onAddforeignKeyField,
@@ -127,6 +151,7 @@ class JSONSchemaForm extends StatelessWidget {
         values: values,
         rounded: rounded,
         controller: controller,
+        useDialog: useDialog,
         showSubmitButton: showSubmitButton,
         useDropdownButton: useDropdownButton,
         onFetchingSchema: onFetchingSchema,

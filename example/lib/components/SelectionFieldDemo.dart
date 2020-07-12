@@ -16,7 +16,13 @@ class SelectionFieldDemo extends StatelessWidget {
           "choices": [
             {"label": "US Dollar", "value": "USD"},
             {"label": "Hong Kong Dollar", "value": "HDK"},
-            {"label": "RMB", "value": "CNY"}
+            {"label": "RMB", "value": "CNY"},
+            {"label": "US Dollar", "value": "1"},
+            {"label": "US Dollar", "value": "2"},
+            {"label": "US Dollar", "value": "3"},
+            {"label": "US Dollar", "value": "4"},
+            {"label": "US Dollar", "value": "5"},
+            {"label": "US Dollar", "value": "6"},
           ],
           "default": "USD"
         },
@@ -32,7 +38,7 @@ class SelectionFieldDemo extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("CheckBox Preview"),
+        title: Text("Selection Field Preview"),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -40,6 +46,7 @@ class SelectionFieldDemo extends StatelessWidget {
           children: <Widget>[
             JSONSchemaForm(
               schema: schema,
+              useDialog: homeProvider.useDialog,
               showSubmitButton: homeProvider.showSubmitButton,
               filled: homeProvider.isFilled,
               rounded: homeProvider.isRounded,

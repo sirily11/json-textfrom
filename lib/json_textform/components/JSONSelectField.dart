@@ -11,12 +11,14 @@ class JSONSelectField extends StatelessWidget {
   final OnChange onSaved;
   final bool showIcon;
   final bool isOutlined;
+  final bool useDialog;
 
   /// implementation. Default is false
   final bool useDropdownButton;
 
   JSONSelectField({
     @required this.schema,
+    @required this.useDialog,
     this.onSaved,
     this.showIcon = true,
     this.isOutlined = false,
@@ -83,27 +85,39 @@ class JSONSelectField extends StatelessWidget {
           onTap: schema?.extra?.choices == null
               ? null
               : () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) {
-                        return SelectionPage(
-                          onSelected: (value) {
-                            if (this.onSaved != null) {
-                              this.onSaved(value);
-                            }
-                          },
-                          title: "Select ${schema.label}",
-                          selections: schema.extra.choices,
-                          value: schema.value ?? schema.extra.defaultValue,
-                        );
-                      },
-                    ),
-                  );
+                  if (useDialog) {
+                    showDialog(
+                      context: context,
+                      builder: (context) => buildSelectionPage(),
+                    );
+                  } else {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (ctx) {
+                          return buildSelectionPage();
+                        },
+                      ),
+                    );
+                  }
                 },
           title: Text("Select ${schema.label}"),
           subtitle: Text(schema.value ?? schema?.extra?.defaultValue ?? ""),
         ),
       ),
+    );
+  }
+
+  SelectionPage buildSelectionPage() {
+    return SelectionPage(
+      useDialog: useDialog,
+      onSelected: (value) {
+        if (this.onSaved != null) {
+          this.onSaved(value);
+        }
+      },
+      title: "Select ${schema.label}",
+      selections: schema.extra.choices,
+      value: schema.value ?? schema.extra.defaultValue,
     );
   }
 }

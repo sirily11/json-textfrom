@@ -106,6 +106,7 @@ class Schema {
           case WidgetType.unknown:
           case WidgetType.checkbox:
           case WidgetType.file:
+          case WidgetType.url:
             s.value = value;
             break;
         }

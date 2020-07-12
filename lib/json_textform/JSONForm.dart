@@ -84,6 +84,8 @@ class JSONForm extends StatefulWidget {
 
   final OnDeleteforeignKeyField onDeleteforeignKeyField;
 
+  final bool useDialog;
+
   /// [optional] Schema controller.
   /// Call this to get value back from fields if you want to have
   /// your custom submit button.
@@ -136,6 +138,7 @@ class JSONForm extends StatefulWidget {
     this.controller,
     this.showSubmitButton = false,
     this.useDropdownButton,
+    @required this.useDialog,
     @required this.onDeleteforeignKeyField,
     @required this.onFileUpload,
     @required this.onFetchingSchema,
@@ -230,6 +233,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
         );
       case WidgetType.select:
         return JSONSelectField(
+          useDialog: widget.useDialog,
           filled: widget.filled,
           isOutlined: widget.rounded,
           schema: schema,
@@ -245,6 +249,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
         return JSONManyToManyField(
           schema: schema,
           filled: widget.filled,
+          useDialog: widget.useDialog,
           isOutlined: widget.rounded,
           onAddforeignKeyField: widget.onAddforeignKeyField,
           onUpdateforeignKeyField: widget.onUpdateforeignKeyField,
@@ -265,6 +270,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
       case WidgetType.foreignkey:
         return JSONForeignkeyField(
           filled: widget.filled,
+          useDialog: widget.useDialog,
           onAddforeignKeyField: widget.onAddforeignKeyField,
           onUpdateforeignKeyField: widget.onUpdateforeignKeyField,
           onDeleteforeignKeyField: widget.onDeleteforeignKeyField,
@@ -299,6 +305,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
       case WidgetType.text:
       case WidgetType.number:
       case WidgetType.unknown:
+      case WidgetType.url:
         return JSONTextFormField(
           key: Key(schema.name),
           schema: schema,

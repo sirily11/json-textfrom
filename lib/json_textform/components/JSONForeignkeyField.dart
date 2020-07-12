@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 typedef OnSaved(Choice choice);
 
 class JSONForeignkeyField extends StatelessWidget {
+  final bool useDialog;
   final Schema schema;
   final OnSaved onSaved;
   final bool showIcon;
@@ -39,6 +40,7 @@ class JSONForeignkeyField extends StatelessWidget {
     this.isOutlined = false,
     this.icons,
     this.actions,
+    @required this.useDialog,
     @required this.filled,
     @required this.onFetchingSchema,
     @required this.onFetchingforeignKeyChoices,
@@ -70,22 +72,20 @@ class JSONForeignkeyField extends StatelessWidget {
                 onTap: () async {
                   List<Choice> choices = await onFetchingforeignKeyChoices(
                       schema.extra.relatedModel);
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) {
-                        return SelectionPage(
-                          onSelected: (value) {
-                            if (this.onSaved != null) {
-                              this.onSaved(value);
-                            }
-                          },
-                          title: "Select ${schema.label}",
-                          selections: choices,
-                          value: schema.value,
-                        );
-                      },
-                    ),
-                  );
+                  if (useDialog) {
+                    showDialog(
+                      context: context,
+                      builder: (context) => buildSelectionPage(choices),
+                    );
+                  } else {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (ctx) {
+                          return buildSelectionPage(choices);
+                        },
+                      ),
+                    );
+                  }
                 },
               ),
             ),
@@ -101,30 +101,19 @@ class JSONForeignkeyField extends StatelessWidget {
               shape: new CircleBorder(),
               onPressed: () async {
                 /// Add new field
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (ctx) {
-                    return ChangeNotifierProvider.value(
-                      value: networkProvider,
-                      child: JSONforeignKeyEditField(
-                        onAddforeignKeyField: onAddforeignKeyField,
-                        onUpdateforeignKeyField: onUpdateforeignKeyField,
-                        onFetchingSchema: onFetchingSchema,
-                        onFetchingforeignKeyChoices:
-                            onFetchingforeignKeyChoices,
-                        onFileUpload: onFileUpload,
-                        onDeleteforeignKeyField: onDeleteforeignKeyField,
-                        isOutlined: isOutlined,
-                        title: "Add ${schema.label}",
-                        path: schema.extra.relatedModel,
-                        isEdit: false,
-                        actions: actions,
-                        name: schema.name,
-                        icons: icons,
-                      ),
-                    );
-                  }),
-                );
+                if (useDialog) {
+                  await showDialog(
+                    context: context,
+                    builder: (context) => buildAddView(networkProvider),
+                  );
+                } else {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (ctx) {
+                      return buildAddView(networkProvider);
+                    }),
+                  );
+                }
               },
             ),
           ),
@@ -141,53 +130,90 @@ class JSONForeignkeyField extends StatelessWidget {
                   ? null
                   : () async {
                       /// Edit current field
-                      ReturnChoice choice = await Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (ctx) {
-                          return ChangeNotifierProvider<NetworkProvider>(
-                            create: (_) => NetworkProvider(
-                              networkProvider: networkProvider.networkProvider,
-                              url: networkProvider.url,
-                            ),
-                            child: JSONforeignKeyEditField(
-                              onDeleteforeignKeyField: onDeleteforeignKeyField,
-                              onFileUpload: onFileUpload,
-                              onAddforeignKeyField: onAddforeignKeyField,
-                              onUpdateforeignKeyField: onUpdateforeignKeyField,
-                              onFetchingSchema: onFetchingSchema,
-                              onFetchingforeignKeyChoices:
-                                  onFetchingforeignKeyChoices,
-                              isOutlined: isOutlined,
-                              title: "Edit ${schema.label}",
-                              path: schema.extra.relatedModel,
-                              isEdit: true,
-                              id: schema.choice.value,
-                              actions: actions,
-                              name: schema.name,
-                              icons: icons,
-                            ),
-                          );
-                        }),
-                      );
+                      ReturnChoice choice;
+                      if (useDialog) {
+                        choice = await showDialog(
+                          context: context,
+                          builder: (context) => buildEditView(networkProvider),
+                        );
+                      } else {
+                        choice = await Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (ctx) {
+                            return buildEditView(networkProvider);
+                          }),
+                        );
+                      }
+
                       if (choice != null) {
                         onSaved(choice.choice);
                       }
                     },
             ),
           ),
-          // Expanded(
-          //   child: RawMaterialButton(
-          //     elevation: 0,
-          //     child: Icon(
-          //       Icons.remove,
-          //       color: Colors.white,
-          //     ),
-          //     fillColor: Colors.blue,
-          //     shape: new CircleBorder(),
-          //     onPressed: () {},
-          //   ),
-          // )
         ],
+      ),
+    );
+  }
+
+  SelectionPage buildSelectionPage(List<Choice> choices) {
+    return SelectionPage(
+      useDialog: useDialog,
+      onSelected: (value) {
+        if (this.onSaved != null) {
+          this.onSaved(value);
+        }
+      },
+      title: "Select ${schema.label}",
+      selections: choices,
+      value: schema.value,
+    );
+  }
+
+  Widget buildEditView(NetworkProvider networkProvider) {
+    return ChangeNotifierProvider<NetworkProvider>(
+      create: (_) => NetworkProvider(
+        networkProvider: networkProvider.networkProvider,
+        url: networkProvider.url,
+      ),
+      child: JSONforeignKeyEditField(
+        useDialog: useDialog,
+        onDeleteforeignKeyField: onDeleteforeignKeyField,
+        onFileUpload: onFileUpload,
+        onAddforeignKeyField: onAddforeignKeyField,
+        onUpdateforeignKeyField: onUpdateforeignKeyField,
+        onFetchingSchema: onFetchingSchema,
+        onFetchingforeignKeyChoices: onFetchingforeignKeyChoices,
+        isOutlined: isOutlined,
+        title: "Edit ${schema.label}",
+        path: schema.extra.relatedModel,
+        isEdit: true,
+        id: schema.choice.value,
+        actions: actions,
+        name: schema.name,
+        icons: icons,
+      ),
+    );
+  }
+
+  Widget buildAddView(NetworkProvider networkProvider) {
+    return ChangeNotifierProvider.value(
+      value: networkProvider,
+      child: JSONforeignKeyEditField(
+        useDialog: useDialog,
+        onAddforeignKeyField: onAddforeignKeyField,
+        onUpdateforeignKeyField: onUpdateforeignKeyField,
+        onFetchingSchema: onFetchingSchema,
+        onFetchingforeignKeyChoices: onFetchingforeignKeyChoices,
+        onFileUpload: onFileUpload,
+        onDeleteforeignKeyField: onDeleteforeignKeyField,
+        isOutlined: isOutlined,
+        title: "Add ${schema.label}",
+        path: schema.extra.relatedModel,
+        isEdit: false,
+        actions: actions,
+        name: schema.name,
+        icons: icons,
       ),
     );
   }

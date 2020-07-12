@@ -33,6 +33,11 @@ class MenuButton extends StatelessWidget {
               title: Text("Use Dropdown"),
               value: homeProvider.useDropdown,
               onChanged: (v) => homeProvider.useDropdown = v,
+            ),
+            CheckboxListTile(
+              title: Text("Use Dialog"),
+              value: homeProvider.useDialog,
+              onChanged: (v) => homeProvider.useDialog = v,
             )
           ],
         ),
