@@ -4,6 +4,8 @@
 
 ![Flutter test](https://github.com/sirily11/json-textfrom/workflows/Flutter%20test/badge.svg) [![codecov](https://codecov.io/gh/sirily11/json-textfrom/branch/master/graph/badge.svg)](https://codecov.io/gh/sirily11/json-textfrom)
 
+**You can download the macos app in the release page!**
+
 ## Setup
 
 Before you use this plugin, you need to setup your ios/android project inorder to use file field(File upload).

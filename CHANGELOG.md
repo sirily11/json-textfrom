@@ -82,3 +82,7 @@
 - Added support for manyToMany Field
 - Added support for file field
 - Updated example
+
+## [1.1.1]
+
+- Added support for macos
