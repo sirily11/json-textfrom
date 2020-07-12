@@ -323,56 +323,50 @@ class _JSONSchemaFormState extends State<JSONForm> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Form(
-          key: _formKey,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: widget.schema.length + 1,
-            itemBuilder: (BuildContext context, int index) {
-              if (index == widget.schema.length) {
-                return widget.showSubmitButton
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(top: 8.0, bottom: 10),
-                            child: Container(
-                              width: 300,
-                              height: 40,
-                              child: RaisedButton(
-                                color: Theme.of(context).buttonColor,
-                                child: Text(
-                                  "Submit",
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .primaryTextTheme
-                                          .headline6
-                                          .color),
-                                ),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0)),
-                                onPressed: () async {
-                                  await onPressSubmitButton(context);
-                                },
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              for (var schema in schemaList)
+                schema.readOnly || schema.widget == WidgetType.unknown
+                    ? Container()
+                    : _buildBody(schema),
+              widget.showSubmitButton
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 10),
+                          child: Container(
+                            width: 300,
+                            height: 40,
+                            child: RaisedButton(
+                              color: Theme.of(context).buttonColor,
+                              child: Text(
+                                "Submit",
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .primaryTextTheme
+                                        .headline6
+                                        .color),
                               ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      new BorderRadius.circular(30.0)),
+                              onPressed: () async {
+                                await onPressSubmitButton(context);
+                              },
                             ),
                           ),
-                        ],
-                      )
-                    : Container();
-              }
-
-              Schema schema = schemaList[index];
-              return schema.readOnly || schema.widget == WidgetType.unknown
-                  ? Container()
-                  : _buildBody(schema);
-            },
+                        ),
+                      ],
+                    )
+                  : Container()
+            ],
           ),
         ),
       ),

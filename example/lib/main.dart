@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_schema_form.dart';
 import 'package:json_schema_form/json_textform/models/Controller.dart';
 import 'package:json_schema_form_example/components/CheckBoxDemo.dart';
+import 'package:json_schema_form_example/components/CompleteDemo.dart';
 import 'package:json_schema_form_example/components/DatetimeFieldDemo.dart';
 import 'package:json_schema_form_example/components/FileFieldDemo.dart';
 import 'package:json_schema_form_example/components/ManyToManyFieldDemo.dart';
@@ -90,6 +91,10 @@ class _MyHomePageState extends State<MyHomePage> {
     DemoPage(
       title: "Text Field in ListView",
       page: TextFieldInListView(),
+    ),
+    DemoPage(
+      title: "Complete Demo",
+      page: CompleteDemo(),
     )
   ];
 
