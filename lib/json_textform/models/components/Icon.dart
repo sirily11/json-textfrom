@@ -7,7 +7,7 @@ abstract class Field<T> {
 
   /// When this value is null,
   /// then the icon will be for the main schema and all its
-  /// forignkey schema's field;
+  /// foreignkey schema's field;
   /// If this field is set, then only the related name's field will be set icon.
   String schemaFor;
 

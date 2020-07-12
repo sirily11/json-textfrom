@@ -37,14 +37,14 @@ void main() {
       expect(ret.keys.toList().length, 2);
     });
 
-    test("Submit value on forignkey", () {
+    test("Submit value on foreignkey", () {
       var testData = [
         {
           "label": "Name",
           "readonly": false,
           "extra": {},
           "name": "name",
-          "widget": "forignkey",
+          "widget": "foreignkey",
           "required": false,
           "translated": false,
           "validations": {}
@@ -54,7 +54,7 @@ void main() {
           "readonly": false,
           "extra": {},
           "name": "description",
-          "widget": "forignkey",
+          "widget": "foreignkey",
           "required": false,
           "translated": false,
           "validations": {}

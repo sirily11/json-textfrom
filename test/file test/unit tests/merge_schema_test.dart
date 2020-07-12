@@ -137,7 +137,7 @@ void main() {
     expect(newSchemas[0].choice.label, "abc");
   });
 
-  test("Merge values which is a forignkey", () {
+  test("Merge values which is a foreignkey", () {
     List<Schema> schemas = [
       Schema(
         name: "a",
@@ -158,7 +158,7 @@ void main() {
     expect(newSchemas[0].choice.label, "abc");
   });
 
-  test("icons and forignkey and main schema has same name", () {
+  test("icons and foreignkey and main schema has same name", () {
     List<Schema> schemas = [
       Schema(name: "a"),
       Schema(name: "b"),
@@ -170,7 +170,7 @@ void main() {
     newSchema.forEach((s) => expect(s.icon, null));
   });
 
-  test("icons and forignkey and main schema has same name", () {
+  test("icons and foreignkey and main schema has same name", () {
     List<Schema> schemas = [
       Schema(name: "a"),
       Schema(name: "b"),

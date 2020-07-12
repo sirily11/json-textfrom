@@ -34,7 +34,7 @@
 ## [0.7.3]
 
 - Added on action done callback
-- Added actions for forign key
+- Added actions for foreign key
 - Added get image action
 
 ## [0.8.0]

@@ -7,7 +7,7 @@ class OutlineButtonContainer extends StatelessWidget {
   final Key key;
 
   OutlineButtonContainer({
-    @required this.isOutlined,
+    this.isOutlined = false,
     this.child,
     this.key,
     this.isFilled = false,
@@ -16,6 +16,9 @@ class OutlineButtonContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: isOutlined
+          ? null
+          : isFilled ? Theme.of(context).inputDecorationTheme.fillColor : null,
       decoration: isOutlined
           ? BoxDecoration(
               border: Border.all(),

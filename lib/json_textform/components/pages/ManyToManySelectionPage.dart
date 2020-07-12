@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/json_textform/components/pages/JSONForignKeyEditField.dart';
+
 import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 import 'package:json_schema_form/json_textform/models/components/Action.dart';
@@ -7,14 +7,15 @@ import 'package:json_schema_form/json_textform/models/components/Icon.dart';
 import 'package:provider/provider.dart';
 
 import '../../JSONForm.dart';
+import 'JSONForignKeyEditField.dart';
 
 class ManyToManySelectionPage extends StatefulWidget {
-  final OnDeleteForignKeyField onDeleteForignKeyField;
+  final OnDeleteforeignKeyField onDeleteforeignKeyField;
   final OnFileUpload onFileUpload;
-  final OnUpdateForignKeyField onUpdateForignKeyField;
-  final OnAddForignKeyField onAddForignKeyField;
+  final OnUpdateforeignKeyField onUpdateforeignKeyField;
+  final OnAddforeignKeyField onAddforeignKeyField;
   final OnFetchingSchema onFetchingSchema;
-  final OnFetchForignKeyChoices onFetchingForignKeyChoices;
+  final OnFetchforeignKeyChoices onFetchingforeignKeyChoices;
   final Schema schema;
   final String title;
   final bool isOutlined;
@@ -39,16 +40,16 @@ class ManyToManySelectionPage extends StatefulWidget {
     @required this.title,
     this.isOutlined = false,
     this.value,
-    @required this.onFetchingForignKeyChoices,
-    @required this.onAddForignKeyField,
+    @required this.onFetchingforeignKeyChoices,
+    @required this.onAddforeignKeyField,
     @required this.onFetchingSchema,
-    @required this.onUpdateForignKeyField,
+    @required this.onUpdateforeignKeyField,
     @required this.schema,
     @required this.actions,
     @required this.icons,
     @required this.name,
     @required this.onFileUpload,
-    @required this.onDeleteForignKeyField,
+    @required this.onDeleteforeignKeyField,
   });
 
   @override
@@ -77,7 +78,7 @@ class _ManyToManySelectionPageState extends State<ManyToManySelectionPage> {
   Future<void> init() async {
     try {
       var selections = await widget
-          .onFetchingForignKeyChoices(widget.schema.extra.relatedModel);
+          .onFetchingforeignKeyChoices(widget.schema.extra.relatedModel);
       setState(() {
         avaliableSelections = selections;
         isLoading = false;
@@ -97,8 +98,8 @@ class _ManyToManySelectionPageState extends State<ManyToManySelectionPage> {
       MaterialPageRoute(
         builder: (context) => ChangeNotifierProvider.value(
           value: networkProvider,
-          child: JSONForignKeyEditField(
-            onDeleteForignKeyField: widget.onDeleteForignKeyField,
+          child: JSONforeignKeyEditField(
+            onDeleteforeignKeyField: widget.onDeleteforeignKeyField,
             title: "Add ${widget.schema.label}",
             isEdit: false,
             icons: widget.icons,
@@ -107,9 +108,9 @@ class _ManyToManySelectionPageState extends State<ManyToManySelectionPage> {
             path: widget.schema.extra.relatedModel,
             name: widget.schema.name,
             onFetchingSchema: widget.onFetchingSchema,
-            onFetchingForignKeyChoices: widget.onFetchingForignKeyChoices,
-            onAddForignKeyField: widget.onAddForignKeyField,
-            onUpdateForignKeyField: widget.onUpdateForignKeyField,
+            onFetchingforeignKeyChoices: widget.onFetchingforeignKeyChoices,
+            onAddforeignKeyField: widget.onAddforeignKeyField,
+            onUpdateforeignKeyField: widget.onUpdateforeignKeyField,
             onFileUpload: widget.onFileUpload,
           ),
         ),
@@ -131,7 +132,7 @@ class _ManyToManySelectionPageState extends State<ManyToManySelectionPage> {
             networkProvider: networkProvider.networkProvider,
             url: networkProvider.url,
           ),
-          child: JSONForignKeyEditField(
+          child: JSONforeignKeyEditField(
             title: "Edit ${widget.schema.label}",
             isEdit: true,
             id: choice.value,
@@ -141,11 +142,11 @@ class _ManyToManySelectionPageState extends State<ManyToManySelectionPage> {
             path: widget.schema.extra.relatedModel,
             name: widget.schema.name,
             onFetchingSchema: widget.onFetchingSchema,
-            onFetchingForignKeyChoices: widget.onFetchingForignKeyChoices,
-            onAddForignKeyField: widget.onAddForignKeyField,
-            onUpdateForignKeyField: widget.onUpdateForignKeyField,
+            onFetchingforeignKeyChoices: widget.onFetchingforeignKeyChoices,
+            onAddforeignKeyField: widget.onAddforeignKeyField,
+            onUpdateforeignKeyField: widget.onUpdateforeignKeyField,
             onFileUpload: widget.onFileUpload,
-            onDeleteForignKeyField: widget.onDeleteForignKeyField,
+            onDeleteforeignKeyField: widget.onDeleteforeignKeyField,
           ),
         ),
       ),

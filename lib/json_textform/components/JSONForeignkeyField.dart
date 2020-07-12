@@ -11,18 +11,18 @@ import 'package:provider/provider.dart';
 
 typedef OnSaved(Choice choice);
 
-class JSONForignKeyField extends StatelessWidget {
+class JSONForeignkeyField extends StatelessWidget {
   final Schema schema;
   final OnSaved onSaved;
   final bool showIcon;
   final bool isOutlined;
   final bool filled;
-  final OnUpdateForignKeyField onUpdateForignKeyField;
-  final OnAddForignKeyField onAddForignKeyField;
+  final OnUpdateforeignKeyField onUpdateforeignKeyField;
+  final OnAddforeignKeyField onAddforeignKeyField;
   final OnFetchingSchema onFetchingSchema;
-  final OnFetchForignKeyChoices onFetchingForignKeyChoices;
+  final OnFetchforeignKeyChoices onFetchingforeignKeyChoices;
   final OnFileUpload onFileUpload;
-  final OnDeleteForignKeyField onDeleteForignKeyField;
+  final OnDeleteforeignKeyField onDeleteforeignKeyField;
 
   /// List of actions. Each field will only have one action.
   /// If not, the last one will replace the first one.
@@ -32,7 +32,7 @@ class JSONForignKeyField extends StatelessWidget {
   /// If not, the last one will replace the first one.
   final List<FieldIcon> icons;
 
-  JSONForignKeyField({
+  JSONForeignkeyField({
     @required this.schema,
     this.onSaved,
     this.showIcon = true,
@@ -41,11 +41,11 @@ class JSONForignKeyField extends StatelessWidget {
     this.actions,
     @required this.filled,
     @required this.onFetchingSchema,
-    @required this.onFetchingForignKeyChoices,
-    @required this.onAddForignKeyField,
-    @required this.onUpdateForignKeyField,
+    @required this.onFetchingforeignKeyChoices,
+    @required this.onAddforeignKeyField,
+    @required this.onUpdateforeignKeyField,
     @required this.onFileUpload,
-    @required this.onDeleteForignKeyField,
+    @required this.onDeleteforeignKeyField,
   });
 
   @override
@@ -68,7 +68,7 @@ class JSONForignKeyField extends StatelessWidget {
                 title: Text("Select ${schema.label}"),
                 subtitle: Text("${schema.choice?.label}"),
                 onTap: () async {
-                  List<Choice> choices = await onFetchingForignKeyChoices(
+                  List<Choice> choices = await onFetchingforeignKeyChoices(
                       schema.extra.relatedModel);
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -106,13 +106,14 @@ class JSONForignKeyField extends StatelessWidget {
                   MaterialPageRoute(builder: (ctx) {
                     return ChangeNotifierProvider.value(
                       value: networkProvider,
-                      child: JSONForignKeyEditField(
-                        onAddForignKeyField: onAddForignKeyField,
-                        onUpdateForignKeyField: onUpdateForignKeyField,
+                      child: JSONforeignKeyEditField(
+                        onAddforeignKeyField: onAddforeignKeyField,
+                        onUpdateforeignKeyField: onUpdateforeignKeyField,
                         onFetchingSchema: onFetchingSchema,
-                        onFetchingForignKeyChoices: onFetchingForignKeyChoices,
+                        onFetchingforeignKeyChoices:
+                            onFetchingforeignKeyChoices,
                         onFileUpload: onFileUpload,
-                        onDeleteForignKeyField: onDeleteForignKeyField,
+                        onDeleteforeignKeyField: onDeleteforeignKeyField,
                         isOutlined: isOutlined,
                         title: "Add ${schema.label}",
                         path: schema.extra.relatedModel,
@@ -148,14 +149,14 @@ class JSONForignKeyField extends StatelessWidget {
                               networkProvider: networkProvider.networkProvider,
                               url: networkProvider.url,
                             ),
-                            child: JSONForignKeyEditField(
-                              onDeleteForignKeyField: onDeleteForignKeyField,
+                            child: JSONforeignKeyEditField(
+                              onDeleteforeignKeyField: onDeleteforeignKeyField,
                               onFileUpload: onFileUpload,
-                              onAddForignKeyField: onAddForignKeyField,
-                              onUpdateForignKeyField: onUpdateForignKeyField,
+                              onAddforeignKeyField: onAddforeignKeyField,
+                              onUpdateforeignKeyField: onUpdateforeignKeyField,
                               onFetchingSchema: onFetchingSchema,
-                              onFetchingForignKeyChoices:
-                                  onFetchingForignKeyChoices,
+                              onFetchingforeignKeyChoices:
+                                  onFetchingforeignKeyChoices,
                               isOutlined: isOutlined,
                               title: "Edit ${schema.label}",
                               path: schema.extra.relatedModel,

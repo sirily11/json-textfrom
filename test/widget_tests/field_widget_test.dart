@@ -16,7 +16,8 @@ import 'package:json_schema_form/json_textform/models/components/Action.dart';
 
 import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
-import 'forignkey_edit_field_test.dart';
+
+import 'foreignkey_field_test.dart';
 
 void main() {
   group("Widget test", () {
@@ -30,6 +31,8 @@ void main() {
             child: JSONSelectField(
               schema: schema,
               useDropdownButton: false,
+              isOutlined: false,
+              filled: false,
             ),
           ),
         ),
@@ -57,6 +60,8 @@ void main() {
             child: JSONSelectField(
               schema: schema,
               useDropdownButton: false,
+              isOutlined: false,
+              filled: false,
             ),
           ),
         ),
@@ -81,6 +86,8 @@ void main() {
             child: JSONSelectField(
               schema: schema,
               useDropdownButton: false,
+              isOutlined: false,
+              filled: false,
             ),
           ),
         ),
@@ -194,10 +201,10 @@ void main() {
             child: JSONSchemaForm(
               schema: schema,
               onFetchingSchema: null,
-              onFetchingForignKeyChoices: null,
-              onAddForignKeyField: null,
-              onUpdateForignKeyField: null,
-              onDeleteForignKeyField: null,
+              onFetchingforeignKeyChoices: null,
+              onAddforeignKeyField: null,
+              onUpdateforeignKeyField: null,
+              onDeleteforeignKeyField: null,
             ),
           ),
         ),
@@ -225,10 +232,10 @@ void main() {
             child: JSONSchemaForm(
               schema: schema,
               onFetchingSchema: null,
-              onFetchingForignKeyChoices: null,
-              onAddForignKeyField: null,
-              onUpdateForignKeyField: null,
-              onDeleteForignKeyField: null,
+              onFetchingforeignKeyChoices: null,
+              onAddforeignKeyField: null,
+              onUpdateforeignKeyField: null,
+              onDeleteforeignKeyField: null,
               icons: [FieldIcon(iconData: Icons.home, schemaName: "name")],
               actions: [
                 FieldAction(
@@ -245,7 +252,7 @@ void main() {
       expect(find.byIcon(Icons.camera_alt), findsOneWidget);
     });
 
-    testWidgets('Test icons while action is for forign key field',
+    testWidgets('Test icons while action is for foreign key field',
         (WidgetTester tester) async {
       NetworkProvider provider = MockProvider();
       List<Map<String, dynamic>> schema = [
@@ -277,10 +284,10 @@ void main() {
             child: JSONSchemaForm(
               schema: schema,
               onFetchingSchema: null,
-              onFetchingForignKeyChoices: null,
-              onAddForignKeyField: null,
-              onUpdateForignKeyField: null,
-              onDeleteForignKeyField: null,
+              onFetchingforeignKeyChoices: null,
+              onAddforeignKeyField: null,
+              onUpdateforeignKeyField: null,
+              onDeleteforeignKeyField: null,
               icons: [
                 FieldIcon(
                     iconData: Icons.home,
@@ -303,7 +310,7 @@ void main() {
       expect(find.byIcon(Icons.camera_alt), findsNothing);
     });
 
-    testWidgets('Test icons while action is for forign key field',
+    testWidgets('Test icons while action is for foreign key field',
         (WidgetTester tester) async {
       List<Map<String, dynamic>> schema = [
         {
@@ -335,10 +342,10 @@ void main() {
               schemaName: "author_id",
               schema: schema,
               onFetchingSchema: null,
-              onFetchingForignKeyChoices: null,
-              onAddForignKeyField: null,
-              onUpdateForignKeyField: null,
-              onDeleteForignKeyField: null,
+              onFetchingforeignKeyChoices: null,
+              onAddforeignKeyField: null,
+              onUpdateforeignKeyField: null,
+              onDeleteforeignKeyField: null,
               icons: [
                 FieldIcon(
                     iconData: Icons.home,

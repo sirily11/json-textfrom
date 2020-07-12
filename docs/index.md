@@ -1,3 +1,5 @@
+<!-- @format -->
+
 # Welcome to JSON Shcema Flutter
 
 This is the plugin for flutter using JSON Schema to define the form itself.
@@ -5,7 +7,7 @@ It supports:
 
 - Textfield
 - [Selection field](selection/index.md)
-- [Forignkey field](forignkey/index.md)
+- [foreignkey field](foreignkey/index.md)
 - Qrcode scanning
 - DateTime Field
 - Custom field icon and action
@@ -153,7 +155,7 @@ also, you can define your own custom onDone function to do the image classificat
 })
 ```
 
-More information about actions, please refer the docs on [forignKey](forignkey/index.md)
+More information about actions, please refer the docs on [foreignKey](foreignkey/index.md)
 
 ## Retriving data
 

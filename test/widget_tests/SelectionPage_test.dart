@@ -188,6 +188,8 @@ void main() {
             child: JSONSelectField(
               useDropdownButton: false,
               schema: Schema.fromJSON(schema),
+              isOutlined: false,
+              filled: false,
             ),
           ),
         ),

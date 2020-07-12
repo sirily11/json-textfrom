@@ -1,4 +1,6 @@
-# Forign Key
+<!-- @format -->
+
+# foreign Key
 
 ## Basic usage
 
@@ -30,15 +32,15 @@ JSONSchemaForm(
 
 then, JSONSchemaForm will automatically go to http://192.168.1.114:8000/**storage_management/category** by using **option** request to fetch the schema for category.
 
-> important notes: The forignkey field is based on the implementation on django's schema,which will replace **storage-management/category** to **storage_management/category**.
+> important notes: The foreignkey field is based on the implementation on django's schema,which will replace **storage-management/category** to **storage_management/category**.
 
 ## Pre-defined value
 
-suppose you have schema above where your forignkey has name **category_name**. To set pre-define value for the forignkey, use following syntax. schema's name as key, and value is a map where it has two field, one is label and another is value.
+suppose you have schema above where your foreignkey has name **category_name**. To set pre-define value for the foreignkey, use following syntax. schema's name as key, and value is a map where it has two field, one is label and another is value.
 
 - label: a text represents the selected field's name which used to display on the main screen.
 
-- value: a field represents the actual selected value which used to display on the forignkey selection page.
+- value: a field represents the actual selected value which used to display on the foreignkey selection page.
 
 For example, if you have label as "hello", and value is 2. When you on the main screen (before click on select button), it will display "Select category hello". And after you get into the detail page, it will mark radio button hello which has value 2 selected.
 
@@ -57,7 +59,7 @@ JSONSchemaForm(
 
 ## Actions and icons
 
-To use actions and icons for forignkey field (The field displayed after get into the detail page), you need to set schemaFor field. If you want to set the actions/icons for every field with same name, you can set useGlobally to true.
+To use actions and icons for foreignkey field (The field displayed after get into the detail page), you need to set schemaFor field. If you want to set the actions/icons for every field with same name, you can set useGlobally to true.
 
 For example, you have you home schema like this
 

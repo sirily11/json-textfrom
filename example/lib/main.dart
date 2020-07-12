@@ -1,25 +1,52 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_schema_form.dart';
-import 'package:json_schema_form/json_textform/JSONForm.dart';
-import 'package:json_schema_form/json_textform/JSONSchemaForm.dart';
-import 'package:json_schema_form/json_textform/models/components/Action.dart';
 import 'package:json_schema_form/json_textform/models/Controller.dart';
-import 'package:json_schema_form/json_textform/models/Schema.dart';
+import 'package:json_schema_form_example/components/CheckBoxDemo.dart';
+import 'package:json_schema_form_example/components/DatetimeFieldDemo.dart';
+import 'package:json_schema_form_example/components/FileFieldDemo.dart';
+import 'package:json_schema_form_example/components/SelectionFieldDemo.dart';
+import 'package:json_schema_form_example/components/TextFieidDemo.dart';
+import 'package:json_schema_form_example/model/HomeProvider.dart';
+import 'package:provider/provider.dart';
 
-import 'data/sample_data.dart';
+import 'components/ForeignkeyDemo.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  ThemeData buildTheme() {
+    final ThemeData base = ThemeData();
+    return base.copyWith(
+      iconTheme: IconThemeData(color: Colors.grey),
+      inputDecorationTheme: InputDecorationTheme(
+        fillColor: Colors.grey[400],
+      ),
+    );
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: MyHomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => HomeProvider(),
+        )
+      ],
+      child: MaterialApp(
+        theme: buildTheme(),
+        title: 'Flutter Demo',
+        home: MyHomePage(),
+      ),
     );
   }
+}
+
+class DemoPage {
+  Widget page;
+  String title;
+
+  DemoPage({@required this.page, @required this.title});
 }
 
 class MyHomePage extends StatefulWidget {
@@ -29,135 +56,55 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   JSONSchemaController controller = JSONSchemaController();
-
-  Future<Map<String, dynamic>> getSchema() async {
-    await Future.delayed(Duration(milliseconds: 100));
-    return itemJSONData3;
-  }
-
-  ThemeData buildTheme() {
-    final ThemeData base = ThemeData();
-    return base.copyWith(
-      iconTheme: IconThemeData(color: Colors.grey),
-      inputDecorationTheme: InputDecorationTheme(
-        fillColor: Colors.blue,
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.green),
-        ),
-      ),
-    );
-  }
+  final List<DemoPage> pages = [
+    DemoPage(
+      title: "TextField Field",
+      page: TextFieldDemo(),
+    ),
+    DemoPage(
+      title: "CheckBox Field",
+      page: CheckBoxDemo(),
+    ),
+    DemoPage(
+      title: "Datetime Field",
+      page: DatetimeFieldDemo(),
+    ),
+    DemoPage(
+      title: "Selection Field",
+      page: SelectionFieldDemo(),
+    ),
+    DemoPage(
+      title: "foreignkey Field",
+      page: ForeignkeyDemo(),
+    ),
+    DemoPage(
+      title: "File Field",
+      page: FileFieldDemo(),
+    )
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text("Form"),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.publish),
-        onPressed: () async {
-          var value = await this.controller.onSubmit(context);
-          print(value);
-        },
-      ),
-      body: FutureBuilder<Map<String, dynamic>>(
-          future: getSchema(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Container();
-            }
-            return Theme(
-              data: buildTheme(),
-              child: JSONSchemaForm(
-                controller: controller,
-                useDropdownButton: true,
-                onAddForignKeyField: (path, values) async {
-                  print("added");
-                  return Choice(label: "A", value: 1);
-                },
-                onDeleteForignKeyField: (path, id) async {
-                  return Choice(label: "a", value: id);
-                },
-                onUpdateForignKeyField: (path, values, id) async {
-                  print("updated");
-                  return Choice(label: "B", value: id);
-                },
-                onFetchingForignKeyChoices: (path) async {
-                  if (path == "podcast/collection") {
-                    return [
-                      Choice(label: "Video 1", value: 2),
-                      Choice(label: "Video 2", value: 3),
-                    ];
-                  }
-
-                  return [
-                    Choice(label: "Hello", value: "1"),
-                  ];
-                },
-                onFetchingSchema: (path, isEdit, id) async {
-                  // print("$path $id");
-                  return SchemaValues(
-                    schema: (itemJSONData2['fields'] as List)
-                        .map((s) => s as Map<String, dynamic>)
-                        .toList(),
-                    values: {},
-                  );
-                },
-                filled: false,
-                rounded: true,
-                schema: (snapshot.data['fields'] as List)
-                    .map((s) => s as Map<String, dynamic>)
-                    .toList(),
-                icons: [
-                  FieldIcon(schemaName: "name", iconData: Icons.title),
-                  FieldIcon(
-                      schemaName: "description", iconData: Icons.description),
-                  FieldIcon(schemaName: "price", iconData: Icons.attach_money),
-                  FieldIcon(schemaName: "column", iconData: Icons.view_column),
-                  FieldIcon(schemaName: "row", iconData: Icons.view_list),
-                  FieldIcon(schemaName: "qr_code", iconData: Icons.scanner),
-                  FieldIcon(schemaName: "unit", iconData: Icons.g_translate)
-                ],
-                actions: [
-                  FieldAction<File>(
-                      schemaName: "qr_code",
-                      actionTypes: ActionTypes.image,
-                      actionDone: ActionDone.getImage,
-                      onDone: (File file) async {
-                        if (file is File) {
-                          print(file);
-                        }
-                        return file;
-                      }),
-                  FieldAction<File>(
-                      schemaName: "name",
-                      schemaFor: "category_id",
-                      actionTypes: ActionTypes.image,
-                      actionDone: ActionDone.getInput,
-                      onDone: (File file) async {
-                        if (file is File) {
-                          print(file);
-                        }
-                        return "abc";
-                      })
-                ],
-                onSubmit: (value) async {
-                  print(value);
-                },
-                url: "http://192.168.1.120",
-                values: {
-                  "author_id": {"label": "sdfsdfa", "value": 2},
-                  "name": "abcdefhahabaa1a1",
-                  "time": DateTime(2016, 1, 5, 1).toIso8601String(),
-                  'subtitle': FileFieldValue(path: "s3.amazon.com/a.jpg"),
-                  "asset_collections": [
-                    {"label": "Video 1", "value": 2}
-                  ]
-                },
+      body: ListView.builder(
+          itemCount: pages.length,
+          itemBuilder: (context, index) {
+            DemoPage page = pages[index];
+            return ListTile(
+              title: Text(
+                "${page.title}",
               ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => page.page,
+                  ),
+                );
+              },
             );
           }),
     );

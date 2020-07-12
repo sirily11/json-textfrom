@@ -21,28 +21,28 @@ class JSONSchemaForm extends StatelessWidget {
   /// schema controller to control the form
   final JSONSchemaController controller;
 
-  /// Fetching choices for forign key selections
-  final OnFetchForignKeyChoices onFetchingForignKeyChoices;
+  /// Fetching choices for foreign key selections
+  final OnFetchforeignKeyChoices onFetchingforeignKeyChoices;
 
-  /// Update forign key's value and return Choice represents the update value.
+  /// Update foreign key's value and return Choice represents the update value.
   /// return null if nothing change
-  final OnUpdateForignKeyField onUpdateForignKeyField;
+  final OnUpdateforeignKeyField onUpdateforeignKeyField;
 
-  /// Whenever user want to add forignkey, this function will be called.
-  /// Should return a choice object after creating forignkey.
-  final OnAddForignKeyField onAddForignKeyField;
+  /// Whenever user want to add foreignkey, this function will be called.
+  /// Should return a choice object after creating foreignkey.
+  final OnAddforeignKeyField onAddforeignKeyField;
 
-  /// Fetching forign key's schema. Will be used to generate form for
-  /// forignkey.
+  /// Fetching foreign key's schema. Will be used to generate form for
+  /// foreignkey.
   final OnFetchingSchema onFetchingSchema;
 
-  /// Whenever user want to delete a forignkey object, this function
+  /// Whenever user want to delete a foreignkey object, this function
   /// will be called
-  final OnDeleteForignKeyField onDeleteForignKeyField;
+  final OnDeleteforeignKeyField onDeleteforeignKeyField;
 
   /// Schema's name
   /// Use this to identify the actions and icons
-  /// if forignkey text field has the same name as the home screen's field.
+  /// if foreignkey text field has the same name as the home screen's field.
   /// Default is null
   final String schemaName;
 
@@ -65,8 +65,8 @@ class JSONSchemaForm extends StatelessWidget {
   /// clicked the submit button
   final OnSubmit onSubmit;
 
-  /// URL for forignkey
-  /// Forignkey field will use this to get editing data
+  /// URL for foreignkey
+  /// foreignkey field will use this to get editing data
   /// Default is http://0.0.0.0
   final String url;
 
@@ -79,7 +79,7 @@ class JSONSchemaForm extends StatelessWidget {
   /// Whether use dropdown button instead of using
   /// another page to show choices.
   /// This will only apply for the select field,
-  /// but not forign key field based on current
+  /// but not foreign key field based on current
   /// implementation. Default is false
   final bool useDropdownButton;
 
@@ -100,10 +100,10 @@ class JSONSchemaForm extends StatelessWidget {
     this.useDropdownButton = false,
     this.onFileUpload,
     @required this.onFetchingSchema,
-    @required this.onFetchingForignKeyChoices,
-    @required this.onAddForignKeyField,
-    @required this.onUpdateForignKeyField,
-    @required this.onDeleteForignKeyField,
+    @required this.onFetchingforeignKeyChoices,
+    @required this.onAddforeignKeyField,
+    @required this.onUpdateforeignKeyField,
+    @required this.onDeleteforeignKeyField,
   });
 
   @override
@@ -130,10 +130,10 @@ class JSONSchemaForm extends StatelessWidget {
         showSubmitButton: showSubmitButton,
         useDropdownButton: useDropdownButton,
         onFetchingSchema: onFetchingSchema,
-        onFetchForignKeyChoices: onFetchingForignKeyChoices,
-        onAddForignKeyField: onAddForignKeyField,
-        onUpdateForignKeyField: onUpdateForignKeyField,
-        onDeleteForignKeyField: onDeleteForignKeyField,
+        onFetchforeignKeyChoices: onFetchingforeignKeyChoices,
+        onAddforeignKeyField: onAddforeignKeyField,
+        onUpdateforeignKeyField: onUpdateforeignKeyField,
+        onDeleteforeignKeyField: onDeleteforeignKeyField,
         onFileUpload: onFileUpload,
       ),
     );

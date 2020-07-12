@@ -17,7 +17,7 @@ It supports:
 
 - Textfield
 - Selection Field
-- forignkey Field
+- foreignkey Field
 - qrcode scanning
 - Checkbox Field
 - DateTime Field
@@ -27,7 +27,7 @@ It supports:
 
 # Getting start
 
-> Important! The forign key field is using Django Rest Framework with DRF-schema-adapter. All the schema's structures are based on it. You can take a look what the structure is on this [page](https://drf-schema-adapter.readthedocs.io/en/latest/drf_auto_endpoint/metadata/)
+> Important! The foreign key field is using Django Rest Framework with DRF-schema-adapter. All the schema's structures are based on it. You can take a look what the structure is on this [page](https://drf-schema-adapter.readthedocs.io/en/latest/drf_auto_endpoint/metadata/)
 
 ## First prepare data
 

@@ -10,11 +10,11 @@ import '../JSONForm.dart';
 typedef void OnChange(List<Choice> choice);
 
 class JSONManyToManyField extends StatelessWidget {
-  final OnDeleteForignKeyField onDeleteForignKeyField;
-  final OnUpdateForignKeyField onUpdateForignKeyField;
-  final OnAddForignKeyField onAddForignKeyField;
+  final OnDeleteforeignKeyField onDeleteforeignKeyField;
+  final OnUpdateforeignKeyField onUpdateforeignKeyField;
+  final OnAddforeignKeyField onAddforeignKeyField;
   final OnFetchingSchema onFetchingSchema;
-  final OnFetchForignKeyChoices onFetchingForignKeyChoices;
+  final OnFetchforeignKeyChoices onFetchingforeignKeyChoices;
   final OnFileUpload onFileUpload;
   final bool filled;
   final Schema schema;
@@ -26,14 +26,14 @@ class JSONManyToManyField extends StatelessWidget {
 
   JSONManyToManyField({
     @required this.schema,
-    @required this.onAddForignKeyField,
-    @required this.onFetchingForignKeyChoices,
-    @required this.onUpdateForignKeyField,
+    @required this.onAddforeignKeyField,
+    @required this.onFetchingforeignKeyChoices,
+    @required this.onUpdateforeignKeyField,
     @required this.onFetchingSchema,
     @required this.actions,
     @required this.icons,
     @required this.onFileUpload,
-    @required this.onDeleteForignKeyField,
+    @required this.onDeleteforeignKeyField,
     this.onSaved,
     this.showIcon = true,
     this.isOutlined = false,
@@ -59,12 +59,12 @@ class JSONManyToManyField extends StatelessWidget {
                     url: networkProvider.url,
                   ),
                   child: ManyToManySelectionPage(
-                    onDeleteForignKeyField: onDeleteForignKeyField,
+                    onDeleteforeignKeyField: onDeleteforeignKeyField,
                     onFileUpload: onFileUpload,
-                    onAddForignKeyField: onAddForignKeyField,
-                    onFetchingForignKeyChoices: onFetchingForignKeyChoices,
+                    onAddforeignKeyField: onAddforeignKeyField,
+                    onFetchingforeignKeyChoices: onFetchingforeignKeyChoices,
                     onFetchingSchema: onFetchingSchema,
-                    onUpdateForignKeyField: onUpdateForignKeyField,
+                    onUpdateforeignKeyField: onUpdateforeignKeyField,
                     schema: schema,
                     title: "Select ${schema.label} ",
                     name: schema.name,

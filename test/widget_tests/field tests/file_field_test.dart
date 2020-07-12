@@ -41,10 +41,10 @@ void main() {
                 controller: controller,
                 schema: schema,
                 onFetchingSchema: null,
-                onFetchingForignKeyChoices: null,
-                onAddForignKeyField: null,
-                onUpdateForignKeyField: null,
-                onDeleteForignKeyField: null,
+                onFetchingforeignKeyChoices: null,
+                onAddforeignKeyField: null,
+                onUpdateforeignKeyField: null,
+                onDeleteforeignKeyField: null,
                 onFileUpload: (path) async {
                   return temp;
                 },
@@ -79,10 +79,10 @@ void main() {
                 },
                 schema: schema,
                 onFetchingSchema: null,
-                onFetchingForignKeyChoices: null,
-                onAddForignKeyField: null,
-                onUpdateForignKeyField: null,
-                onDeleteForignKeyField: null,
+                onFetchingforeignKeyChoices: null,
+                onAddforeignKeyField: null,
+                onUpdateforeignKeyField: null,
+                onDeleteforeignKeyField: null,
                 onFileUpload: (path) async {
                   return temp;
                 },
@@ -118,10 +118,10 @@ void main() {
                 },
                 schema: schema,
                 onFetchingSchema: null,
-                onFetchingForignKeyChoices: null,
-                onAddForignKeyField: null,
-                onUpdateForignKeyField: null,
-                onDeleteForignKeyField: null,
+                onFetchingforeignKeyChoices: null,
+                onAddforeignKeyField: null,
+                onUpdateforeignKeyField: null,
+                onDeleteforeignKeyField: null,
                 onFileUpload: (path) async {
                   return temp;
                 },
@@ -163,10 +163,10 @@ void main() {
                 },
                 schema: schema,
                 onFetchingSchema: null,
-                onFetchingForignKeyChoices: null,
-                onAddForignKeyField: null,
-                onUpdateForignKeyField: null,
-                onDeleteForignKeyField: null,
+                onFetchingforeignKeyChoices: null,
+                onAddforeignKeyField: null,
+                onUpdateforeignKeyField: null,
+                onDeleteforeignKeyField: null,
                 onFileUpload: (path) async {
                   return temp;
                 },
@@ -206,10 +206,10 @@ void main() {
                 },
                 schema: schema,
                 onFetchingSchema: null,
-                onFetchingForignKeyChoices: null,
-                onAddForignKeyField: null,
-                onUpdateForignKeyField: null,
-                onDeleteForignKeyField: null,
+                onFetchingforeignKeyChoices: null,
+                onAddforeignKeyField: null,
+                onUpdateforeignKeyField: null,
+                onDeleteforeignKeyField: null,
                 onFileUpload: (path) async {
                   return temp;
                 },
@@ -245,10 +245,10 @@ void main() {
                 },
                 schema: schema,
                 onFetchingSchema: null,
-                onFetchingForignKeyChoices: null,
-                onAddForignKeyField: null,
-                onUpdateForignKeyField: null,
-                onDeleteForignKeyField: null,
+                onFetchingforeignKeyChoices: null,
+                onAddforeignKeyField: null,
+                onUpdateforeignKeyField: null,
+                onDeleteforeignKeyField: null,
                 onFileUpload: (path) async {
                   return temp;
                 },

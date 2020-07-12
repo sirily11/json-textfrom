@@ -58,15 +58,15 @@ void main() {
               icons: [],
               actions: [],
               isOutlined: false,
-              onDeleteForignKeyField: null,
-              onFetchingForignKeyChoices: (path) async {
+              onDeleteforeignKeyField: null,
+              onFetchingforeignKeyChoices: (path) async {
                 return [
                   Choice(label: "A", value: 1),
                   Choice(label: "B", value: 2),
                 ];
               },
               name: "selections",
-              onAddForignKeyField: (String path, Map<String, dynamic> values) {
+              onAddforeignKeyField: (String path, Map<String, dynamic> values) {
                 return;
               },
               onFetchingSchema: (String path, bool isEdit, id) async {
@@ -75,7 +75,7 @@ void main() {
               onFileUpload: (String path) async {
                 return;
               },
-              onUpdateForignKeyField:
+              onUpdateforeignKeyField:
                   (String path, Map<String, dynamic> values, id) {
                 return;
               },
@@ -103,13 +103,13 @@ void main() {
           MaterialApp(
             home: Material(
               child: JSONSchemaForm(
-                onFetchingForignKeyChoices: (path) async {
+                onFetchingforeignKeyChoices: (path) async {
                   return [
                     Choice(label: "A", value: 1),
                     Choice(label: "B", value: 2),
                   ];
                 },
-                onAddForignKeyField: (path, values) {
+                onAddforeignKeyField: (path, values) {
                   return;
                 },
                 schema: schema,
@@ -121,11 +121,11 @@ void main() {
                 onFetchingSchema: (String path, bool isEdit, id) {
                   return;
                 },
-                onUpdateForignKeyField:
+                onUpdateforeignKeyField:
                     (String path, Map<String, dynamic> values, id) {
                   return;
                 },
-                onDeleteForignKeyField: null,
+                onDeleteforeignKeyField: null,
               ),
             ),
           ),
@@ -156,14 +156,14 @@ void main() {
           MaterialApp(
             home: Material(
               child: JSONSchemaForm(
-                onFetchingForignKeyChoices: (path) async {
+                onFetchingforeignKeyChoices: (path) async {
                   return [
                     Choice(label: "A", value: 1),
                     Choice(label: "B", value: 2),
                   ];
                 },
-                onDeleteForignKeyField: null,
-                onAddForignKeyField: (path, values) {
+                onDeleteforeignKeyField: null,
+                onAddforeignKeyField: (path, values) {
                   return;
                 },
                 schema: schema,
@@ -175,7 +175,7 @@ void main() {
                 onFetchingSchema: (String path, bool isEdit, id) {
                   return;
                 },
-                onUpdateForignKeyField:
+                onUpdateforeignKeyField:
                     (String path, Map<String, dynamic> values, id) {
                   return;
                 },
@@ -211,14 +211,14 @@ void main() {
             home: Material(
               child: JSONSchemaForm(
                 controller: controller,
-                onDeleteForignKeyField: null,
-                onFetchingForignKeyChoices: (path) async {
+                onDeleteforeignKeyField: null,
+                onFetchingforeignKeyChoices: (path) async {
                   return [
                     Choice(label: "A", value: 1),
                     Choice(label: "B", value: 2),
                   ];
                 },
-                onAddForignKeyField: (path, values) {
+                onAddforeignKeyField: (path, values) {
                   return;
                 },
                 schema: schema,
@@ -230,7 +230,7 @@ void main() {
                 onFetchingSchema: (String path, bool isEdit, id) {
                   return;
                 },
-                onUpdateForignKeyField:
+                onUpdateforeignKeyField:
                     (String path, Map<String, dynamic> values, id) {
                   return;
                 },
@@ -276,16 +276,16 @@ void main() {
                   }
                   return SchemaValues(schema: addSchema, values: {});
                 },
-                onFetchingForignKeyChoices: (path) async {
+                onFetchingforeignKeyChoices: (path) async {
                   return choices;
                 },
-                onAddForignKeyField: (path, values) async {
+                onAddforeignKeyField: (path, values) async {
                   Choice choice =
                       Choice(label: values['title'], value: choices.length);
                   choices.add(choice);
                   return choice;
                 },
-                onUpdateForignKeyField: (path, values, id) async {
+                onUpdateforeignKeyField: (path, values, id) async {
                   var index =
                       choices.indexWhere((element) => element.value == id);
                   if (index > -1) {
@@ -293,7 +293,7 @@ void main() {
                   }
                   return Choice(label: values['title'], value: id);
                 },
-                onDeleteForignKeyField: (path, id) async {
+                onDeleteforeignKeyField: (path, id) async {
                   var removed = choices.removeAt(id);
                   return removed;
                 },

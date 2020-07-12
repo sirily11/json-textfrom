@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/components/JSONCheckboxField.dart';
 import 'package:json_schema_form/json_textform/components/JSONDateTimeField.dart';
 import 'package:json_schema_form/json_textform/components/JSONFileField.dart';
-import 'package:json_schema_form/json_textform/components/JSONForignKeyField.dart';
+import 'package:json_schema_form/json_textform/components/JSONForeignkeyField.dart';
 import 'package:json_schema_form/json_textform/components/JSONManyToManyField.dart';
 import 'package:json_schema_form/json_textform/components/JSONSelectField.dart';
 import 'package:json_schema_form/json_textform/components/JSONTextFormField.dart';
@@ -31,33 +31,33 @@ class SchemaValues {
 typedef Future OnSubmit(Map<String, dynamic> json);
 
 /// Fetch schema based on the [path] and [id].
-/// If this function has been called when user want to edit a forignkey's value,
+/// If this function has been called when user want to edit a foreignkey's value,
 /// then [isEdit] will be true and id will be provided. Otherwise, id will be null.
 ///
 /// This function should return a [schemaValues] which includes both schema and its value.
 typedef Future<SchemaValues> OnFetchingSchema(
     String path, bool isEdit, dynamic id);
 
-/// Fetch list of forignkey's selections based on the [path].
-/// This will be called when user want to select a forignkey(s).
-typedef Future<List<Choice>> OnFetchForignKeyChoices(String path);
+/// Fetch list of foreignkey's selections based on the [path].
+/// This will be called when user want to select a foreignkey(s).
+typedef Future<List<Choice>> OnFetchforeignKeyChoices(String path);
 
 /// This function will be called when user wants
-/// to update a forign key's value based on the [path].
+/// to update a foreign key's value based on the [path].
 ///
 /// [values] and [id] will be provided for you so that you can use them
 /// to do something like making an api request.
-typedef Future<Choice> OnUpdateForignKeyField(
+typedef Future<Choice> OnUpdateforeignKeyField(
     String path, Map<String, dynamic> values, dynamic id);
 
-/// This function will be called when user wants to add a forignkey.
+/// This function will be called when user wants to add a foreignkey.
 /// The [values] and [path] will be provided so that you can use them
 /// to make a api request.
-typedef Future<Choice> OnAddForignKeyField(
+typedef Future<Choice> OnAddforeignKeyField(
     String path, Map<String, dynamic> values);
 
-/// Delete a forignkey based on the [path] and [id]
-typedef Future<Choice> OnDeleteForignKeyField(String path, dynamic id);
+/// Delete a foreignkey based on the [path] and [id]
+typedef Future<Choice> OnDeleteforeignKeyField(String path, dynamic id);
 
 /// Open a file based on the platform.
 ///
@@ -71,18 +71,18 @@ class JSONForm extends StatefulWidget {
   final bool filled;
   final bool showSubmitButton;
 
-  /// Fetching Forignkey's schema
+  /// Fetching foreignkey's schema
   final OnFetchingSchema onFetchingSchema;
 
-  final OnFetchForignKeyChoices onFetchForignKeyChoices;
+  final OnFetchforeignKeyChoices onFetchforeignKeyChoices;
 
-  final OnUpdateForignKeyField onUpdateForignKeyField;
+  final OnUpdateforeignKeyField onUpdateforeignKeyField;
 
-  final OnAddForignKeyField onAddForignKeyField;
+  final OnAddforeignKeyField onAddforeignKeyField;
 
   final OnFileUpload onFileUpload;
 
-  final OnDeleteForignKeyField onDeleteForignKeyField;
+  final OnDeleteforeignKeyField onDeleteforeignKeyField;
 
   /// [optional] Schema controller.
   /// Call this to get value back from fields if you want to have
@@ -91,7 +91,7 @@ class JSONForm extends StatefulWidget {
 
   /// Schema's name
   /// Use this to identify the actions and icons
-  /// if forignkey text field has the same name as the home screen's field.
+  /// if foreignkey text field has the same name as the home screen's field.
   /// Default is null
   final String schemaName;
 
@@ -120,7 +120,7 @@ class JSONForm extends StatefulWidget {
   /// Whether use dropdown button instead of using
   /// another page to show choices.
   /// This will only apply for the select field,
-  /// but not forign key field based on current
+  /// but not foreign key field based on current
   /// implementation. Default is false
   final bool useDropdownButton;
 
@@ -136,12 +136,12 @@ class JSONForm extends StatefulWidget {
     this.controller,
     this.showSubmitButton = false,
     this.useDropdownButton,
-    @required this.onDeleteForignKeyField,
+    @required this.onDeleteforeignKeyField,
     @required this.onFileUpload,
     @required this.onFetchingSchema,
-    @required this.onFetchForignKeyChoices,
-    @required this.onAddForignKeyField,
-    @required this.onUpdateForignKeyField,
+    @required this.onFetchforeignKeyChoices,
+    @required this.onAddforeignKeyField,
+    @required this.onUpdateforeignKeyField,
   });
 
   @override
@@ -246,10 +246,10 @@ class _JSONSchemaFormState extends State<JSONForm> {
           schema: schema,
           filled: widget.filled,
           isOutlined: widget.rounded,
-          onAddForignKeyField: widget.onAddForignKeyField,
-          onUpdateForignKeyField: widget.onUpdateForignKeyField,
-          onFetchingForignKeyChoices: widget.onFetchForignKeyChoices,
-          onDeleteForignKeyField: widget.onDeleteForignKeyField,
+          onAddforeignKeyField: widget.onAddforeignKeyField,
+          onUpdateforeignKeyField: widget.onUpdateforeignKeyField,
+          onFetchingforeignKeyChoices: widget.onFetchforeignKeyChoices,
+          onDeleteforeignKeyField: widget.onDeleteforeignKeyField,
           onFetchingSchema: widget.onFetchingSchema,
           onFileUpload: widget.onFileUpload,
           icons: widget.icons,
@@ -263,12 +263,12 @@ class _JSONSchemaFormState extends State<JSONForm> {
         );
 
       case WidgetType.foreignkey:
-        return JSONForignKeyField(
+        return JSONForeignkeyField(
           filled: widget.filled,
-          onAddForignKeyField: widget.onAddForignKeyField,
-          onUpdateForignKeyField: widget.onUpdateForignKeyField,
-          onDeleteForignKeyField: widget.onDeleteForignKeyField,
-          onFetchingForignKeyChoices: widget.onFetchForignKeyChoices,
+          onAddforeignKeyField: widget.onAddforeignKeyField,
+          onUpdateforeignKeyField: widget.onUpdateforeignKeyField,
+          onDeleteforeignKeyField: widget.onDeleteforeignKeyField,
+          onFetchingforeignKeyChoices: widget.onFetchforeignKeyChoices,
           onFetchingSchema: widget.onFetchingSchema,
           onFileUpload: widget.onFileUpload,
           isOutlined: widget.rounded,

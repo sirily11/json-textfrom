@@ -5,7 +5,7 @@ import 'package:json_schema_form/json_textform/JSONSchemaForm.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 
 void main() {
-  group("Forign key Field Test", () {
+  group("foreign key Field Test", () {
     final editButtonFinder = find.byIcon(Icons.edit);
     final backButtonFinder = find.byKey(Key("Back"));
     final submitButtonFinder = find.text("Submit");
@@ -24,7 +24,7 @@ void main() {
       },
     ];
 
-    final forignKeySchema = [
+    final foreignKeySchema = [
       {
         "label": "title",
         "readonly": false,
@@ -56,18 +56,18 @@ void main() {
                 schema: schema,
                 onFetchingSchema: (path, isEdit, id) async {
                   return SchemaValues(
-                    schema: forignKeySchema,
+                    schema: foreignKeySchema,
                     values: {"title": "hello world"},
                   );
                 },
-                onFetchingForignKeyChoices: (path) {
+                onFetchingforeignKeyChoices: (path) {
                   return;
                 },
-                onAddForignKeyField: null,
-                onUpdateForignKeyField: (path, values, id) async {
+                onAddforeignKeyField: null,
+                onUpdateforeignKeyField: (path, values, id) async {
                   return Choice(label: values['title'], value: values['title']);
                 },
-                onDeleteForignKeyField: null,
+                onDeleteforeignKeyField: null,
               ),
             ),
           ),
@@ -99,18 +99,18 @@ void main() {
                 schema: schema,
                 onFetchingSchema: (path, isEdit, id) async {
                   return SchemaValues(
-                    schema: forignKeySchema,
+                    schema: foreignKeySchema,
                     values: {},
                   );
                 },
-                onFetchingForignKeyChoices: (path) {
+                onFetchingforeignKeyChoices: (path) {
                   return;
                 },
-                onDeleteForignKeyField: null,
-                onAddForignKeyField: (path, values) async {
+                onDeleteforeignKeyField: null,
+                onAddforeignKeyField: (path, values) async {
                   return;
                 },
-                onUpdateForignKeyField: (path, values, id) async {
+                onUpdateforeignKeyField: (path, values, id) async {
                   return Choice(label: values['title'], value: values['title']);
                 },
               ),

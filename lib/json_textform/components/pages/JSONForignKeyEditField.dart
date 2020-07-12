@@ -13,14 +13,14 @@ class ReturnChoice {
   ReturnChoice({this.choice, this.action});
 }
 
-/// Edit forignkey field
-class JSONForignKeyEditField extends StatelessWidget {
-  final OnDeleteForignKeyField onDeleteForignKeyField;
+/// Edit foreignkey field
+class JSONforeignKeyEditField extends StatelessWidget {
+  final OnDeleteforeignKeyField onDeleteforeignKeyField;
   final OnFileUpload onFileUpload;
-  final OnUpdateForignKeyField onUpdateForignKeyField;
-  final OnAddForignKeyField onAddForignKeyField;
+  final OnUpdateforeignKeyField onUpdateforeignKeyField;
+  final OnAddforeignKeyField onAddforeignKeyField;
   final OnFetchingSchema onFetchingSchema;
-  final OnFetchForignKeyChoices onFetchingForignKeyChoices;
+  final OnFetchforeignKeyChoices onFetchingforeignKeyChoices;
 
   /// Model path
   final String path;
@@ -49,7 +49,7 @@ class JSONForignKeyEditField extends StatelessWidget {
   /// If not, the last one will replace the first one.
   final List<FieldIcon> icons;
 
-  const JSONForignKeyEditField({
+  const JSONforeignKeyEditField({
     @required this.path,
     this.title,
     this.id,
@@ -57,11 +57,11 @@ class JSONForignKeyEditField extends StatelessWidget {
     this.isEdit = false,
     @required this.name,
     @required this.onFetchingSchema,
-    @required this.onFetchingForignKeyChoices,
-    @required this.onAddForignKeyField,
-    @required this.onUpdateForignKeyField,
+    @required this.onFetchingforeignKeyChoices,
+    @required this.onAddforeignKeyField,
+    @required this.onUpdateforeignKeyField,
     @required this.onFileUpload,
-    @required this.onDeleteForignKeyField,
+    @required this.onDeleteforeignKeyField,
     this.actions,
     this.icons,
   });
@@ -78,8 +78,8 @@ class JSONForignKeyEditField extends StatelessWidget {
           if (isEdit)
             IconButton(
               onPressed: () async {
-                if (onDeleteForignKeyField != null) {
-                  Choice choice = await onDeleteForignKeyField(path, id);
+                if (onDeleteforeignKeyField != null) {
+                  Choice choice = await onDeleteforeignKeyField(path, id);
                   Navigator.pop(
                     context,
                     ReturnChoice(action: RequestAction.delete, choice: choice),
@@ -110,7 +110,7 @@ class JSONForignKeyEditField extends StatelessWidget {
             }
             return JSONForm(
               onFetchingSchema: onFetchingSchema,
-              onFetchForignKeyChoices: onFetchingForignKeyChoices,
+              onFetchforeignKeyChoices: onFetchingforeignKeyChoices,
               schemaName: name,
               rounded: isOutlined,
               schema: schemaSnapshot.data.schema,
@@ -118,15 +118,15 @@ class JSONForignKeyEditField extends StatelessWidget {
               actions: actions,
               showSubmitButton: true,
               icons: icons,
-              onAddForignKeyField: onAddForignKeyField,
-              onUpdateForignKeyField: onUpdateForignKeyField,
-              onDeleteForignKeyField: onDeleteForignKeyField,
+              onAddforeignKeyField: onAddforeignKeyField,
+              onUpdateforeignKeyField: onUpdateforeignKeyField,
+              onDeleteforeignKeyField: onDeleteforeignKeyField,
               onFileUpload: onFileUpload,
               onSubmit: (Map<String, dynamic> json) async {
                 if (isEdit) {
-                  if (onUpdateForignKeyField != null) {
+                  if (onUpdateforeignKeyField != null) {
                     Choice choice =
-                        await onUpdateForignKeyField(path, json, id);
+                        await onUpdateforeignKeyField(path, json, id);
                     Navigator.pop<ReturnChoice>(
                       context,
                       ReturnChoice(
@@ -136,8 +136,8 @@ class JSONForignKeyEditField extends StatelessWidget {
                     );
                   }
                 } else {
-                  if (onAddForignKeyField != null) {
-                    Choice choice = await onAddForignKeyField(path, json);
+                  if (onAddforeignKeyField != null) {
+                    Choice choice = await onAddforeignKeyField(path, json);
                     Navigator.pop(
                       context,
                       ReturnChoice(action: RequestAction.add, choice: choice),
