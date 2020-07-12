@@ -51,64 +51,68 @@ class _ForeignkeyDemoState extends State<ForeignkeyDemo> {
       appBar: AppBar(
         title: Text("ForeignKey Preview"),
       ),
-      body: Stack(
-        children: <Widget>[
-          JSONSchemaForm(
-            schema: schema,
-            showSubmitButton: homeProvider.showSubmitButton,
-            filled: homeProvider.isFilled,
-            rounded: homeProvider.isRounded,
-            useDropdownButton: homeProvider.useDropdown,
-            onFetchingSchema: (path, isEdit, id) async {
-              if (isEdit) {
-                var choice = choices.firstWhere(
-                  (element) => element.value == id,
-                  orElse: () => null,
-                );
-                if (choice != null) {
-                  return SchemaValues(
-                    schema: detailSchema,
-                    values: choice.toJson(),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          children: <Widget>[
+            JSONSchemaForm(
+              schema: schema,
+              showSubmitButton: homeProvider.showSubmitButton,
+              filled: homeProvider.isFilled,
+              rounded: homeProvider.isRounded,
+              useDropdownButton: homeProvider.useDropdown,
+              onFetchingSchema: (path, isEdit, id) async {
+                if (isEdit) {
+                  var choice = choices.firstWhere(
+                    (element) => element.value == id,
+                    orElse: () => null,
                   );
+                  if (choice != null) {
+                    return SchemaValues(
+                      schema: detailSchema,
+                      values: choice.toJson(),
+                    );
+                  }
                 }
-              }
-              return SchemaValues(schema: detailSchema, values: {});
-            },
-            onFetchingforeignKeyChoices: (path) async {
-              return choices;
-            },
-            onAddforeignKeyField: (path, values) async {
-              var choice = Choice(
-                label: values['title'],
-                value: choices.length,
-              );
-              setState(() {
-                choices.add(choice);
-              });
-              return choice;
-            },
-            onUpdateforeignKeyField: (path, values, id) async {
-              var index = choices.indexWhere((element) => element.value == id);
-              if (index > -1) {
+                return SchemaValues(schema: detailSchema, values: {});
+              },
+              onFetchingforeignKeyChoices: (path) async {
+                return choices;
+              },
+              onAddforeignKeyField: (path, values) async {
+                var choice = Choice(
+                  label: values['title'],
+                  value: choices.length,
+                );
                 setState(() {
-                  choices[index].label = values['title'];
+                  choices.add(choice);
                 });
-              }
-              return choices[index];
-            },
-            onDeleteforeignKeyField: (path, id) async {
-              var removed = choices.removeAt(id);
-              return removed;
-            },
-            icons: [
-              FieldIcon(
-                iconData: Icons.title,
-                schemaName: "unit",
-              ),
-            ],
-          ),
-          MenuButton(),
-        ],
+                return choice;
+              },
+              onUpdateforeignKeyField: (path, values, id) async {
+                var index =
+                    choices.indexWhere((element) => element.value == id);
+                if (index > -1) {
+                  setState(() {
+                    choices[index].label = values['title'];
+                  });
+                }
+                return choices[index];
+              },
+              onDeleteforeignKeyField: (path, id) async {
+                var removed = choices.removeAt(id);
+                return removed;
+              },
+              icons: [
+                FieldIcon(
+                  iconData: Icons.title,
+                  schemaName: "unit",
+                ),
+              ],
+            ),
+            MenuButton(),
+          ],
+        ),
       ),
     );
   }

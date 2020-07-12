@@ -34,28 +34,31 @@ class SelectionFieldDemo extends StatelessWidget {
       appBar: AppBar(
         title: Text("CheckBox Preview"),
       ),
-      body: Stack(
-        children: <Widget>[
-          JSONSchemaForm(
-            schema: schema,
-            showSubmitButton: homeProvider.showSubmitButton,
-            filled: homeProvider.isFilled,
-            rounded: homeProvider.isRounded,
-            useDropdownButton: homeProvider.useDropdown,
-            onFetchingSchema: null,
-            onFetchingforeignKeyChoices: null,
-            onAddforeignKeyField: null,
-            onUpdateforeignKeyField: null,
-            onDeleteforeignKeyField: null,
-            icons: [
-              FieldIcon(
-                iconData: Icons.title,
-                schemaName: "unit",
-              ),
-            ],
-          ),
-          MenuButton(),
-        ],
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          children: <Widget>[
+            JSONSchemaForm(
+              schema: schema,
+              showSubmitButton: homeProvider.showSubmitButton,
+              filled: homeProvider.isFilled,
+              rounded: homeProvider.isRounded,
+              useDropdownButton: homeProvider.useDropdown,
+              onFetchingSchema: null,
+              onFetchingforeignKeyChoices: null,
+              onAddforeignKeyField: null,
+              onUpdateforeignKeyField: null,
+              onDeleteforeignKeyField: null,
+              icons: [
+                FieldIcon(
+                  iconData: Icons.title,
+                  schemaName: "unit",
+                ),
+              ],
+            ),
+            MenuButton(),
+          ],
+        ),
       ),
     );
   }

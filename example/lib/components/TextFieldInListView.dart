@@ -5,7 +5,7 @@ import 'package:json_schema_form_example/menubutton/MenuButton.dart';
 import 'package:json_schema_form_example/model/HomeProvider.dart';
 import 'package:provider/provider.dart';
 
-class TextFieldDemo extends StatelessWidget {
+class TextFieldInListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final schema = [
@@ -39,33 +39,34 @@ class TextFieldDemo extends StatelessWidget {
       appBar: AppBar(
         title: Text("TextField Preview"),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: Stack(
-          children: <Widget>[
-            JSONSchemaForm(
-              schema: schema,
-              showSubmitButton: homeProvider.showSubmitButton,
-              filled: homeProvider.isFilled,
-              rounded: homeProvider.isRounded,
-              onFetchingSchema: null,
-              onFetchingforeignKeyChoices: null,
-              onAddforeignKeyField: null,
-              onUpdateforeignKeyField: null,
-              onDeleteforeignKeyField: null,
-              icons: [
-                FieldIcon(
-                  iconData: Icons.title,
-                  schemaName: "description",
-                ),
-              ],
-              values: {
-                "description": "Hello world",
-              },
-            ),
-            MenuButton(),
-          ],
-        ),
+      body: Stack(
+        children: <Widget>[
+          ListView(
+            children: [
+              JSONSchemaForm(
+                schema: schema,
+                showSubmitButton: homeProvider.showSubmitButton,
+                filled: homeProvider.isFilled,
+                rounded: homeProvider.isRounded,
+                onFetchingSchema: null,
+                onFetchingforeignKeyChoices: null,
+                onAddforeignKeyField: null,
+                onUpdateforeignKeyField: null,
+                onDeleteforeignKeyField: null,
+                icons: [
+                  FieldIcon(
+                    iconData: Icons.title,
+                    schemaName: "description",
+                  ),
+                ],
+                values: {
+                  "description": "Hello world",
+                },
+              ),
+            ],
+          ),
+          MenuButton(),
+        ],
       ),
     );
   }

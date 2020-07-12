@@ -6,6 +6,7 @@ import 'package:json_schema_form_example/components/DatetimeFieldDemo.dart';
 import 'package:json_schema_form_example/components/FileFieldDemo.dart';
 import 'package:json_schema_form_example/components/SelectionFieldDemo.dart';
 import 'package:json_schema_form_example/components/TextFieidDemo.dart';
+import 'package:json_schema_form_example/components/TextFieldInListView.dart';
 import 'package:json_schema_form_example/model/HomeProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -80,6 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
     DemoPage(
       title: "File Field",
       page: FileFieldDemo(),
+    ),
+    DemoPage(
+      title: "Text Field in ListView",
+      page: TextFieldInListView(),
     )
   ];
 

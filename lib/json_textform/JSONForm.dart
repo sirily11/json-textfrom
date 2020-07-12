@@ -321,53 +321,51 @@ class _JSONSchemaFormState extends State<JSONForm> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Form(
           key: _formKey,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                child: ListView.builder(
-                  itemCount: widget.schema.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    Schema schema = schemaList[index];
-                    return schema.readOnly ||
-                            schema.widget == WidgetType.unknown
-                        ? Container()
-                        : _buildBody(schema);
-                  },
-                ),
-              ),
-              widget.showSubmitButton
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Container(
-                            width: 300,
-                            height: 40,
-                            child: RaisedButton(
-                              color: Theme.of(context).buttonColor,
-                              child: Text(
-                                "Submit",
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .primaryTextTheme
-                                        .headline6
-                                        .color),
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: widget.schema.length + 1,
+            itemBuilder: (BuildContext context, int index) {
+              if (index == widget.schema.length) {
+                return widget.showSubmitButton
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 8.0, bottom: 10),
+                            child: Container(
+                              width: 300,
+                              height: 40,
+                              child: RaisedButton(
+                                color: Theme.of(context).buttonColor,
+                                child: Text(
+                                  "Submit",
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .primaryTextTheme
+                                          .headline6
+                                          .color),
+                                ),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0)),
+                                onPressed: () async {
+                                  await onPressSubmitButton(context);
+                                },
                               ),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      new BorderRadius.circular(30.0)),
-                              onPressed: () async {
-                                await onPressSubmitButton(context);
-                              },
                             ),
                           ),
-                        ),
-                      ],
-                    )
-                  : Container()
-            ],
+                        ],
+                      )
+                    : Container();
+              }
+
+              Schema schema = schemaList[index];
+              return schema.readOnly || schema.widget == WidgetType.unknown
+                  ? Container()
+                  : _buildBody(schema);
+            },
           ),
         ),
       ),

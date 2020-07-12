@@ -121,8 +121,10 @@ class JSONFileField extends StatelessWidget {
                         file = await onFileUpload(schema.name);
                       } else {
                         FilePickerCross filePickerCross = FilePickerCross();
-                        await filePickerCross.pick();
-                        file = File(filePickerCross.path);
+                        try {
+                          await filePickerCross.pick();
+                          file = File(filePickerCross.path);
+                        } catch (err) {}
                       }
                       value.file = file;
                       if (file != null) {

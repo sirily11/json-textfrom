@@ -26,21 +26,24 @@ class CheckBoxDemo extends StatelessWidget {
       appBar: AppBar(
         title: Text("CheckBox Preview"),
       ),
-      body: Stack(
-        children: <Widget>[
-          JSONSchemaForm(
-            schema: schema,
-            showSubmitButton: homeProvider.showSubmitButton,
-            filled: homeProvider.isFilled,
-            rounded: homeProvider.isRounded,
-            onFetchingSchema: null,
-            onFetchingforeignKeyChoices: null,
-            onAddforeignKeyField: null,
-            onUpdateforeignKeyField: null,
-            onDeleteforeignKeyField: null,
-          ),
-          MenuButton(),
-        ],
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          children: <Widget>[
+            JSONSchemaForm(
+              schema: schema,
+              showSubmitButton: homeProvider.showSubmitButton,
+              filled: homeProvider.isFilled,
+              rounded: homeProvider.isRounded,
+              onFetchingSchema: null,
+              onFetchingforeignKeyChoices: null,
+              onAddforeignKeyField: null,
+              onUpdateforeignKeyField: null,
+              onDeleteforeignKeyField: null,
+            ),
+            MenuButton(),
+          ],
+        ),
       ),
     );
   }
