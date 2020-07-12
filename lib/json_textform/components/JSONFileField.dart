@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
+import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 import 'package:json_schema_form/json_textform/models/components/FileFieldValue.dart';
@@ -91,6 +92,9 @@ class JSONFileField extends StatelessWidget {
                               onSaved(value);
                             },
                           ),
+                        SizedBox(
+                          width: 10,
+                        ),
                         if (value.file != null)
                           Chip(
                             label: Text(
@@ -116,7 +120,9 @@ class JSONFileField extends StatelessWidget {
                       if (onFileUpload != null) {
                         file = await onFileUpload(schema.name);
                       } else {
-                        file = await FilePicker.getFile();
+                        FilePickerCross filePickerCross = FilePickerCross();
+                        await filePickerCross.pick();
+                        file = File(filePickerCross.path);
                       }
                       value.file = file;
                       if (file != null) {
