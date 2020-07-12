@@ -80,7 +80,7 @@ class _SelectionPageState extends State<SelectionPage> {
                 return RadioListTile(
                   key: Key("${selection.label}-$checked"),
                   groupValue: _selectedValue,
-                  title: Text(selection.label),
+                  title: Text("${selection.label}"),
                   value: selection.value,
                   onChanged: (newValue) {
                     setState(() {

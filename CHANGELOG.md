@@ -75,3 +75,10 @@
 ## [1.0.4]
 
 - Added hot reload support for some field
+
+## [1.1.0]
+
+- More tests
+- Added support for manyToMany Field
+- Added support for file field
+- Updated example
