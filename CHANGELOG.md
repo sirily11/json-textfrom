@@ -95,6 +95,6 @@
 
 - Added custom search function
 
-## [1.1.6]
+## [1.1.7]
 
 - Will build example on every push
