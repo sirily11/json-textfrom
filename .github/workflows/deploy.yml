@@ -2,7 +2,10 @@
 
 name: Build and deploy
 
-on: deployment
+on:
+  push:
+    tags:
+      - "v*.*.*"
 
 jobs:
   macOS_buld:
