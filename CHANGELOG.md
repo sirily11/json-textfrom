@@ -94,3 +94,7 @@
 ## [1.1.3]
 
 - Added custom search function
+
+## [1.1.6]
+
+- Will build example on every push
