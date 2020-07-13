@@ -28,10 +28,12 @@ class JSONTextFormField extends StatefulWidget {
 
 class _JSONTextFormFieldState extends State<JSONTextFormField> {
   TextEditingController _controller;
-
+  bool multiLine = false;
   @override
   void initState() {
     super.initState();
+    multiLine = widget.schema.validation?.length?.maximum == null &&
+        widget.schema.widget == WidgetType.text;
     init();
   }
 
@@ -179,6 +181,22 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
     return null;
   }
 
+  TextInputType _getTextInputType() {
+    if (widget.schema.widget == WidgetType.number) {
+      return TextInputType.numberWithOptions(signed: true, decimal: true);
+    }
+
+    if (widget.schema.name == "email") {
+      return TextInputType.emailAddress;
+    }
+
+    if (multiLine) {
+      return TextInputType.multiline;
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -189,14 +207,9 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
             widget.onSaved(value);
           },
           key: Key("textfield-${widget.schema.name}"),
-          maxLines: widget.schema.validation?.length?.maximum == null &&
-                  widget.schema.widget == WidgetType.text
-              ? 10
-              : 1,
+          maxLines: multiLine ? 10 : 1,
           controller: _controller,
-          keyboardType: widget.schema.widget == WidgetType.number
-              ? TextInputType.number
-              : null,
+          keyboardType: _getTextInputType(),
           validator: this.validation,
           maxLength: widget.schema.validation?.length?.maximum,
           obscureText: widget.schema.name == "password",
