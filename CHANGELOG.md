@@ -90,3 +90,7 @@
 ## [1.1.2]
 
 - Added Dialog style
+
+## [1.1.3]
+
+- Added custom search function
