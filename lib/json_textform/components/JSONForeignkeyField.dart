@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/json_textform/JSONForm.dart';
-import 'package:json_schema_form/json_textform/components/pages/JSONForignKeyEditField.dart';
-import 'package:json_schema_form/json_textform/components/pages/SelectionPage.dart';
-import 'package:json_schema_form/json_textform/models/components/Action.dart';
-import 'package:json_schema_form/json_textform/models/NetworkProvider.dart';
-import 'package:json_schema_form/json_textform/models/Schema.dart';
-import 'package:json_schema_form/json_textform/models/components/Icon.dart';
-import 'package:json_schema_form/json_textform/utils-components/OutlineButtonContainer.dart';
+import '../JSONForm.dart';
+import '../components/pages/JSONForignKeyEditField.dart';
+import '../components/pages/SelectionPage.dart';
+import '../models/components/Action.dart';
+import '../models/NetworkProvider.dart';
+import '../models/Schema.dart';
+import '../models/components/Icon.dart';
+import '../utils-components/OutlineButtonContainer.dart';
 import 'package:provider/provider.dart';
 
 typedef OnSaved(Choice choice);
@@ -23,6 +23,7 @@ class JSONForeignkeyField extends StatelessWidget {
   final OnFetchingSchema onFetchingSchema;
   final OnFetchforeignKeyChoices onFetchingforeignKeyChoices;
   final OnFileUpload onFileUpload;
+  final OnSearch onSearch;
   final OnDeleteforeignKeyField onDeleteforeignKeyField;
 
   /// List of actions. Each field will only have one action.
@@ -40,6 +41,7 @@ class JSONForeignkeyField extends StatelessWidget {
     this.isOutlined = false,
     this.icons,
     this.actions,
+    @required this.onSearch,
     @required this.useDialog,
     @required this.filled,
     @required this.onFetchingSchema,
@@ -70,6 +72,7 @@ class JSONForeignkeyField extends StatelessWidget {
                 title: Text("Select ${schema.label}"),
                 subtitle: Text("${schema.choice?.label}"),
                 onTap: () async {
+                  FocusScope.of(context).requestFocus(FocusNode());
                   List<Choice> choices = await onFetchingforeignKeyChoices(
                       schema.extra.relatedModel);
                   if (useDialog) {
@@ -100,6 +103,8 @@ class JSONForeignkeyField extends StatelessWidget {
               fillColor: Colors.blue,
               shape: new CircleBorder(),
               onPressed: () async {
+                FocusScope.of(context).requestFocus(FocusNode());
+
                 /// Add new field
                 if (useDialog) {
                   await showDialog(
@@ -129,6 +134,8 @@ class JSONForeignkeyField extends StatelessWidget {
               onPressed: schema.choice == null
                   ? null
                   : () async {
+                      FocusScope.of(context).requestFocus(FocusNode());
+
                       /// Edit current field
                       ReturnChoice choice;
                       if (useDialog) {
@@ -158,6 +165,8 @@ class JSONForeignkeyField extends StatelessWidget {
 
   SelectionPage buildSelectionPage(List<Choice> choices) {
     return SelectionPage(
+      schema: schema,
+      onSearch: onSearch,
       useDialog: useDialog,
       onSelected: (value) {
         if (this.onSaved != null) {
@@ -182,6 +191,7 @@ class JSONForeignkeyField extends StatelessWidget {
         onDeleteforeignKeyField: onDeleteforeignKeyField,
         onFileUpload: onFileUpload,
         onAddforeignKeyField: onAddforeignKeyField,
+        onSearch: onSearch,
         onUpdateforeignKeyField: onUpdateforeignKeyField,
         onFetchingSchema: onFetchingSchema,
         onFetchingforeignKeyChoices: onFetchingforeignKeyChoices,
@@ -208,6 +218,7 @@ class JSONForeignkeyField extends StatelessWidget {
         onFetchingSchema: onFetchingSchema,
         onFetchingforeignKeyChoices: onFetchingforeignKeyChoices,
         onFileUpload: onFileUpload,
+        onSearch: onSearch,
         onDeleteforeignKeyField: onDeleteforeignKeyField,
         isOutlined: isOutlined,
         title: "Add ${schema.label}",

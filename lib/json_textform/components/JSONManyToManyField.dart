@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/json_schema_form.dart';
-import 'package:json_schema_form/json_textform/components/pages/ManyToManySelectionPage.dart';
-import 'package:json_schema_form/json_textform/models/Schema.dart';
+import '../../json_schema_form.dart';
+import '../components/pages/ManyToManySelectionPage.dart';
+import '../models/Schema.dart';
 import 'package:json_schema_form/json_textform/utils-components/OutlineButtonContainer.dart';
 import 'package:provider/provider.dart';
 
@@ -10,6 +10,7 @@ import '../JSONForm.dart';
 typedef void OnChange(List<Choice> choice);
 
 class JSONManyToManyField extends StatelessWidget {
+  final OnSearch onSearch;
   final OnDeleteforeignKeyField onDeleteforeignKeyField;
   final OnUpdateforeignKeyField onUpdateforeignKeyField;
   final OnAddforeignKeyField onAddforeignKeyField;
@@ -35,6 +36,7 @@ class JSONManyToManyField extends StatelessWidget {
     @required this.actions,
     @required this.icons,
     @required this.onFileUpload,
+    @required this.onSearch,
     @required this.onDeleteforeignKeyField,
     this.onSaved,
     this.showIcon = true,
@@ -52,6 +54,7 @@ class JSONManyToManyField extends StatelessWidget {
         isFilled: isOutlined,
         child: ListTile(
           onTap: () async {
+            FocusScope.of(context).requestFocus(FocusNode());
             List<Choice> choices;
             if (useDialog) {
               choices = await showDialog(
@@ -89,6 +92,7 @@ class JSONManyToManyField extends StatelessWidget {
       child: ManyToManySelectionPage(
         filled: filled,
         useDialog: useDialog,
+        onSearch: onSearch,
         onDeleteforeignKeyField: onDeleteforeignKeyField,
         onFileUpload: onFileUpload,
         onAddforeignKeyField: onAddforeignKeyField,

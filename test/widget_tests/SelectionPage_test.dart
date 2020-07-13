@@ -25,6 +25,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: SelectionPage(
+            onSearch: null,
             useDialog: false,
             title: "ABC",
             selections: [
@@ -48,6 +49,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: SelectionPage(
+            onSearch: null,
             useDialog: false,
             title: "ABC",
             selections: [
@@ -72,6 +74,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: SelectionPage(
+            onSearch: null,
             useDialog: false,
             title: "ABC",
             selections: [
@@ -96,6 +99,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: SelectionPage(
+            onSearch: null,
             useDialog: false,
             title: "ABC",
             selections: [
@@ -122,6 +126,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: SelectionPage(
+            onSearch: null,
             useDialog: false,
             title: "ABC",
             onSelected: (Choice v) {
@@ -150,6 +155,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: SelectionPage(
+            onSearch: null,
             useDialog: false,
             title: "ABC",
             selections: [
@@ -209,6 +215,89 @@ void main() {
       await tester.pumpAndSettle();
       verify(mockObserver.didPush(any, any));
       expect(find.byType(SelectionPage), findsOneWidget);
+    });
+
+    testWidgets("Selection Page with custom search", (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: SelectionPage(
+            onSearch: (path, keyword) async {
+              return [
+                Choice(label: "Test", value: 3),
+                Choice(label: "Test2", value: 4),
+              ];
+            },
+            useDialog: false,
+            title: "ABC",
+            selections: [
+              Choice(label: "a", value: "a"),
+              Choice(label: "b", value: "b"),
+              Choice(label: "c", value: "c")
+            ],
+            value: "a",
+          ),
+        ),
+      );
+      await tester.enterText(find.byType(TextField), "a");
+      await tester.pumpAndSettle();
+      var radios = findTiles();
+      expect(radios.length, 2);
+      expect(find.text("Test"), findsOneWidget);
+      expect(find.text("Test2"), findsOneWidget);
+    });
+
+    testWidgets("Selection Page with custom search 2", (tester) async {
+      /// return null value
+      await tester.pumpWidget(
+        MaterialApp(
+          home: SelectionPage(
+            onSearch: (path, keyword) async {
+              return null;
+            },
+            useDialog: false,
+            title: "ABC",
+            selections: [
+              Choice(label: "a", value: "a"),
+              Choice(label: "b", value: "b"),
+              Choice(label: "c", value: "c")
+            ],
+            value: "a",
+          ),
+        ),
+      );
+      await tester.enterText(find.byType(TextField), "a");
+      await tester.pumpAndSettle();
+      var radios = findTiles();
+      expect(radios.length, 1);
+    });
+
+    testWidgets("Selection Dialog", (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: SelectionPage(
+            onSearch: (path, keyword) async {
+              return [
+                Choice(label: "Test", value: 3),
+                Choice(label: "Test2", value: 4),
+              ];
+            },
+            useDialog: true,
+            title: "ABC",
+            selections: [
+              Choice(label: "a", value: "a"),
+              Choice(label: "b", value: "b"),
+              Choice(label: "c", value: "c")
+            ],
+            value: "a",
+          ),
+        ),
+      );
+      await tester.enterText(find.byType(TextField), "a");
+      await tester.pumpAndSettle();
+      var radios = findTiles();
+      expect(radios.length, 2);
+      expect(find.text("Test"), findsOneWidget);
+      expect(find.text("Test2"), findsOneWidget);
     });
   });
 }

@@ -16,6 +16,7 @@ class ReturnChoice {
 
 /// Edit foreignkey field
 class JSONforeignKeyEditField extends StatefulWidget {
+  final OnSearch onSearch;
   final OnDeleteforeignKeyField onDeleteforeignKeyField;
   final OnFileUpload onFileUpload;
   final OnUpdateforeignKeyField onUpdateforeignKeyField;
@@ -59,6 +60,7 @@ class JSONforeignKeyEditField extends StatefulWidget {
     this.id,
     this.isOutlined = false,
     this.isEdit = false,
+    @required this.onSearch,
     @required this.filled,
     @required this.useDialog,
     @required this.name,
@@ -100,6 +102,7 @@ class _JSONforeignKeyEditFieldState extends State<JSONforeignKeyEditField> {
             return Container();
           }
           return JSONForm(
+            onSearch: widget.onSearch,
             filled: widget.filled,
             controller: controller,
             useDialog: widget.useDialog,

@@ -11,6 +11,13 @@ import 'models/components/Icon.dart';
 /// Which will take a schema input
 /// and generate a form
 class JSONSchemaForm extends StatelessWidget {
+  /// Custom Search function. If you want to customize the search results
+  /// for your selection page.
+  ///
+  /// [path] the related model name. Null if it is Select field
+  /// [keyword] search keyword by user
+  final OnSearch onSearch;
+
   /// Use dialog instead of normal materialPageRoute
   final bool useDialog;
 
@@ -123,6 +130,7 @@ class JSONSchemaForm extends StatelessWidget {
     this.useDropdownButton = false,
     this.onFileUpload,
     this.useDialog = false,
+    this.onSearch,
     @required this.onFetchingSchema,
     @required this.onFetchingforeignKeyChoices,
     @required this.onAddforeignKeyField,
@@ -143,6 +151,7 @@ class JSONSchemaForm extends StatelessWidget {
       ],
       child: JSONForm(
         filled: filled,
+        onSearch: onSearch,
         schema: schema,
         schemaName: schemaName,
         onSubmit: onSubmit,

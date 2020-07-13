@@ -28,6 +28,7 @@ void main() {
           child: MaterialApp(
             home: Material(
               child: JSONforeignKeyEditField(
+                onSearch: null,
                 isEdit: false,
                 filled: false,
                 useDialog: false,
@@ -84,6 +85,7 @@ void main() {
                 onFetchingforeignKeyChoices: null,
                 onAddforeignKeyField: null,
                 filled: false,
+                onSearch: null,
                 onUpdateforeignKeyField: null,
                 onDeleteforeignKeyField: null,
                 onFetchingSchema: (path, isEdit, id) async {

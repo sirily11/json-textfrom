@@ -3,9 +3,9 @@ import 'dart:io';
 // import 'package:file_picker/file_picker.dart';
 import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/json_textform/models/Schema.dart';
-import 'package:json_schema_form/json_textform/models/components/FileFieldValue.dart';
-import 'package:json_schema_form/json_textform/utils-components/OutlineButtonContainer.dart';
+import '../models/Schema.dart';
+import '../models/components/FileFieldValue.dart';
+import '../utils-components/OutlineButtonContainer.dart';
 
 import '../JSONForm.dart';
 

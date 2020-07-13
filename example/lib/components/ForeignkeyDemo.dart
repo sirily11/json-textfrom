@@ -80,6 +80,14 @@ class _ForeignkeyDemoState extends State<ForeignkeyDemo> {
                 }
                 return SchemaValues(schema: detailSchema, values: {});
               },
+              onSearch: homeProvider.useCustomSearch
+                  ? (path, keyword) async {
+                      await Future.delayed(Duration(seconds: 1));
+                      return [
+                        Choice(label: "Test", value: 3),
+                      ];
+                    }
+                  : null,
               onFetchingforeignKeyChoices: (path) async {
                 return choices;
               },

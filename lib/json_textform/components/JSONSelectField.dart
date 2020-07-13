@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/json_textform/components/pages/SelectionPage.dart';
-import 'package:json_schema_form/json_textform/models/Schema.dart';
-import 'package:json_schema_form/json_textform/utils-components/OutlineButtonContainer.dart';
+import '../components/pages/SelectionPage.dart';
+import '../models/Schema.dart';
+import '../utils-components/OutlineButtonContainer.dart';
 
 typedef void OnChange(Choice choice);
 
@@ -85,6 +85,7 @@ class JSONSelectField extends StatelessWidget {
           onTap: schema?.extra?.choices == null
               ? null
               : () {
+                  FocusScope.of(context).requestFocus(FocusNode());
                   if (useDialog) {
                     showDialog(
                       context: context,
@@ -109,6 +110,8 @@ class JSONSelectField extends StatelessWidget {
 
   SelectionPage buildSelectionPage() {
     return SelectionPage(
+      schema: schema,
+      onSearch: null,
       useDialog: useDialog,
       onSelected: (value) {
         if (this.onSaved != null) {

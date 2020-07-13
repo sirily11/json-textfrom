@@ -27,6 +27,8 @@ class SchemaValues {
   SchemaValues({@required this.schema, @required this.values});
 }
 
+typedef Future<List<Choice>> OnSearch(String path, String keyword);
+
 /// Will be called when user clicks submit button or uses controller to submit
 typedef Future OnSubmit(Map<String, dynamic> json);
 
@@ -70,6 +72,8 @@ typedef Future<File> OnFileUpload(String path);
 class JSONForm extends StatefulWidget {
   final bool filled;
   final bool showSubmitButton;
+
+  final OnSearch onSearch;
 
   /// Fetching foreignkey's schema
   final OnFetchingSchema onFetchingSchema;
@@ -128,6 +132,7 @@ class JSONForm extends StatefulWidget {
 
   JSONForm({
     @required this.schema,
+    @required this.onSearch,
     this.filled = false,
     this.onSubmit,
     this.icons,
@@ -247,6 +252,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
         );
       case WidgetType.manytomanyLists:
         return JSONManyToManyField(
+          onSearch: widget.onSearch,
           schema: schema,
           filled: widget.filled,
           useDialog: widget.useDialog,
@@ -269,6 +275,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
 
       case WidgetType.foreignkey:
         return JSONForeignkeyField(
+          onSearch: widget.onSearch,
           filled: widget.filled,
           useDialog: widget.useDialog,
           onAddforeignKeyField: widget.onAddforeignKeyField,

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:json_schema_form/json_textform/models/Schema.dart';
+import 'package:json_schema_form/json_textform/JSONForm.dart';
+import '../../models/Schema.dart';
 
 class SelectionPage extends StatefulWidget {
+  final Schema schema;
+  final OnSearch onSearch;
   final bool useDialog;
   final String title;
   final List<Choice> selections;
@@ -12,11 +15,13 @@ class SelectionPage extends StatefulWidget {
   final dynamic value;
 
   SelectionPage({
+    @required this.onSearch,
     @required this.selections,
     this.onSelected,
     @required this.title,
     this.isOutlined = false,
     @required this.useDialog,
+    this.schema,
     this.value,
   });
 
@@ -25,27 +30,26 @@ class SelectionPage extends StatefulWidget {
 }
 
 class _SelectionPageState extends State<SelectionPage> {
-  String _filterText = "";
   dynamic _selectedValue;
+  List<Choice> selections = [];
+  bool isLoading = false;
+  dynamic error;
 
   @override
   void initState() {
     super.initState();
     _selectedValue = widget.value;
+    selections = widget.selections;
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Choice> _list = widget.selections
-        .where((s) => _filterText != "" ? s.label.contains(_filterText) : true)
-        .toList();
-
     if (widget.useDialog) {
       return AlertDialog(
         title: Text("${widget.title}"),
         content: Container(
           width: 600,
-          child: buildBody(_list),
+          child: buildBody(),
         ),
         actions: [
           FlatButton(
@@ -57,7 +61,7 @@ class _SelectionPageState extends State<SelectionPage> {
           ),
           FlatButton(
             onPressed: () {
-              _onDone(_list, context);
+              _onDone(selections, context);
             },
             child: Text("Ok"),
           )
@@ -75,50 +79,102 @@ class _SelectionPageState extends State<SelectionPage> {
           IconButton(
             icon: Icon(Icons.done),
             onPressed: () {
-              _onDone(_list, context);
+              _onDone(selections, context);
             },
           )
         ],
       ),
-      body: buildBody(_list),
+      body: buildBody(),
     );
   }
 
-  Widget buildBody(List<Choice> _list) {
-    return Scrollbar(
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: _list.length + 1,
-        itemBuilder: (ctx, index) {
-          if (index == 0) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                decoration: InputDecoration(labelText: "Search..."),
-                onChanged: (value) {
-                  setState(() {
-                    _filterText = value;
-                  });
-                },
-              ),
+  Widget buildBody() {
+    return Column(
+      children: [
+        buildTextField(),
+        Builder(builder: (context) {
+          if (isLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
             );
           }
-          Choice selection = _list[index - 1];
-          bool checked = selection.value == _selectedValue;
-          return RadioListTile(
-            key: Key("${selection.label}-$checked"),
-            groupValue: _selectedValue,
-            title: Text("${selection.label}"),
-            value: selection.value,
-            onChanged: (newValue) {
-              setState(() {
-                _selectedValue = newValue;
-              });
-            },
+
+          if (error != null) {
+            return Center(
+              child: Text("$error"),
+            );
+          }
+          return Scrollbar(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: selections.length,
+              itemBuilder: (ctx, index) {
+                Choice selection = selections[index];
+                bool checked = selection.value == _selectedValue;
+                return RadioListTile(
+                  key: Key("${selection.label}-$checked"),
+                  groupValue: _selectedValue,
+                  title: Text("${selection.label}"),
+                  value: selection.value,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _selectedValue = newValue;
+                    });
+                  },
+                );
+              },
+            ),
           );
+        }),
+      ],
+    );
+  }
+
+  Widget buildTextField() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        decoration: InputDecoration(labelText: "Search..."),
+        onChanged: (value) async {
+          if (widget.onSearch == null) {
+            // use default filter
+            setState(() {
+              this.selections = _defaultSearch(value);
+            });
+          } else {
+            try {
+              setState(() {
+                isLoading = true;
+              });
+              var results = await widget.onSearch(
+                  widget.schema?.extra?.relatedModel, value);
+
+              setState(() {
+                if (results == null) {
+                  this.selections = _defaultSearch(value);
+                } else {
+                  this.selections = results;
+                }
+              });
+            } catch (err) {
+              setState(() {
+                error = err;
+              });
+            } finally {
+              setState(() {
+                isLoading = false;
+              });
+            }
+          }
         },
       ),
     );
+  }
+
+  List<Choice> _defaultSearch(String value) {
+    return widget.selections
+        .where((s) => value != "" ? s.label.contains(value) : true)
+        .toList();
   }
 
   void _onDone(List<Choice> _list, BuildContext context) {

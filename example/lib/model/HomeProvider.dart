@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 
 class HomeProvider with ChangeNotifier {
+  bool _useCustomSearch = false;
   bool _isFilled = false;
   bool _showSubmitButton = true;
   bool _isRounded = false;
   bool _useDropdown = false;
   bool _useDialog = false;
+
+  bool get useCustomSearch => _useCustomSearch;
+
+  set useCustomSearch(bool v) {
+    _useCustomSearch = v;
+    notifyListeners();
+  }
 
   bool get useDialog => _useDialog;
 

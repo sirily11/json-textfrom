@@ -10,6 +10,7 @@ import '../../JSONForm.dart';
 import 'JSONForignKeyEditField.dart';
 
 class ManyToManySelectionPage extends StatefulWidget {
+  final OnSearch onSearch;
   final OnDeleteforeignKeyField onDeleteforeignKeyField;
   final OnFileUpload onFileUpload;
   final OnUpdateforeignKeyField onUpdateforeignKeyField;
@@ -42,6 +43,7 @@ class ManyToManySelectionPage extends StatefulWidget {
     @required this.title,
     this.isOutlined = false,
     this.value,
+    @required this.onSearch,
     @required this.filled,
     @required this.useDialog,
     @required this.onFetchingforeignKeyChoices,
@@ -225,6 +227,7 @@ class _ManyToManySelectionPageState extends State<ManyToManySelectionPage> {
         filled: widget.filled,
         useDialog: widget.useDialog,
         onDeleteforeignKeyField: widget.onDeleteforeignKeyField,
+        onSearch: widget.onSearch,
         title: "Add ${widget.schema.label}",
         isEdit: false,
         icons: widget.icons,
@@ -274,6 +277,7 @@ class _ManyToManySelectionPageState extends State<ManyToManySelectionPage> {
       child: JSONforeignKeyEditField(
         filled: widget.filled,
         useDialog: widget.useDialog,
+        onSearch: widget.onSearch,
         title: "Edit ${widget.schema.label}",
         isEdit: true,
         id: choice.value,
