@@ -1,15 +1,12 @@
 # @format
 
-name: Build and deploy
+name: Build Example
 
-on:
-  push:
-    tags:
-      - "v*.*.*"
+on: [push]
 
 jobs:
   macOS_buld:
-    name: building on macos
+    name: building example on macos
     runs-on: macos-latest
     strategy:
       matrix:
