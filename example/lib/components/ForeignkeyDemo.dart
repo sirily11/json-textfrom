@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/JSONForm.dart';
 import 'package:json_schema_form/json_textform/JSONSchemaForm.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
+import 'package:json_schema_form/json_textform/models/components/Action.dart';
 import 'package:json_schema_form/json_textform/models/components/Icon.dart';
 import 'package:json_schema_form_example/menubutton/MenuButton.dart';
 import 'package:json_schema_form_example/model/HomeProvider.dart';
@@ -62,6 +63,34 @@ class _ForeignkeyDemoState extends State<ForeignkeyDemo> {
               filled: homeProvider.isFilled,
               rounded: homeProvider.isRounded,
               useDropdownButton: homeProvider.useDropdown,
+              actions: [
+                FieldAction(
+                    schemaFor: 'location_id',
+                    schemaName: 'title',
+                    actionTypes: ActionTypes.custom,
+                    actionDone: ActionDone.getInput,
+                    icon: Icons.search,
+                    onActionTap: (schema) async {
+                      String value = await showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          content: TextField(
+                            decoration: InputDecoration(
+                              labelText: "Click OK!",
+                            ),
+                          ),
+                          actions: [
+                            FlatButton(
+                              onPressed: () => Navigator.pop(context, "ok"),
+                              child: Text("Ok"),
+                            )
+                          ],
+                        ),
+                      );
+                      return value;
+                    })
+              ],
               onFetchingSchema: (path, isEdit, id) async {
                 if (isEdit) {
                   var choice = choices.firstWhere(

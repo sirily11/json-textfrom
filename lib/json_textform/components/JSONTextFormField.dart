@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:file_picker_cross/file_picker_cross.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -29,6 +30,8 @@ class JSONTextFormField extends StatefulWidget {
 class _JSONTextFormFieldState extends State<JSONTextFormField> {
   TextEditingController _controller;
   bool multiLine = false;
+  dynamic customActionValue;
+
   @override
   void initState() {
     super.initState();
@@ -123,8 +126,11 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
                               leading: Icon(Icons.camera_alt),
                               title: Text("From Camera"),
                               onTap: () async {
-                                File file = await ImagePicker.pickImage(
-                                    source: ImageSource.camera);
+                                ImagePicker imagePicker = ImagePicker();
+                                var pickedFile = await imagePicker.getImage(
+                                  source: ImageSource.camera,
+                                );
+                                File file = File(pickedFile.path);
                                 await _suffixIconAction(image: file);
                               },
                             )
@@ -134,18 +140,17 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
                         title: Text("From Gallery"),
                         onTap: () async {
                           if (Platform.isIOS || Platform.isAndroid) {
-                            File file = await ImagePicker.pickImage(
-                                source: ImageSource.gallery);
+                            ImagePicker imagePicker = ImagePicker();
+                            var pickedFile = await imagePicker.getImage(
+                              source: ImageSource.gallery,
+                            );
+                            File file = File(pickedFile.path);
                             await _suffixIconAction(image: file);
                           } else if (Platform.isMacOS) {
-                            //TODO: Added file_choicer package
-                            // var result = await showOpenPanel();
-                            // if (!result.canceled) {
-                            //   if (result.paths.length > 0) {
-                            //     await _suffixIconAction(
-                            //         image: File(result.paths.first));
-                            //   }
-                            // }
+                            FilePickerCross filePickerCross = FilePickerCross();
+                            await filePickerCross.pick();
+                            File file = File(filePickerCross.path);
+                            await _suffixIconAction(image: file);
                           }
                         },
                       )
@@ -174,6 +179,18 @@ class _JSONTextFormFieldState extends State<JSONTextFormField> {
               }
             },
             icon: Icon(Icons.camera_alt),
+          );
+          break;
+        case ActionTypes.custom:
+          return IconButton(
+            icon: Icon(widget.schema.action.icon),
+            onPressed: () async {
+              if (widget.schema.action.onActionTap != null) {
+                var value =
+                    await widget.schema.action.onActionTap(widget.schema);
+                await _suffixIconAction(inputValue: value);
+              }
+            },
           );
           break;
       }

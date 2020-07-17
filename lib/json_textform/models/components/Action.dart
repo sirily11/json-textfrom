@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:json_schema_form/json_textform/models/Schema.dart';
 
 import 'Icon.dart';
 
+typedef Future<String> OnActionTap(Schema schema);
+
 /// Actions type
-enum ActionTypes { image, qrScan }
+enum ActionTypes { image, qrScan, custom }
 
 /// Actions when the action is finished
 enum ActionDone {
@@ -20,9 +23,11 @@ typedef OnDone<T> = Future<dynamic> Function(T value);
 
 /// Field Action class for each json field
 class FieldAction<T> implements Field<FieldAction> {
+  IconData icon;
   ActionTypes actionTypes;
   ActionDone actionDone;
   final OnDone<T> onDone;
+  final OnActionTap onActionTap;
   @override
   String schemaName;
 
@@ -32,13 +37,26 @@ class FieldAction<T> implements Field<FieldAction> {
   @override
   bool useGlobally;
 
-  FieldAction(
-      {this.actionDone,
-      this.actionTypes,
-      this.schemaName,
-      this.onDone,
-      this.useGlobally = true,
-      this.schemaFor});
+  FieldAction({
+    this.actionDone,
+    @required this.actionTypes,
+    this.schemaName,
+    this.onDone,
+    this.useGlobally = true,
+
+    /// When this value is null,
+    /// then the icon will be for the main schema and all its
+    /// foreignkey schema's field;
+    /// If this field is set, then only the related name's field will be set icon.
+    this.schemaFor,
+
+    /// Set this only if you use custom action
+    this.onActionTap,
+
+    /// Action icon. Set this field if you use
+    /// custom action
+    this.icon = Icons.search,
+  });
 
   @override
   List<Schema> merge(

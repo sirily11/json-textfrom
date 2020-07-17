@@ -92,40 +92,42 @@ class _SelectionPageState extends State<SelectionPage> {
     return Column(
       children: [
         buildTextField(),
-        Builder(builder: (context) {
-          if (isLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+        Expanded(
+          child: Builder(builder: (context) {
+            if (isLoading) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
 
-          if (error != null) {
-            return Center(
-              child: Text("$error"),
+            if (error != null) {
+              return Center(
+                child: Text("$error"),
+              );
+            }
+            return Scrollbar(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: selections.length,
+                itemBuilder: (ctx, index) {
+                  Choice selection = selections[index];
+                  bool checked = selection.value == _selectedValue;
+                  return RadioListTile(
+                    key: Key("${selection.label}-$checked"),
+                    groupValue: _selectedValue,
+                    title: Text("${selection.label}"),
+                    value: selection.value,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _selectedValue = newValue;
+                      });
+                    },
+                  );
+                },
+              ),
             );
-          }
-          return Scrollbar(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: selections.length,
-              itemBuilder: (ctx, index) {
-                Choice selection = selections[index];
-                bool checked = selection.value == _selectedValue;
-                return RadioListTile(
-                  key: Key("${selection.label}-$checked"),
-                  groupValue: _selectedValue,
-                  title: Text("${selection.label}"),
-                  value: selection.value,
-                  onChanged: (newValue) {
-                    setState(() {
-                      _selectedValue = newValue;
-                    });
-                  },
-                );
-              },
-            ),
-          );
-        }),
+          }),
+        ),
       ],
     );
   }
