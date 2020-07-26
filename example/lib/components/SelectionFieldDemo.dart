@@ -56,6 +56,7 @@ class SelectionFieldDemo extends StatelessWidget {
               onAddforeignKeyField: null,
               onUpdateforeignKeyField: null,
               onDeleteforeignKeyField: null,
+              useRadioButton: true,
               icons: [
                 FieldIcon(
                   iconData: Icons.title,

@@ -72,6 +72,7 @@ typedef Future<File> OnFileUpload(String path);
 class JSONForm extends StatefulWidget {
   final bool filled;
   final bool showSubmitButton;
+  final bool useRadioButton;
 
   final OnSearch onSearch;
 
@@ -143,6 +144,7 @@ class JSONForm extends StatefulWidget {
     this.controller,
     this.showSubmitButton = false,
     this.useDropdownButton,
+    this.useRadioButton,
     @required this.useDialog,
     @required this.onDeleteforeignKeyField,
     @required this.onFileUpload,
@@ -238,6 +240,7 @@ class _JSONSchemaFormState extends State<JSONForm> {
         );
       case WidgetType.select:
         return JSONSelectField(
+          useRadioButton: widget.useRadioButton,
           useDialog: widget.useDialog,
           filled: widget.filled,
           isOutlined: widget.rounded,
