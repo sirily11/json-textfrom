@@ -90,11 +90,22 @@ class Schema {
             break;
           case WidgetType.manytomanyLists:
             if (value is List) {
-              List<Choice> choices = value
+              List<Choice> choices = [];
+              if (value.length > 0) {
+                if (value.first is num) {
+                  choices =
+                      value.map((e) => Choice(label: null, value: e)).toList();
+                  s.choices = choices;
+                  s.value = choices.map((e) => e.value).toList();
+                  break;
+                }
+              }
+              choices = value
                   .map(
                     (e) => Choice.fromJSON(e),
                   )
                   .toList();
+
               s.choices = choices;
               s.value = choices.map((e) => e.value).toList();
             }
@@ -203,7 +214,16 @@ class Choice {
 
   Choice({this.label, this.value});
 
-  bool operator ==(o) => o is Choice && o.label == label && o.value == value;
+  bool operator ==(o) {
+    if (o is Choice) {
+      if (label != null) {
+        return o.label == label && o.value == value;
+      } else {
+        return o.value == value;
+      }
+    }
+    return false;
+  }
 
   factory Choice.fromJSON(Map<dynamic, dynamic> json) {
     return Choice(label: json['label'], value: json['value']);

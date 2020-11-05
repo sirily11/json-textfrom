@@ -257,6 +257,57 @@ void main() {
     );
 
     testWidgets(
+      "Submit Selections 4",
+      (WidgetTester tester) async {
+        // Tap done button and submit
+        final controller = JSONSchemaController();
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Material(
+              child: JSONSchemaForm(
+                controller: controller,
+                onDeleteforeignKeyField: null,
+                onFetchingforeignKeyChoices: (path) async {
+                  return [
+                    Choice(label: "A", value: 1),
+                    Choice(label: "B", value: 2),
+                  ];
+                },
+                onAddforeignKeyField: (path, values) {
+                  return;
+                },
+                schema: schema,
+                values: {
+                  "asset_collections": [1]
+                },
+                onFetchingSchema: (String path, bool isEdit, id) {
+                  return;
+                },
+                onUpdateforeignKeyField:
+                    (String path, Map<String, dynamic> values, id) {
+                  return;
+                },
+              ),
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        expect(manyToManyFinder, findsOneWidget);
+        await tester.tap(manyToManyFinder);
+        await tester.pumpAndSettle();
+        expect(find.byKey(Key("Checkbox-A-true")), findsOneWidget);
+        expect(find.byKey(Key("Checkbox-B-false")), findsOneWidget);
+        await tester.tap(find.text("B"));
+        await tester.pumpAndSettle();
+        expect(find.byKey(Key("Checkbox-B-true")), findsOneWidget);
+        await tester.tap(doneButtonFinder);
+        await tester.pumpAndSettle();
+        var result = await controller.onSubmit();
+        expect(result['asset_collections'], [1, 2]);
+      },
+    );
+
+    testWidgets(
       "Add new many to many field",
       (WidgetTester tester) async {
         // Add new field
