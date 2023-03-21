@@ -11,19 +11,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^3.0.9
+  dio: ">=3.0.9 <6.0.0"
   barcode_scan: ^3.0.1
-  permission_handler: ^5.0.1+1
+  permission_handler: ">=5.0.1+1 <11.0.0"
   progress_indicators: ^0.1.5
-  image_picker: ^0.6.7+4
-  file_picker_cross: ^2.1.0
+  image_picker: ">=0.6.7+4 <0.9.0"
+  file_picker_cross: ">=2.1.0 <5.0.0"
   # file_picker: ^1.12.0
   provider: ^4.3.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mockito: ^4.1.1
+  mockito: ">=4.1.1 <6.0.0"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
